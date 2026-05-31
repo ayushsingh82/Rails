@@ -96,45 +96,15 @@ a {
   backdrop-filter: blur(10px);
 }
 .site-header {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 24px;
-  max-width: 1100px;
+  gap: 20px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 14px 22px;
+  padding: 10px 14px 10px 18px;
   border: 1px solid var(--rule-strong);
-  background: var(--paper-2);
-}
-.corner {
-  position: absolute;
-  width: 11px;
-  height: 11px;
-  pointer-events: none;
-}
-.corner--tl {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-}
-.corner--tr {
-  top: -1px;
-  right: -1px;
-  border-top: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
-}
-.corner--bl {
-  bottom: -1px;
-  left: -1px;
-  border-bottom: 2px solid var(--accent);
-  border-left: 2px solid var(--accent);
-}
-.corner--br {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid var(--accent);
-  border-right: 2px solid var(--accent);
+  border-radius: 999px;
+  background: transparent;
 }
 .brand {
   display: inline-flex;
@@ -145,50 +115,36 @@ a {
 .brand__text {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
-}
-.brand__eyebrow {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
-  font-size: 9.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
+  line-height: 1.12;
 }
 .brand__name {
   font-family: Georgia, serif;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   letter-spacing: -0.01em;
 }
-.nav {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
-}
-.nav__item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-  font-weight: 500;
-  border: 1px solid var(--rule);
-  background: var(--paper-3);
-  padding: 8px 13px;
-  transition: border-color 0.18s ease, color 0.18s ease;
-}
-.nav__item:hover {
-  border-color: var(--accent);
-  color: var(--ink);
-}
-.nav__code {
+.brand__eyebrow {
   font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
   font-size: 9px;
   letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--ink-faint);
 }
-.nav__item:hover .nav__code {
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+.header__cta {
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  transition: color 0.18s ease;
+}
+.header__cta:hover {
   color: var(--accent);
 }
 
@@ -259,6 +215,36 @@ a {
 }
 .hero__lede strong {
   color: var(--ink);
+}
+
+/* centered hero variant (landing) — text overlaid on the rings */
+.hero--center {
+  text-align: center;
+  position: relative;
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero__rings {
+  position: absolute;
+  inset: -8%;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero--center .hero__inner {
+  position: relative;
+  z-index: 1;
+  padding: 40px 28px;
+}
+.hero--center .hero__title {
+  max-width: none;
+}
+.hero--center .hero__lede {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
 }
 .hero__cta {
   display: flex;
@@ -508,10 +494,155 @@ a {
   color: var(--accent);
 }
 
+/* --------------------- shell + sidebar (inner pages) --------------- */
+
+.shell {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.sidebar {
+  position: sticky;
+  top: 72px;
+  flex-shrink: 0;
+  width: 252px;
+  height: calc(100vh - 72px);
+  overflow-y: auto;
+  border-right: 1px solid var(--rule);
+}
+.sidebar__inner {
+  padding: 26px 16px 40px;
+}
+.sidebar__overview {
+  display: block;
+  text-decoration: none;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  padding: 9px 12px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+}
+.sidebar__overview:hover,
+.sidebar__overview.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.sidebar__label {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 10px 12px;
+}
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink-soft);
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.sidebar__item:hover {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.sidebar__item.is-active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.sidebar__code {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.sidebar__sub {
+  display: flex;
+  flex-direction: column;
+  margin: 2px 0 10px 21px;
+  border-left: 1px solid var(--rule);
+  padding-left: 9px;
+}
+.sidebar__subitem {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.sidebar__subitem:hover {
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+.sidebar__subitem.is-active {
+  color: var(--accent);
+  font-weight: 600;
+}
+.sidebar__foot {
+  margin: 28px 12px 0;
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+.shell__main {
+  flex: 1;
+  min-width: 0;
+  padding: 36px 40px 96px;
+}
+
+/* dashboard overview */
+.dash__head {
+  padding-bottom: 28px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--ink);
+}
+.dash__title {
+  font-family: Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  margin: 8px 0 12px;
+}
+.dash__sub {
+  color: var(--ink-soft);
+  max-width: 66ch;
+  margin: 0 0 24px;
+}
+.dash__stats {
+  display: flex;
+  gap: 44px;
+}
+.dash__stats strong {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--accent);
+}
+.dash__stats span {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+}
+.dash .stack-section,
+.dash .companies-section {
+  padding: 48px 0 0;
+}
+
 /* ------------------------ doc (deep-dive) pages -------------------- */
 
 .doc {
-  padding-top: 36px;
+  padding-top: 8px;
 }
 .back {
   display: inline-block;
