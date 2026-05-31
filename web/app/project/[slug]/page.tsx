@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SiteHeader from "@/components/SiteHeader";
+import DocShell from "@/components/DocShell";
 import { PROJECTS, getProject, getLayer } from "@/lib/projects";
 
 export function generateStaticParams() {
@@ -18,11 +18,10 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
   if (!p) notFound();
 
   return (
-    <>
-      <SiteHeader />
-      <main className="page doc">
-        <Link href="/#companies" className="back">
-          ← All companies
+    <DocShell>
+      <main className="doc">
+        <Link href="/dashboard#companies" className="back">
+          ← Overview
         </Link>
 
         <header className="doc__header">
@@ -176,6 +175,6 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           <p>Rails · a living map of the money-movement stack.</p>
         </footer>
       </main>
-    </>
+    </DocShell>
   );
 }

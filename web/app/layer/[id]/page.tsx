@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SiteHeader from "@/components/SiteHeader";
+import DocShell from "@/components/DocShell";
 import { LAYERS, getLayer, projectsByLayer, type LayerId } from "@/lib/projects";
 
 export function generateStaticParams() {
@@ -23,11 +23,10 @@ export default function LayerPage({ params }: { params: { id: string } }) {
   const next = LAYERS[idx + 1];
 
   return (
-    <>
-      <SiteHeader />
-      <main className="page doc">
-        <Link href="/#stack" className="back">
-          ← All layers
+    <DocShell>
+      <main className="doc">
+        <Link href="/dashboard" className="back">
+          ← Overview
         </Link>
 
         <header className="doc__header">
@@ -128,6 +127,6 @@ export default function LayerPage({ params }: { params: { id: string } }) {
           <p>Rails · a living map of the money-movement stack.</p>
         </footer>
       </main>
-    </>
+    </DocShell>
   );
 }
