@@ -12,7 +12,7 @@ const themeScript = `
 (function () {
   try {
     var stored = localStorage.getItem('hub-theme');
-    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var theme = stored || 'dark';
     document.documentElement.setAttribute('data-theme', theme);
   } catch (e) {
     document.documentElement.setAttribute('data-theme', 'light');
