@@ -89,6 +89,60 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 </ul>
               </section>
             </div>
+
+            {p.builder && (
+              <div className="builder">
+                <div className="builder__head">
+                  <span className="builder__tag">Builder&apos;s track</span>
+                  <h2 className="builder__title">How it&apos;s built</h2>
+                </div>
+
+                <section className="doc__section">
+                  <h2>Architecture</h2>
+                  <p>{p.builder.architecture}</p>
+                </section>
+
+                <section className="doc__section">
+                  <h2>Integration shape</h2>
+                  <p>{p.builder.integration}</p>
+                </section>
+
+                <section className="doc__section">
+                  <h2>API surface</h2>
+                  <dl className="api">
+                    {p.builder.apiSurface.map((e) => (
+                      <div key={e.name} className="api__row">
+                        <dt>
+                          <code>{e.name}</code>
+                        </dt>
+                        <dd>{e.desc}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </section>
+
+                {p.builder.snippet && (
+                  <section className="doc__section">
+                    <h2>Minimal integration</h2>
+                    <p className="code-caption">{p.builder.snippet.caption}</p>
+                    <pre className="code">
+                      <code>{p.builder.snippet.code}</code>
+                    </pre>
+                  </section>
+                )}
+
+                {p.builder.buildNotes && p.builder.buildNotes.length > 0 && (
+                  <section className="doc__section">
+                    <h2>Build notes</h2>
+                    <ul className="doc__bullets">
+                      {p.builder.buildNotes.map((n, i) => (
+                        <li key={i}>{n}</li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
+              </div>
+            )}
           </div>
 
           <aside className="doc__aside">

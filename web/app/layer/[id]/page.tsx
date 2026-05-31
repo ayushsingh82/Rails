@@ -54,6 +54,20 @@ export default function LayerPage({ params }: { params: { id: string } }) {
               <h2>How to tell them apart</h2>
               <p>{layer.tellApart}</p>
             </section>
+
+            {layer.buildYourOwn && layer.buildYourOwn.length > 0 && (
+              <div className="builder">
+                <div className="builder__head">
+                  <span className="builder__tag">Builder&apos;s track</span>
+                  <h2 className="builder__title">Build your own {layer.title.toLowerCase()}</h2>
+                </div>
+                <ul className="doc__bullets">
+                  {layer.buildYourOwn.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
 
           <aside className="doc__aside">

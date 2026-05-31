@@ -12,6 +12,8 @@ export interface Layer {
   whereItSits: string;
   competeOn: string;
   tellApart: string;
+  // Builder's track (§9): how you'd build one of these
+  buildYourOwn?: string[];
 }
 
 export interface KeyFact {
@@ -22,6 +24,26 @@ export interface KeyFact {
 export interface ProjectLink {
   label: string;
   url: string;
+}
+
+export interface ApiEndpoint {
+  name: string;
+  desc: string;
+}
+
+export interface CodeSnippet {
+  lang: string;
+  caption: string;
+  code: string;
+}
+
+// Optional "How it's built" content for a project (builder's track, §9).
+export interface BuilderTrack {
+  architecture: string;
+  integration: string;
+  apiSurface: ApiEndpoint[];
+  snippet?: CodeSnippet;
+  buildNotes?: string[];
 }
 
 export interface Project {
@@ -44,6 +66,8 @@ export interface Project {
   risks: string[];
   keyFacts: KeyFact[];
   links: ProjectLink[];
+  // Optional builder's track — "How it's built" (§9)
+  builder?: BuilderTrack;
 }
 
 export const LAYERS: Layer[] = [
@@ -59,6 +83,14 @@ export const LAYERS: Layer[] = [
       "Fees, conversion/approval rates, breadth of local payment methods (UPI, PIX, SEPA, ACH), country + chain coverage, and checkout UX.",
     tellApart:
       "Consumer-brand ramps (MoonPay) optimize for a recognizable purchase flow; developer-first ramps (Transak, Coinbase Onramp) optimize for white-label embedding and the widest local rails; aggregators route across several ramps for the best quote.",
+    buildYourOwn: [
+      "Payment acceptance: card acquiring (Visa/Mastercard) + local methods (ACH, SEPA, UPI, PIX) with strong fraud/3DS — this is the hardest, most regulated piece.",
+      "Compliance: KYC/AML vendor, sanctions screening, and money-transmitter / VASP licensing per market (MTLs in the US, MiCA/CASP in the EU).",
+      "Liquidity: market-maker or exchange relationships to source crypto at a quotable price, plus FX for local currencies.",
+      "Settlement: custody/treasury to hold inventory + on-chain payout to the user's wallet (and the reverse for off-ramp).",
+      "Frontend: an embeddable widget (iframe) + SDKs, a quote engine, and webhooks so partners can track order status.",
+      "The moat is licenses + approval rates + local payment coverage — not the widget. Most builders instead embed an existing ramp (Ramp/MoonPay/Transak/Coinbase) rather than build this stack.",
+    ],
   },
   {
     id: "L2",
@@ -417,7 +449,51 @@ export const PROJECTS: Project[] = [
       { label: "Licenses", value: "MiCA/CASP (Ireland) + multiple US MTLs" },
       { label: "Products", value: "Widget, SDK, iOS + Android apps" },
     ],
-    links: [{ label: "Site", url: "https://rampnetwork.com/" }],
+    links: [
+      { label: "Site", url: "https://rampnetwork.com/" },
+      { label: "Docs", url: "https://docs.rampnetwork.com/" },
+      { label: "JS SDK reference", url: "https://docs.rampnetwork.com/sdk-reference" },
+      { label: "REST API v3", url: "https://docs.rampnetwork.com/rest-api-v3-reference" },
+      { label: "Webhooks", url: "https://docs.rampnetwork.com/webhooks" },
+    ],
+    builder: {
+      architecture:
+        "Ramp sits between card acquirers/banks and the chains. The partner renders a hosted/embedded widget (an iframe); Ramp runs KYC, payment acceptance, fraud, liquidity sourcing, and the on-chain payout to the user's wallet (and the reverse for off-ramp). Order state is pushed back to the partner via webhooks. Because there's no secret to guard on the client, the publishable host API key lives safely on the frontend.",
+      integration:
+        "Primarily a hosted/embedded widget via the @ramp-network/ramp-instant-sdk — one SDK instance = one widget. Also iOS and Android SDKs, plus a REST API v3 for quotes/assets and headless flows. Display variants: auto, hosted, embedded-desktop/mobile, webview, etc.",
+      apiSurface: [
+        { name: "RampInstantSDK(config)", desc: "Construct + .show() the widget. Required: hostApiKey, hostAppName, hostLogoUrl." },
+        { name: "defaultFlow", desc: "'ONRAMP' | 'OFFRAMP' | 'SWAP' — which flow opens first." },
+        { name: "enabledCryptoAssets", desc: "Comma-list like BASE_USDC,ETH_ETH; first entry is the default/pre-selected asset." },
+        { name: "userAddress / swapAsset / fiatValue", desc: "Pre-fill the destination wallet, asset, and amount." },
+        { name: "webhookStatusUrl / offrampWebhookV3Url", desc: "Subscribe to purchase/sale events; append your own query params to correlate the order." },
+        { name: "finalUrl", desc: "Redirect target after a successful transaction ('Back to partner')." },
+        { name: "REST API v3", desc: "Server-side assets, quotes, and on/off-ramp sale objects for headless integrations." },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Minimal on-ramp: open the widget pre-filled to send USDC on Base to a wallet.",
+        code: `import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk';
+
+new RampInstantSDK({
+  hostApiKey: RAMP_HOST_API_KEY,        // publishable — safe on the client
+  hostAppName: 'Rails',
+  hostLogoUrl: 'https://rails.app/logo.png',
+  defaultFlow: 'ONRAMP',                 // or 'OFFRAMP'
+  enabledCryptoAssets: ['BASE_USDC', 'ETH_ETH'],
+  userAddress: '0xabc...def',            // pre-fill the destination wallet
+  fiatValue: '50',
+  fiatCurrency: 'EUR',
+  webhookStatusUrl: 'https://rails.app/api/ramp/webhook?orderId=123',
+  finalUrl: 'https://rails.app/done',
+}).show();`,
+      },
+      buildNotes: [
+        "Webhook events walk the order through states (e.g. CREATED → RELEASING → RELEASED, or EXPIRED/CANCELLED) — treat the webhook, not the client, as the source of truth.",
+        "Use a test/staging host API key first; the same SDK config switches to production by swapping the key.",
+        "[verify against the latest docs the user provides — asset symbol format and v3 off-ramp params evolve]",
+      ],
+    },
   },
   {
     slug: "moonpay",
