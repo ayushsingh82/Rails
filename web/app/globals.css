@@ -878,6 +878,82 @@ a {
   font-size: 0.97rem;
   padding-top: 3px;
 }
+/* product breakdown (multi-product companies) */
+.products {
+  margin-top: 40px;
+  padding-top: 8px;
+  border-top: 2px solid var(--ink);
+}
+.product {
+  background: var(--paper-2);
+  border: 1px solid var(--rule-strong);
+  border-radius: 8px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+.product__head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.product__name {
+  font-family: Georgia, serif;
+  font-size: 1.35rem;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.product__tagline {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.product__what {
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-size: 1.04rem;
+}
+.product__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+.product__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.product__stat-label {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.product__stat-value {
+  font-size: 0.92rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+.facts__dl--mono dd code {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  word-break: break-all;
+}
+@media (max-width: 700px) {
+  .product__stats {
+    grid-template-columns: 1fr;
+  }
+}
+
 .code-caption {
   font-size: 0.95rem;
   color: var(--ink-soft);

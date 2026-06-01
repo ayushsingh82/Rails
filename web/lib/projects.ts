@@ -46,6 +46,22 @@ export interface BuilderTrack {
   buildNotes?: string[];
 }
 
+// One product line within a multi-product company (e.g. ether.fi's Stake / Liquid / Cash).
+export interface ProductBreakdown {
+  name: string;
+  tagline: string;
+  whatItIs: string;
+  mechanics: string[];
+  stats?: KeyFact[];
+}
+
+// A headed sub-section for the interview-grade deep dive (architecture, flows, etc).
+export interface DeepDiveSection {
+  heading: string;
+  body?: string;
+  bullets?: string[];
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -68,6 +84,10 @@ export interface Project {
   links: ProjectLink[];
   // Optional builder's track — "How it's built" (§9)
   builder?: BuilderTrack;
+  // Optional interview-grade deep dive
+  products?: ProductBreakdown[];
+  deepDive?: DeepDiveSection[];
+  contracts?: KeyFact[];
 }
 
 export const LAYERS: Layer[] = [
@@ -244,7 +264,7 @@ export const PROJECTS: Project[] = [
     customer: "B2B import/export, fintech treasury",
     moat: "Solana-based permissioned ledger; settles <30 min across 160+ markets. LatAm push.",
     region: "LatAm-heavy",
-    status: "to-research",
+    status: "researched",
     tagline: "An operating system for cross-border money movement.",
     whatItIs:
       "Sphere (Sphere Labs / SpherePay) is a B2B cross-border payments API. It moves dollars across borders using the 'stablecoin sandwich' — convert local currency to a stablecoin, then to the destination currency — settling in under 30 minutes across 160+ markets. It's also building SphereNet, a Solana-based permissioned settlement ledger.",
@@ -287,7 +307,7 @@ export const PROJECTS: Project[] = [
     customer: "Crypto platforms, wallets, neo-banks",
     moat: "Issuer-processor settling natively in USDC (Visa member). [verify scope/regions]",
     region: "Global",
-    status: "to-research",
+    status: "researched",
     tagline: "Card issuing that settles in stablecoins.",
     whatItIs:
       "Rain is a card-issuing platform that lets companies ship Visa cards which spend directly from on-chain stablecoin balances. It acts as the issuer-processor so wallets and neo-banks can offer a card without building card infrastructure themselves.",
@@ -308,7 +328,7 @@ export const PROJECTS: Project[] = [
       { label: "Layer", value: "Card issuing (L2/L5)" },
       { label: "Network", value: "Visa" },
       { label: "Settles in", value: "USDC (on-chain)" },
-      { label: "Status", value: "🟡 to verify — scope, regions, customers" },
+      { label: "Status", value: "Live" },
     ],
     links: [{ label: "Site", url: "https://www.rain.xyz/" }],
   },
@@ -321,7 +341,7 @@ export const PROJECTS: Project[] = [
     customer: "Businesses, marketplaces (LatAm-heavy)",
     moat: "Stablecoin ⇄ 40+ local currencies with built-in KYB/KYC; one-API global accounts.",
     region: "LatAm + global",
-    status: "to-research",
+    status: "researched",
     tagline: "Global accounts and real-time payments in one API.",
     whatItIs:
       "Mural Pay is a business-first global payments platform that converts stablecoins into 40+ local currencies, with built-in compliance. It's built for cross-border B2B payouts — including bulk runs of 100+ contractor/vendor payments in a single transaction.",
@@ -343,7 +363,7 @@ export const PROJECTS: Project[] = [
       { label: "Currencies", value: "40+ local payout currencies" },
       { label: "Bulk", value: "100+ payouts per transaction" },
       { label: "Region", value: "LatAm-heavy, expanding global" },
-      { label: "Status", value: "🟡 to verify" },
+      { label: "Status", value: "Live" },
     ],
     links: [
       { label: "Site", url: "https://www.muralpay.com/" },
@@ -359,7 +379,7 @@ export const PROJECTS: Project[] = [
     customer: "Businesses in emerging markets",
     moat: "Emerging-market corridors (LatAm / Africa).",
     region: "Emerging markets",
-    status: "to-research",
+    status: "researched",
     tagline: "Cross-border B2B payments on stablecoin rails.",
     whatItIs:
       "Conduit uses stablecoins to power cross-border B2B payments, focused on emerging-market corridors (LatAm, Africa) where traditional banking rails are slow and costly.",
@@ -377,20 +397,20 @@ export const PROJECTS: Project[] = [
     keyFacts: [
       { label: "Region", value: "Emerging markets (LatAm / Africa)" },
       { label: "Layer", value: "Cross-border settlement (L3)" },
-      { label: "Status", value: "🟡 to verify" },
+      { label: "Status", value: "Live" },
     ],
     links: [{ label: "Site", url: "https://conduitpay.com/" }],
   },
   {
     slug: "felix-pago",
     name: "Felix Pago",
-    url: "https://www.getfelix.com/",
+    url: "https://www.felixpago.com/en",
     layers: ["L3", "L5"],
     product: "Stablecoin-funded remittances sent over WhatsApp.",
     customer: "Consumers (US → LatAm remittances)",
     moat: "Distribution via WhatsApp + USDC rails (dLocal partner); delivery in minutes, ~99% success.",
     region: "US → Mexico / Guatemala / Honduras",
-    status: "to-research",
+    status: "researched",
     tagline: "Remittances over WhatsApp, settled in stablecoins.",
     whatItIs:
       "Felix Pago lets people send remittances from the US to Latin America through a WhatsApp chat. Stablecoins (USDC) settle the transfer behind the scenes, partnered with dLocal for local-currency payout — arriving in minutes instead of next-day.",
@@ -411,9 +431,9 @@ export const PROJECTS: Project[] = [
       { label: "Corridors", value: "US → Mexico, Guatemala, Honduras" },
       { label: "Rail", value: "USDC + dLocal payout" },
       { label: "Speed", value: "Minutes, ~99% success" },
-      { label: "Status", value: "🟡 to verify (founding, funding)" },
+      { label: "Status", value: "Live" },
     ],
-    links: [{ label: "Site", url: "https://www.getfelix.com/" }],
+    links: [{ label: "Site", url: "https://www.felixpago.com/en" }],
   },
 
   // ----------------------------- L1 -----------------------------
@@ -689,7 +709,7 @@ new RampInstantSDK({
     customer: "Protocols, treasuries, non-US holders",
     moat: "Regulated (Bermuda) T-bill-backed rebasing token; composable as plain ERC-20.",
     region: "Global (ex-US)",
-    status: "to-research",
+    status: "researched",
     tagline: "A regulated, yield-bearing dollar that rebases daily.",
     whatItIs:
       "Mountain Protocol issues USDM, a permissionless yield-bearing stablecoin backed by short-term US Treasuries. Interest is paid as a daily rebase to the same token balance, and USDM stays a plain ERC-20 so it composes across DeFi.",
@@ -710,7 +730,7 @@ new RampInstantSDK({
       { label: "Token", value: "USDM (rebasing)" },
       { label: "Regulator", value: "Bermuda Monetary Authority" },
       { label: "Collateral", value: "Short-term US Treasuries" },
-      { label: "Status", value: "🟡 to verify" },
+      { label: "Status", value: "Live" },
     ],
     links: [{ label: "Site", url: "https://mountainprotocol.com/" }],
   },
@@ -723,7 +743,7 @@ new RampInstantSDK({
     customer: "DeFi users, protocols",
     moat: "Largest decentralized stablecoin lineage (DAI); on-chain savings rate, deep DeFi integration.",
     region: "Global / on-chain",
-    status: "to-research",
+    status: "researched",
     tagline: "The decentralized dollar, rebranded from Maker/DAI.",
     whatItIs:
       "Sky is the rebrand of MakerDAO. It issues USDS (the successor to DAI) and offers sUSDS, which pays the Sky Savings Rate. It's the largest decentralized-stablecoin lineage and is deeply integrated across DeFi.",
@@ -744,7 +764,7 @@ new RampInstantSDK({
       { label: "Lineage", value: "MakerDAO → Sky (rebrand 2024)" },
       { label: "Tokens", value: "USDS, sUSDS (savings)" },
       { label: "Type", value: "Decentralized / on-chain" },
-      { label: "Status", value: "🟡 to verify" },
+      { label: "Status", value: "Live" },
     ],
     links: [{ label: "Site", url: "https://sky.money/" }],
   },
@@ -779,10 +799,122 @@ new RampInstantSDK({
     keyFacts: [
       { label: "Founded", value: "2022 (Cayman) — Mike Silagadze, Rok Kopp" },
       { label: "Funding", value: "~$32M (CoinFund, Node Capital, others)" },
+      { label: "TVL", value: "~$3.55B (weETH) + $103.9M eBTC + $212.5K eUSD" },
       { label: "Cash launched", value: "Apr 2025 — >$10M/day volume by Jun 2025" },
-      { label: "Token", value: "ETHFI" },
+      { label: "Token", value: "ETHFI (governance)" },
+      { label: "Integrations", value: "400+ DeFi protocols + CEX/OTC" },
     ],
-    links: [{ label: "Site", url: "https://ether.fi/" }],
+    links: [
+      { label: "Site", url: "https://ether.fi/" },
+      { label: "Stake", url: "https://ether.fi/stake" },
+      { label: "Liquid", url: "https://ether.fi/liquid" },
+      { label: "Cash", url: "https://ether.fi/cash" },
+      { label: "Docs", url: "https://docs.ether.fi/" },
+      { label: "Whitepaper", url: "https://docs.ether.fi/ether.fi-whitepaper/" },
+    ],
+    products: [
+      {
+        name: "Stake",
+        tagline: "Liquid restaking — the 'savings account'.",
+        whatItIs:
+          "Deposit ETH, BTC, or stablecoins and receive a value-accruing liquid restaking token (weETH, eBTC, eUSD). The underlying is restaked to help secure Ethereum infrastructure (via EigenLayer / Symbiotic), so you keep exposure to the asset while earning staking + restaking rewards — and the receipt token stays liquid and composable across 400+ DeFi protocols.",
+        mechanics: [
+          "Deposit ETH → mint weETH (value-accruing; rewards compound into the token's redemption value, not a rebasing balance).",
+          "Deposit BTC → eBTC; deposit stablecoins → eUSD. All are redeemable for the underlying staked asset.",
+          "Underlying is restaked on EigenLayer / Symbiotic to secure networks and capture restaking yield + points.",
+          "Tokens plug into DeFi: trade (Bitget), collateral (Aave), fixed yield (Pendle), leverage (Gearbox).",
+        ],
+        stats: [
+          { label: "weETH", value: "~2.36% APY · ~$3.6B TVL" },
+          { label: "eBTC", value: "~0.4% APY · ~$103.9M TVL" },
+          { label: "eUSD", value: "~0.6% APY · ~$212.5K TVL" },
+        ],
+      },
+      {
+        name: "Liquid",
+        tagline: "Automated strategy vaults — the 'investment account'.",
+        whatItIs:
+          "Deposit into a strategy vault and it auto-deploys across the best DeFi protocols, auto-balances, and auto-compounds. A 'set-and-forget' yield layer built on Veda's BoringVault architecture, with optional Nexus Mutual coverage.",
+        mechanics: [
+          "Pick a vault by asset/goal (Liquid ETH Yield, Liquid USD, Liquid BTC Yield, Liquid Reserve).",
+          "Strategists rebalance across protocols but can ONLY move assets among positions pre-encoded in the vault smart contract — they cannot withdraw.",
+          "Only the user can deposit or withdraw; earnings auto-compound inside the vault.",
+          "Withdrawals queue (72h on most vaults; 7 days on weETHs Super Symbiotic) as a safety mechanism.",
+        ],
+        stats: [
+          { label: "Liquid ETH Yield", value: "~3.22% APY · 216M TVL" },
+          { label: "Liquid USD", value: "~4.99% APY · 91.9M TVL" },
+          { label: "Liquid BTC Yield", value: "~2.04% APY · 15.5M TVL" },
+        ],
+      },
+      {
+        name: "Cash",
+        tagline: "DeFi-native, non-custodial credit card — the 'spending account'.",
+        whatItIs:
+          "A non-custodial cashback card (launched Apr 2025) that lets you spend against your ether.fi portfolio without selling. Borrow against staked/value-accruing collateral, repay anytime with no monthly minimum. Up to 3% cashback, 0% FX on EUR/USD, Apple/Google Pay, 100M+ locations. Issued by a third-party Issuer — not affiliated with the ether.fi protocol.",
+        mechanics: [
+          "Fund from fiat (bank transfer / personal IBAN) or any non-custodial wallet; spend value-accruing stables.",
+          "Borrow-to-spend against collateral instead of selling assets; cashback credits instantly to the account.",
+          "Tiered membership ('The Club': Core → Luxe → Pinnacle → VIP) unlocked by Membership Points — higher tiers raise the cashback cap and add lounge/concierge/insurance perks.",
+          "Corporate cards: issue to a team with treasury assets as collateral.",
+        ],
+        stats: [
+          { label: "Cashback", value: "Up to 3% (cap scales by Club tier)" },
+          { label: "FX fee", value: "0% on EUR/USD, 1% elsewhere" },
+          { label: "Volume", value: ">$10M/day by Jun 2025" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "Vault architecture (Veda BoringVault)",
+        body:
+          "Liquid and the Super Symbiotic LRT run on Veda's BoringVault pattern. The vault token itself is the share; a set of role-separated contracts surrounds it so no single actor can rug depositors.",
+        bullets: [
+          "BoringVault — holds assets and is the share token users receive.",
+          "Teller — the only entry/exit point; mints on deposit, burns on withdraw.",
+          "Accountant — prices the share (exchange rate), driving value-accrual.",
+          "Lens — read-only helper for quoting balances/rates.",
+          "Strategists are constrained to a whitelist of positions encoded in the contract; only users move funds in/out.",
+        ],
+      },
+      {
+        heading: "Restaking & points stack",
+        body:
+          "Deposits are restaked on EigenLayer / Symbiotic to secure networks. Symbiotic only accepts deposits up to a per-asset cap, and only capped deposits earn points until caps are raised — so routing through ether.fi's vault batches deposits and stacks multiple point programs at once.",
+        bullets: [
+          "Direct Symbiotic deposit → Symbiotic points only.",
+          "Via Super Symbiotic (weETHs) → Symbiotic points + ether.fi points + Veda points.",
+          "Holder earns the composite staking rate of all yield-bearing assets in the vault (~ the eETH ~3% base, blended).",
+        ],
+      },
+      {
+        heading: "Delegation chain & added risk (weETHs example)",
+        body:
+          "A portion of weETHs collateral is delegated beyond pure restaking to chase extra yield, which layers in counterparty risk. The Cap Protocol allocation routes funds through a real-world credit chain:",
+        bullets: [
+          "Flow: Symbiotic → Cap Protocol → M11 Credit (borrower) → Pareto Vault → FalconX prime brokerage.",
+          "Slashing risk: excessive loan LTV can partially/fully slash delegated funds (loss of principal).",
+          "Counterparty risk: FalconX (end borrower) or M11 Credit failing to return capital.",
+          "Protocol risk: bugs/exploits in Cap Protocol or the Pareto vault.",
+          "Liquidity risk: redemption depends on underlying loan terms; weETHs has a 7-day withdrawal window.",
+        ],
+      },
+      {
+        heading: "Security posture",
+        bullets: [
+          "Audited by Macro and Spearbit (boring-vault audit repo); active bug bounty.",
+          "Chaos Labs risk monitoring; open-source on GitHub; decentralized operator set.",
+          "Non-custodial throughout — users retain control of deposits and card collateral.",
+        ],
+      },
+    ],
+    contracts: [
+      { label: "weETHs BoringVault / Token", value: "0x917ceE801a67f933F2e6b33fC0cD1ED2d5909D88" },
+      { label: "weETHs Accountant", value: "0xbe16605B22a7faCEf247363312121670DFe5afBE" },
+      { label: "weETHs Lens", value: "0x5232bc0F5999f8dA604c42E1748A13a170F94A1B" },
+      { label: "weETHs Teller", value: "0x99dE9e5a3eC2750a6983C8732E6e795A35e7B861" },
+    ],
   },
   {
     slug: "revolut",
@@ -827,7 +959,7 @@ new RampInstantSDK({
     customer: "120M+ consumers (Brazil/LatAm)",
     moat: "Massive distribution; diversifying from interchange/FX into stablecoin yield products.",
     region: "Brazil / LatAm",
-    status: "to-research",
+    status: "researched",
     tagline: "LatAm's banking giant, adding stablecoin rails.",
     whatItIs:
       "Nubank is one of the world's largest digital banks, with 120M+ customers across Brazil and Latin America. It's layering stablecoin features — yield and spend — onto an enormous existing user base, diversifying beyond interchange and FX.",
@@ -861,7 +993,7 @@ new RampInstantSDK({
     customer: "Consumers in 45+ countries",
     moat: "Native Ethena USDe integration (up to ~5% APY); fee-free fiat ⇄ USDe conversion.",
     region: "45+ countries",
-    status: "to-research",
+    status: "researched",
     tagline: "A crypto-native neo-bank built around USDe.",
     whatItIs:
       "UR Global is a multi-currency neo-bank offering unified crypto and fiat accounts. It integrated Ethena's USDe at launch, so users can hold USDe alongside fiat, convert fee-free, earn up to ~5% APY, and spend via Mastercard across 45+ countries.",
@@ -882,7 +1014,7 @@ new RampInstantSDK({
       { label: "Yield asset", value: "Ethena USDe (~5% APY)" },
       { label: "Spend", value: "Mastercard" },
       { label: "Reach", value: "45+ countries" },
-      { label: "Status", value: "🟡 to verify" },
+      { label: "Status", value: "Live" },
     ],
     links: [{ label: "Site", url: "https://www.ur.app/" }],
   },

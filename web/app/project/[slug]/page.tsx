@@ -89,6 +89,61 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               </section>
             </div>
 
+            {p.products && p.products.length > 0 && (
+              <div className="products">
+                <div className="builder__head">
+                  <span className="builder__tag">Product breakdown</span>
+                  <h2 className="builder__title">The product lines</h2>
+                </div>
+                {p.products.map((prod) => (
+                  <section key={prod.name} className="product">
+                    <div className="product__head">
+                      <h3 className="product__name">{prod.name}</h3>
+                      <span className="product__tagline">{prod.tagline}</span>
+                    </div>
+                    <p className="product__what">{prod.whatItIs}</p>
+                    <ul className="doc__bullets">
+                      {prod.mechanics.map((m, i) => (
+                        <li key={i}>{m}</li>
+                      ))}
+                    </ul>
+                    {prod.stats && prod.stats.length > 0 && (
+                      <div className="product__stats">
+                        {prod.stats.map((s) => (
+                          <div key={s.label} className="product__stat">
+                            <span className="product__stat-label">{s.label}</span>
+                            <span className="product__stat-value">{s.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </section>
+                ))}
+              </div>
+            )}
+
+            {p.deepDive && p.deepDive.length > 0 && (
+              <div className="builder">
+                <div className="builder__head">
+                  <span className="builder__tag">Deep dive</span>
+                  <h2 className="builder__title">Architecture &amp; mechanics</h2>
+                </div>
+                {p.deepDive.map((d) => (
+                  <section key={d.heading} className="doc__section">
+                    <h2>{d.heading}</h2>
+                    {d.body && <p>{d.body}</p>}
+                    {d.bullets && d.bullets.length > 0 && (
+                      <ul className="doc__bullets" style={{ marginTop: d.body ? 14 : 0 }}>
+                        {d.bullets.map((b, i) => (
+                          <li key={i}>{b}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </section>
+                ))}
+              </div>
+            )}
+
             {p.builder && (
               <div className="builder">
                 <div className="builder__head">
@@ -156,6 +211,21 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
                 ))}
               </dl>
             </div>
+            {p.contracts && p.contracts.length > 0 && (
+              <div className="facts">
+                <h3>Contracts</h3>
+                <dl className="facts__dl facts__dl--mono">
+                  {p.contracts.map((c) => (
+                    <div key={c.label}>
+                      <dt>{c.label}</dt>
+                      <dd>
+                        <code>{c.value}</code>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
             <div className="facts">
               <h3>Links</h3>
               <ul className="facts__links">
