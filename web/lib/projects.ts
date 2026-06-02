@@ -601,41 +601,158 @@ function handleWebhook(rawBody: string, headers: Record<string, string>) {
     url: "https://spherepay.co/",
     layers: ["L2", "L3"],
     product: "Cross-border payments API (“stablecoin sandwich”), white-label SDKs, SphereNet ledger.",
-    customer: "B2B import/export, fintech treasury",
-    moat: "Solana-based permissioned ledger; settles <30 min across 160+ markets. LatAm push.",
-    region: "LatAm-heavy",
+    customer: "B2B import/export, fintechs, institutional treasury",
+    moat: "Solana-VM permissioned ledger (SphereNet, built with Anza); compliance-first rail. Deep emerging-market (LatAm) corridor + last-mile push.",
+    region: "Emerging markets (LatAm-heavy)",
     status: "researched",
     tagline: "An operating system for cross-border money movement.",
     whatItIs:
-      "Sphere (Sphere Labs / SpherePay) is a B2B cross-border payments API. It moves dollars across borders using the 'stablecoin sandwich' — convert local currency to a stablecoin, then to the destination currency — settling in under 30 minutes across 160+ markets. It's also building SphereNet, a Solana-based permissioned settlement ledger.",
+      "Sphere (Sphere Laboratories, Inc.) is a B2B cross-border payments API that moves dollars between countries using stablecoins as the settlement rail. Its core SpherePay product runs the 'stablecoin sandwich' — convert local currency into a USD stablecoin, move it on-chain, then pay out in the destination currency — wrapping KYC/KYB, fiat rails, and multi-chain settlement behind one API. It is also building SphereNet, a permissioned Solana-VM ledger (developed with Anza) that bakes compliance and privacy into the settlement layer itself. This is Arnold Lee's Sphere Labs (founded 2023), not an unrelated older consumer 'SpherePay'.",
     howItWorks: [
-      "Stablecoin sandwich: local currency → USD stablecoin → destination currency.",
-      "Wired to bank rails (ACH, Wire, SEPA, PIX) and chains (Solana, ETH, Base, Polygon, Tron…).",
-      "White-label embeds + SDKs let fintechs offer on/off-ramp + transfer flows.",
-      "SphereNet: a permissioned Solana environment with built-in compliance for regulated transfers.",
+      "Stablecoin sandwich: local currency → USD stablecoin (USDC/USDT) → destination currency, settling on-chain in the middle.",
+      "Onramper accounts: virtual bank accounts that auto-convert fiat deposits (ACH, Wire, SEPA, PIX) into stablecoins.",
+      "Offloader wallets: blockchain wallets that auto-convert incoming stablecoins into fiat payouts to a linked bank account.",
+      "Customers (individuals or businesses) clear KYC/KYB once, then register bank accounts + crypto wallets as reusable instruments; transfers quote a rate-locked price and return deposit instructions.",
+      "Multi-chain coverage (Solana, Ethereum, Base, Polygon, Tron, Arbitrum, Avalanche, Aptos) lets Sphere route the on-chain leg on the cheapest/fastest network.",
+      "SphereNet: a permissioned, closed-loop modified Solana VM with enshrined compliance (ZK identity proofs, MPC, sanctions screening) for regulated transfers between institutions.",
     ],
     differentiators: [
-      "Settles in <30 min across 160+ markets.",
-      "Solana-based permissioned ledger (SphereNet) as a compliance-first rail.",
-      "Deep LatAm focus — local hiring, sales, and compliance investment.",
+      "SphereNet — a compliance-first permissioned Solana-VM ledger (built with Anza) with KYC/AML, sanctions screening, and privacy (ZK/MPC) enshrined at the protocol level, rather than bolted on.",
+      "Full lifecycle API: customers + KYB/UBO, instruments, quotes, transfers, and automated Onramper/Offloader accounts in one v2 REST surface.",
+      "Deep emerging-market focus — local hiring, sales, and compliance investment in LatAm (Brazil/BRL, Mexico) where B2B stablecoin corridors are growing fastest.",
+      "Strong Solana-ecosystem backing (Jump Crypto, Solana Ventures, Anza, Pyth, Anatoly Yakovenko, Raj Gokal) gives it privileged access to the rail it builds on.",
     ],
-    businessModel: "FX spread + fees on transfer volume; infrastructure fees for embeds.",
-    dependsOn: ["Bank rails (ACH/Wire/SEPA/PIX)", "Solana + other chains", "Stablecoin liquidity (USDC/USDT/EURC)"],
+    businessModel: "FX spread on the stablecoin sandwich + fees on transfer volume; infrastructure/platform fees for white-label embeds. SphereNet positioned as settlement infrastructure for regulated institutions.",
+    dependsOn: [
+      "Bank rails + local payout partners (ACH, Wire, SEPA, PIX) for last-mile in each corridor",
+      "Solana + other chains (Ethereum, Base, Polygon, Tron, Aptos) for the on-chain leg",
+      "Stablecoin liquidity (USDC, USDT, EURC) and market makers",
+      "Anza / Solana core engineering for SphereNet",
+      "KYC/KYB + sanctions-screening vendors",
+    ],
     risks: [
-      "Emerging-market FX + liquidity volatility.",
-      "Crowded LatAm corridor; distribution is the real battleground.",
+      "Emerging-market FX + stablecoin liquidity volatility in thin corridors.",
+      "Crowded LatAm cross-border lane (BVNK, Mural, Conduit, Bridge) — distribution + last-mile reach is the real battleground, not the rail.",
+      "SphereNet is early/ambitious — a bespoke permissioned chain must win institutional and validator buy-in to matter.",
+      "Money-transmitter / VASP licensing burden scales with every new corridor and currency.",
     ],
     keyFacts: [
-      { label: "Founders", value: "Arnold Lee (Sphere Labs)" },
-      { label: "HQ / founding", value: "[verify — distinct from a closed 2017 'SpherePay' record]" },
-      { label: "Funding", value: "[verify]" },
-      { label: "Coverage", value: "160+ markets; settle <30 min" },
-      { label: "Currencies", value: "USD, EUR, BRL, USDC, USDT, EURC" },
+      { label: "Founded", value: "2023 — Arnold Lee (CEO) & Luigi Charles" },
+      { label: "HQ", value: "Sphere Laboratories, Inc. (Delaware-incorporated, Dover, DE; SF-based team)" },
+      { label: "Seed", value: "$2.8M (Feb 2024) — TCG Crypto, Jump Crypto; Solana Ventures, Hudson River Trading, Republic Capital, Anatoly Yakovenko, Raj Gokal" },
+      { label: "Strategic", value: "$5M (Dec 2024) — Coinbase Ventures, Kraken Ventures, Anza, Pyth Network, Anagram, Temporal" },
+      { label: "Products", value: "SpherePay (payments API), SphereNet (permissioned Solana-VM ledger)" },
+      { label: "Currencies", value: "USD, EUR, BRL; USDC, USDT, EURC" },
+      { label: "Rails / chains", value: "ACH, Wire, SEPA, PIX; Solana, Ethereum, Base, Polygon, Tron, Arbitrum, Avalanche, Aptos" },
     ],
     links: [
       { label: "Site", url: "https://spherepay.co/" },
+      { label: "About", url: "https://spherepay.co/about" },
       { label: "Sphere Labs", url: "https://spherelabs.co/" },
+      { label: "SphereNet", url: "https://sphere.net/" },
       { label: "Docs", url: "https://docs.spherepay.co/introduction" },
+      { label: "API reference", url: "https://docs.spherepay.co/api-reference" },
+      { label: "SphereNet architecture (Anza)", url: "https://www.anza.xyz/blog/an-architectural-overview-of-spherenet" },
+    ],
+    builder: {
+      architecture:
+        "Sphere sits between bank rails and chains as an orchestration layer. The unit of work is a Transfer that runs the stablecoin sandwich; around it sit reusable entities — a Customer (individual or business) that has cleared KYC/KYB, plus registered Bank Accounts (fiat instruments) and Wallets (crypto instruments). Two automated primitives wrap the flow: Onramper Accounts are virtual bank accounts that auto-convert any fiat deposit into stablecoins sent to a destination wallet; Offloader Wallets are blockchain wallets that auto-convert incoming stablecoins into fiat payouts. Quotes rate-lock FX before a transfer is funded. SphereNet is the longer-term settlement substrate — a permissioned Solana VM where compliance is enshrined in the protocol.",
+      integration:
+        "Server-side REST API at the /v2 namespace with Bearer-token (API key) auth; ~100 RPS read/write limits and an OpenAPI 3.0 spec for codegen. Customers can be onboarded via API or hosted KYC/KYB link flows (including face-liveness EDD). White-label SDKs/embeds let fintechs surface on/off-ramp + transfer flows under their own brand. Webhook events drive async transfer state.",
+      apiSurface: [
+        { name: "POST /v2/customer", desc: "Create an individual or business customer; submit for KYC/KYB via /v2/customer/{id}/kyc. UBOs go through /v2/business-representative." },
+        { name: "POST /v2/bank-account", desc: "Register a fiat instrument with its payment rail (ACH, Wire, SEPA, PIX) for a customer." },
+        { name: "POST /v2/wallet", desc: "Register a customer's blockchain wallet (Solana, EVM, Tron, Aptos…) as a payout/receive instrument." },
+        { name: "POST /v2/quote", desc: "Create a rate-locked FX quote; mark used/expired via PUT /v2/quote/{id}." },
+        { name: "POST /v2/transfer", desc: "Create an on-ramp or off-ramp transfer; GET /v2/transfer/{id} returns deposit instructions + status." },
+        { name: "POST /v2/virtual-account", desc: "Onramper account — a virtual bank account that auto-converts fiat deposits to stablecoins to a destination wallet." },
+        { name: "POST /v2/offloader-wallet", desc: "Offloader wallet — a wallet that auto-converts incoming stablecoins to fiat payouts to a linked bank account." },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Off-ramp: clear a customer, register instruments, then quote + create a USDC→BRL transfer.",
+        code: `const sphere = (path: string, body: unknown) =>
+  fetch(\`https://api.spherepay.co/v2/\${path}\`, {
+    method: 'POST',
+    headers: {
+      Authorization: \`Bearer \${process.env.SPHERE_API_KEY}\`, // server-side only
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  }).then((r) => r.json());
+
+// 1. Customer (already KYB-approved) registers a Brazilian payout bank account.
+const bank = await sphere('bank-account', {
+  customer: customerId,
+  paymentRail: 'pix',
+  currency: 'brl',
+  accountDetails: { pixKey: 'merchant@example.com.br' },
+});
+
+// 2. Rate-lock the USDC -> BRL leg of the sandwich.
+const quote = await sphere('quote', {
+  src: { currency: 'usdc', network: 'solana' },
+  dst: { currency: 'brl' },
+  amount: '1000',
+});
+
+// 3. Create the off-ramp transfer; the response carries the on-chain
+//    deposit address to fund, then Sphere pays out via PIX.
+const transfer = await sphere('transfer', {
+  customer: customerId,
+  quote: quote.data.id,
+  destination: { bankAccount: bank.data.id },
+});
+console.log(transfer.data.status, transfer.data.depositInstructions);`,
+      },
+      buildNotes: [
+        "Treat the webhook/event stream as the source of truth for transfer state; the create call only returns deposit instructions, not final settlement.",
+        "Customer + KYB and instrument registration are one-time setup; reuse customer/bank-account/wallet IDs across transfers to avoid re-onboarding.",
+        "Quotes are rate-locked and expire — create the quote, then the transfer that references it, promptly.",
+        "[verify exact request/response field names and the production base host against the current docs.spherepay.co OpenAPI spec — field shapes evolve.]",
+      ],
+    },
+    deepDive: [
+      {
+        heading: "The stablecoin sandwich",
+        body:
+          "Sphere's core flow replaces correspondent-bank hops with an on-chain middle leg. Local currency is converted into a USD stablecoin, moved across a blockchain, and converted into the destination currency at the far end — collapsing days and multiple FX spreads into one quote.",
+        bullets: [
+          "Top slice: pay-in via a local fiat rail (ACH/Wire in the US, SEPA in the EU, PIX in Brazil) into an Onramper account.",
+          "Filling: value moves as USDC/USDT on the cheapest viable chain (Solana, Base, Tron, Polygon, Aptos…).",
+          "Bottom slice: an Offloader wallet converts the stablecoin and pays out local currency (e.g. BRL) to the recipient's bank.",
+          "Revenue = FX spread on the two conversions + a transfer fee; the single rate-locked quote replaces stacked correspondent-bank spreads.",
+        ],
+      },
+      {
+        heading: "SphereNet — compliance-first Solana-VM ledger",
+        body:
+          "Built with Anza, SphereNet is a permissioned, closed-loop modified Solana Virtual Machine aimed at regulated institutions. Rather than screening transactions after the fact on a public chain, it enshrines compliance and privacy at the protocol level.",
+        bullets: [
+          "Permissioned validator set with a constrained quorum (initially Sphere Foundation-managed) and a programmatic registry of approved nodes + market makers.",
+          "Compliance by default: zero-knowledge proofs of identity, MPC over compliance commitments, native KYC/AML + sanctions screening, jurisdiction metadata per account.",
+          "Enshrined gasless relayers so institutions can transact without holding a volatile gas token.",
+          "Consensus-level changes (e.g. modified VoteProgram requiring a validator supermajority) and dynamic, auditable network economics.",
+        ],
+      },
+      {
+        heading: "Corridors & last-mile",
+        body:
+          "Sphere targets under-addressed emerging-market corridors where legacy rails are slow and expensive, with the heaviest investment in LatAm — local hiring, sales, and compliance — and Brazil/PIX as an anchor.",
+        bullets: [
+          "Currencies: USD, EUR, BRL on the fiat side; USDC, USDT, EURC on-chain.",
+          "Last-mile payout via local rails (PIX in Brazil) and bank instruments registered per customer.",
+          "Operates in a fast-growing lane — B2B stablecoin volume in LatAm corridors has grown multiples year-over-year — but competes with BVNK, Mural, Conduit, and Bridge on reach and distribution.",
+        ],
+      },
+      {
+        heading: "Compliance & risk model",
+        bullets: [
+          "Customers clear KYC (individuals) or KYB with UBO/business-representative collection before transacting; enhanced due diligence adds face-liveness and OTP verification.",
+          "Sanctions screening and AML are handled in-platform; SphereNet pushes these checks down into the ledger itself.",
+          "Key risks: emerging-market FX/liquidity volatility, money-transmitter/VASP licensing burden per corridor, and execution risk on the ambitious bespoke SphereNet chain.",
+        ],
+      },
     ],
   },
   {
@@ -643,71 +760,342 @@ function handleWebhook(rawBody: string, headers: Record<string, string>) {
     name: "Rain",
     url: "https://www.rain.xyz/",
     layers: ["L2", "L5"],
-    product: "Stablecoin-backed card issuing — Visa cards that spend directly from on-chain balances.",
-    customer: "Crypto platforms, wallets, neo-banks",
-    moat: "Issuer-processor settling natively in USDC (Visa member). [verify scope/regions]",
-    region: "Global",
+    product:
+      "Stablecoin-backed Visa card issuing — full-stack API for partners to ship cards that spend directly from on-chain stablecoin collateral.",
+    customer: "Crypto platforms, wallets, neo-banks, enterprises, remittance players",
+    moat:
+      "Visa Principal Member with all authorization + settlement on-chain; settles to Visa natively in USDC 365 days/year. Tokenized receivables + omni-chain stack.",
+    region: "Global (100+ countries)",
     status: "researched",
-    tagline: "Card issuing that settles in stablecoins.",
+    tagline: "On-chain card issuing that settles to Visa in stablecoins.",
     whatItIs:
-      "Rain is a card-issuing platform that lets companies ship Visa cards which spend directly from on-chain stablecoin balances. It acts as the issuer-processor so wallets and neo-banks can offer a card without building card infrastructure themselves.",
+      "Rain is a vertically integrated card-issuing platform and payment processor that lets companies ship Visa cards which spend directly from on-chain stablecoin collateral. As a Visa Principal Member, Rain issues, authorizes, and settles cards itself — partners (wallets, neo-banks, enterprises, remittance firms) embed Rain's API instead of building card infrastructure or sourcing a separate BIN sponsor. Its defining feature: Rain brings authorization logic and settlement on-chain and settles its obligations to Visa natively in USDC, 7 days a week, 365 days a year — including weekends and holidays when traditional bank-wire settlement is closed.",
     howItWorks: [
-      "A partner integrates Rain's API to issue branded Visa cards to its users.",
-      "When a user spends, the balance is drawn from their on-chain stablecoin (e.g. USDC).",
-      "Rain handles authorization, settlement, and the fiat ↔ stablecoin conversion at the network.",
+      "A partner integrates Rain's full-stack issuing API to spin up a branded Visa card program (custodial or non-custodial wallets).",
+      "The end user deposits stablecoins into a smart contract they own and control; that collateral backs a credit line, so the user spends without selling.",
+      "At point of sale, Rain authorizes the transaction in real time against the on-chain collateral and fronts the fiat to the merchant over the Visa network (175M+ merchant locations).",
+      "Rain then settles its obligation to Visa in USDC on-chain, and programmatically draws down / repays against the user's stablecoin collateral.",
+      "Because receivables are tokenized, Rain borrows stablecoins from capital partners to fund the float and repays them programmatically via smart contracts — closed-loop, on-chain credit-card receivable financing.",
     ],
     differentiators: [
-      "Native USDC settlement rather than pre-funded fiat float.",
-      "Visa membership lets partners skip a separate BIN sponsor.",
-      "Card issuing as a primitive for the whole on-chain neo-bank wave.",
+      "Visa Principal Member — issues, authorizes, and settles directly, so partners skip a separate bank/BIN sponsor.",
+      "Native USDC settlement to Visa 365 days/year, vs. pre-funded fiat float that idles on weekends.",
+      "Authorization and settlement logic run on-chain against user-owned smart-contract collateral (self-custody preserved).",
+      "Omni-chain: native settlement across ~10 networks and multiple stablecoins (USDC, USDT, DAI, PYUSD).",
+      "Tokenized receivables unlock programmatic, smart-contract-powered capital financing — lower cost of capital for credit programs.",
     ],
-    businessModel: "Interchange share + issuing/processing fees per card + per transaction.",
-    dependsOn: ["Visa", "Stablecoin issuers", "Banking/BIN sponsorship"],
-    risks: ["Interchange + regulatory regime varies sharply by region.", "[verify product scope and live geographies]"],
+    businessModel:
+      "Interchange share on card spend + issuing/processing fees per card and per transaction + subscription fees for expense/program-management software (Brex/Ramp-style). Also captures spread on the tokenized-receivable financing it intermediates.",
+    dependsOn: [
+      "Visa (network + principal membership)",
+      "Third National (issuing bank per Visa license)",
+      "Stablecoin issuers (Circle/Tether/etc.)",
+      "Supported chains (Ethereum, Base, Solana, Stellar, Tron, …)",
+      "Card processor (Paymentology) and capital/lending partners",
+    ],
+    risks: [
+      "Interchange and card/credit regulation vary sharply by region, capping where programs can launch.",
+      "Collateral volatility + on-chain liquidation risk if a non-USD-pegged asset is used as backing.",
+      "Reliance on Visa membership and the sponsoring bank — a status change would be existential.",
+      "Capital-markets dependency: the receivable-financing model needs lenders willing to fund float at attractive rates.",
+    ],
     keyFacts: [
-      { label: "Layer", value: "Card issuing (L2/L5)" },
-      { label: "Network", value: "Visa" },
-      { label: "Settles in", value: "USDC (on-chain)" },
-      { label: "Status", value: "Live" },
+      { label: "Founded", value: "2021 (New York) — Farooq Malik (CEO), Charles Naut" },
+      { label: "Network", value: "Visa Principal Member (cards issued by Third National per Visa license)" },
+      { label: "Settles in", value: "USDC on-chain to Visa, 365 days/year" },
+      { label: "Chains", value: "Ethereum, Base, Polygon, Optimism, Avalanche, Arbitrum, ZKsync, Solana, Stellar, Tron" },
+      { label: "Stablecoins", value: "USDC, USDT, DAI, PYUSD" },
+      { label: "Funding", value: "~$338M+ total: $24.5M Series A (Mar 2025, Norwest), $58M Series B, $250M Series C" },
+      { label: "Valuation", value: "$1.95B (Series C, led by Iconiq, Jan 2026)" },
+      { label: "Traction", value: "~$3B annualized volume, 200+ companies, 100+ countries; card base ~30× YoY" },
+      { label: "Notable partners", value: "Western Union (remittances), Rizon; processor Paymentology" },
     ],
-    links: [{ label: "Site", url: "https://www.rain.xyz/" }],
+    links: [
+      { label: "Site", url: "https://www.rain.xyz/" },
+      { label: "Cards (issuing)", url: "https://www.rain.xyz/cards" },
+      { label: "Technology", url: "https://www.rain.xyz/technology" },
+      { label: "Docs (access-gated)", url: "https://docs.rain.xyz/" },
+      { label: "Rain × Visa partnership", url: "https://www.rain.xyz/resources/rain-and-visa-partner-to-accelerate-onchain-credit-cards" },
+      { label: "Series A announcement", url: "https://www.rain.xyz/resources/rain-announces-24-5-million-in-funding-led-by-norwest-to-expand-stablecoin-powered-card-issuing-globally" },
+    ],
+    builder: {
+      architecture:
+        "Rain is the issuer-processor AND a Visa Principal Member, so it owns the full path: card issuance, real-time authorization, and settlement — no external BIN sponsor in the loop (cards are issued by partner bank Third National under Rain's Visa license). The novel piece is that authorization logic and settlement run on-chain. Each end user gets a smart contract they own and control, holding stablecoin collateral. When a swipe hits the Visa network, Rain authorizes against that collateral in real time and fronts fiat to the merchant; it then settles its net obligation to Visa in USDC on-chain, daily/365. Receivables are tokenized, so Rain borrows stablecoins from capital partners to fund the float and repays programmatically via smart contracts. The stack is omni-chain (native settlement on ~10 networks) and asset-agnostic across major stablecoins.",
+      integration:
+        "Partners integrate a developer-first, full-stack issuing API that supports both custodial and non-custodial wallets and operates natively across multiple chains. A program covers KYC/KYB + compliance, card creation (virtual/physical), collateral/credit-line setup tied to the user's smart contract, real-time authorization controls, and webhooks for transaction/settlement events. Public API reference is access-gated (docs.rain.xyz requires an access code), so exact endpoint names below are conceptual and marked [verify].",
+      apiSurface: [
+        { name: "POST /cardholders (KYC/KYB)", desc: "Onboard an end user or business, run identity/compliance, create the cardholder record. [verify exact path]" },
+        { name: "POST /collateral-accounts", desc: "Provision the user-owned smart-contract account and register the stablecoin collateral / credit line backing it. [verify]" },
+        { name: "POST /cards", desc: "Issue a virtual or physical Visa card bound to a cardholder + collateral account; set spend controls/limits. [verify]" },
+        { name: "Authorization webhook / decisioning", desc: "Real-time auth events Rain evaluates against on-chain collateral; partner may apply program-level approve/decline rules. [verify]" },
+        { name: "GET /transactions", desc: "Retrieve authorizations, captures, and on-chain USDC settlement records for reconciliation. [verify]" },
+        { name: "Webhooks (events)", desc: "Subscribe to card lifecycle, authorization, settlement, and collateral/repayment events — treat these as source of truth. [verify]" },
+        { name: "Settlement / repayment ledger", desc: "Programmatic draw-down + repayment against collateral and capital-partner stablecoin float, recorded on-chain. [verify]" },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Conceptual flow: onboard a cardholder, register on-chain collateral, issue a Visa card, then react to an authorization webhook. Endpoint shapes are illustrative — confirm against Rain's gated docs.",
+        code: `import { Rain } from '@rain/sdk'; // conceptual — confirm package name
+
+const rain = new Rain({ apiKey: process.env.RAIN_API_KEY });
+
+// 1. Onboard the cardholder (KYC/KYB handled by Rain)
+const holder = await rain.cardholders.create({
+  type: 'individual',
+  email: 'user@rails.app',
+});
+
+// 2. Register the user-owned smart-contract collateral account.
+//    The user deposits USDC into a contract THEY control; it backs the credit line.
+const collateral = await rain.collateralAccounts.create({
+  cardholderId: holder.id,
+  chain: 'base',            // ethereum | base | polygon | solana | stellar | tron ...
+  asset: 'USDC',            // also USDT | DAI | PYUSD
+  contractAddress: '0xUserOwnedSmartContract...',
+});
+
+// 3. Issue the Visa card bound to that collateral.
+const card = await rain.cards.create({
+  cardholderId: holder.id,
+  collateralAccountId: collateral.id,
+  type: 'virtual',          // or 'physical'
+  spendLimit: { amount: 5000_00, interval: 'monthly' },
+});
+
+// 4. Real-time authorization webhook: Rain authorizes against on-chain
+//    collateral, fronts fiat to the merchant, then settles to Visa in USDC.
+export async function onWebhook(event: RainEvent) {
+  switch (event.type) {
+    case 'authorization.created':
+      // optional program-level approve/decline on top of Rain's collateral check
+      break;
+    case 'settlement.completed':
+      // USDC settled on-chain to Visa; reconcile + repay capital float
+      break;
+  }
+}`,
+      },
+      buildNotes: [
+        "Self-custody is the design center: collateral lives in a smart contract the END USER owns — Rain authorizes against it but does not custody it.",
+        "Settlement is the headline: Rain pays Visa in USDC on-chain daily/365, so float isn't stranded over weekends/holidays the way fiat-wire settlement is.",
+        "Treat webhooks (authorization + settlement events) as the source of truth for reconciliation; the on-chain settlement record is the ledger of record.",
+        "Region availability is gated by card/credit + interchange regulation — confirm supported geographies per program with Rain.",
+        "[verify exact endpoint names, SDK package, and auth scheme — Rain's API reference at docs.rain.xyz is access-code gated and not public.]",
+      ],
+    },
+    deepDive: [
+      {
+        heading: "Real-time authorization & on-chain USDC settlement",
+        body:
+          "Rain's edge is collapsing the card-money and on-chain-money flows into one loop. Authorization and settlement logic run on-chain against user-owned smart-contract collateral, and Rain settles its net obligation to Visa in USDC.",
+        bullets: [
+          "Collateral: each end user deposits stablecoins into a smart contract they own and control; it backs a credit line rather than pre-funding a fiat float account.",
+          "Authorization: at the swipe, Rain decisions in real time against that on-chain collateral and fronts fiat to the merchant over Visa.",
+          "Settlement: Rain pays Visa natively in USDC on-chain, 7 days/week, 365 days/year — including weekends/holidays when fiat-wire settlement windows are closed.",
+          "Float financing: receivables are tokenized, so Rain borrows stablecoins from capital partners and repays programmatically via smart contracts — 'closed-loop' on-chain receivable financing.",
+          "Omni-chain + asset-agnostic: native settlement across ~10 chains (ETH, Base, Polygon, Optimism, Avalanche, Arbitrum, ZKsync, Solana, Stellar, Tron) and multiple stablecoins (USDC, USDT, DAI, PYUSD).",
+        ],
+      },
+      {
+        heading: "The Visa Principal Member advantage",
+        body:
+          "Most card programs rent access through a BIN sponsor; Rain is itself a Visa Principal Member, which compresses the stack and the economics.",
+        bullets: [
+          "Direct issuance: Rain issues, authorizes, and settles itself (cards issued by partner bank Third National under Rain's Visa license) — partners don't source a separate sponsor.",
+          "Acceptance: cards work at 150M+ (Rain cites up to 175M+) Visa merchant locations worldwide on day one.",
+          "Pilot status: Rain participates in Visa's stablecoin-settlement program, settling card obligations in USDC rather than only fiat.",
+          "Speed-to-market: a partner ships a compliant card program via API instead of spending 12–18 months assembling sponsor bank + processor + network access.",
+        ],
+      },
+      {
+        heading: "Interchange & capital economics",
+        body:
+          "Rain monetizes like a vertically integrated issuer-processor, with an extra on-chain financing layer that most card platforms don't have.",
+        bullets: [
+          "Interchange: a share of the merchant interchange on every transaction is the core revenue line.",
+          "Platform fees: per-card / per-transaction issuing + processing fees, plus subscription fees for expense/program management (Brex/Ramp analog).",
+          "Capital efficiency: USDC settlement frees working capital that fiat T+1/T+2 cycles tie up; tokenized receivables let Rain borrow + repay float programmatically, lowering cost of capital for credit programs.",
+          "Lender side: capital partners get 'superior collateral' (on-chain, programmatically repaid) — turning the float into a financing product, not just a cost.",
+        ],
+      },
+      {
+        heading: "Regulatory & regional risk",
+        bullets: [
+          "Card-issuing, credit, and interchange rules differ sharply by jurisdiction, gating which geographies a program can serve (Rain reports activity across 100+ countries, but per-program coverage varies).",
+          "Dependence on Visa membership + the sponsoring bank (Third National): a change in either is existential to the model.",
+          "Collateral/credit risk: volatility or de-peg of backing assets and on-chain liquidation mechanics must hold up under stress.",
+          "Capital-markets dependency: the receivable-financing engine needs ongoing lender appetite to fund float at attractive rates.",
+        ],
+      },
+    ],
   },
   {
     slug: "mural-pay",
     name: "Mural Pay",
     url: "https://www.muralpay.com/",
     layers: ["L3", "L2"],
-    product: "Global stablecoin accounts + payments API; bulk payouts (100+ in one tx).",
-    customer: "Businesses, marketplaces (LatAm-heavy)",
-    moat: "Stablecoin ⇄ 40+ local currencies with built-in KYB/KYC; one-API global accounts.",
+    product: "Global stablecoin accounts (GSAs) + payments API: payins, payouts, invoicing; bulk payouts (up to 350 per request).",
+    customer: "Businesses, fintechs, banks, marketplaces (LatAm-heavy)",
+    moat: "Stablecoin ⇄ local-currency last-mile across LatAm + global, with built-in KYB/KYC and one-API Global Stablecoin Accounts.",
     region: "LatAm + global",
     status: "researched",
-    tagline: "Global accounts and real-time payments in one API.",
+    tagline: "Global accounts. Real-time payments. One API.",
     whatItIs:
-      "Mural Pay is a business-first global payments platform that converts stablecoins into 40+ local currencies, with built-in compliance. It's built for cross-border B2B payouts — including bulk runs of 100+ contractor/vendor payments in a single transaction.",
+      "Mural Pay is a business-first global payments platform built on stablecoins. Companies, fintechs, and banks open Global Stablecoin Accounts (GSAs) through a single API, fund them in fiat or stablecoins, and pay out to bank accounts in local currency or to wallets in stablecoins. It's aimed at cross-border B2B operations — paying contractors and vendors — with built-in compliance and bulk runs of many payments per request. Founded by Palantir alumni, it has processed $200M+ in stablecoin payment volume.",
     howItWorks: [
-      "Businesses open global stablecoin accounts via one API.",
-      "Fund in stablecoins, pay out in 40+ local currencies with real-time tracking.",
-      "Bulk payouts: 100+ recipients in a single transaction.",
-      "KYB/KYC and compliance handled in-platform.",
+      "Register an end-user (the 'Organization') via the API and pass them through hosted KYB/KYC; an Account is auto-provisioned on approval.",
+      "Fund the account (payin) in fiat via ACH/Wire (USD), SEPA (EUR), or local rails (e.g. PSE/Nequi for COP) — auto-converted to USDC/USDT — or deposit stablecoins directly.",
+      "Create a payout request: FIAT payouts settle to a recipient's bank in local currency; BLOCKCHAIN payouts send stablecoins to a wallet. Batch up to 350 payouts in one request.",
+      "Execute the payout (with a separate transfer-api-key for client-custodial, or a signed payload for end-user-custodial); exchange rates lock at execution.",
+      "Track balance changes and payout state via webhooks and the transactions API.",
     ],
     differentiators: [
-      "Bulk contractor/vendor payouts at scale.",
-      "40+ currency last-mile coverage with compliance built in.",
-      "Especially strong for LatAm-based businesses.",
+      "Bulk contractor/vendor payouts at scale — up to 350 payouts per request, with optional per-recipient developer fees withheld automatically.",
+      "Last-mile coverage across LatAm corridors (COP, ARS, MXN, BRL, CLP, PEN, BOB, CRC) plus USD/EUR/ZAR, with KYB/KYC built in.",
+      "Two custody models (client-custodial vs. end-user-custodial with browser-SDK signing) let platforms choose who controls funds.",
+      "A single API spanning payins, payouts, invoicing, and virtual stablecoin accounts — not just one of those.",
     ],
-    businessModel: "FX spread + per-payout fees.",
-    dependsOn: ["Local banking partners", "Stablecoin liquidity (USDC)"],
-    risks: ["Emerging-market liquidity + FX.", "[verify funding, founding, traction]"],
+    businessModel: "FX spread on stablecoin ⇄ local-currency conversion + per-payout fees; platforms can also layer their own developer fees on top.",
+    dependsOn: [
+      "Local banking + payout partners (last-mile in each currency)",
+      "Stablecoin liquidity (USDC/USDT)",
+      "Supported chains (Ethereum, Polygon, Base, Celo)",
+      "Wallet/key infrastructure (Turnkey) for custodial signing",
+    ],
+    risks: [
+      "Emerging-market FX volatility + local-rail liquidity in LatAm corridors.",
+      "Compliance/licensing burden as a regulated money-movement provider across many jurisdictions.",
+      "Early stage relative to Bridge/BVNK — single $5.6M seed (2022); must show it can scale volume and corridors.",
+    ],
     keyFacts: [
-      { label: "Currencies", value: "40+ local payout currencies" },
-      { label: "Bulk", value: "100+ payouts per transaction" },
-      { label: "Region", value: "LatAm-heavy, expanding global" },
-      { label: "Status", value: "Live" },
+      { label: "Founded", value: "2022 — Sinclair Toffa (CEO, ex-Palantir), Chris Fernandes (CTO)" },
+      { label: "Funding", value: "$5.6M seed (2022) — Digital Currency Group, Galaxy Digital, Firstminute, AlleyCorp, 186 Ventures, Predictive VP" },
+      { label: "Volume", value: "$200M+ processed; ~5,000+ stablecoin payments/month [verify current]" },
+      { label: "Currencies", value: "USD, EUR, COP, ARS, MXN, BRL, CLP, PEN, BOB, CRC, ZAR (40+ claimed)" },
+      { label: "Bulk", value: "Up to 350 payouts per request" },
+      { label: "Stablecoins / chains", value: "USDC, USDT on Ethereum, Polygon, Base, Celo" },
     ],
     links: [
       { label: "Site", url: "https://www.muralpay.com/" },
       { label: "Stablecoin API", url: "https://www.muralpay.com/stablecoin-api" },
+      { label: "Developer docs", url: "https://developers.muralpay.com/docs/overview" },
+      { label: "Create a payout request", url: "https://developers.muralpay.com/docs/create-a-payout-request" },
+      { label: "Sandbox environment", url: "https://developers.muralpay.com/docs/sandbox-environment" },
+      { label: "Turnkey case study", url: "https://www.turnkey.com/case-studies/mural-pay-cross-border-payments" },
+    ],
+    builder: {
+      architecture:
+        "Mural sits between stablecoin rails and local banking systems. The core object is the Account (a Global Stablecoin Account) provisioned automatically once an Organization clears KYB/KYC. Accounts hold USDC/USDT (on Ethereum/Polygon/Base/Celo) and expose payin methods (digital wallet, USD ACH/Wire, EUR SEPA, COP PSE/Nequi). Outflows are PayoutRequests — each FIAT (to a bank, last-mile in local currency) or BLOCKCHAIN (to a wallet). Custody is configurable: client-custodial (Mural holds keys; you execute with a transfer-api-key) or end-user-custodial (the end user's key signs the payout via Mural's Browser SDK, powered by Turnkey). Money movement is two-phase: create the request (locks nothing, status AWAITING_EXECUTION) then execute (locks the FX rate). Balance/credit/debit events stream back via webhooks.",
+      integration:
+        "REST API authenticated with a Bearer API key, plus an On-Behalf-Of header naming the target Organization. A separate transfer-api-key gates payout execution/cancellation so a leaked read key can't move funds. A Sandbox mirrors production (auto-approves KYC, auto-completes payouts without real settlement). IP allowlists (CIDR) can restrict access. For end-user custody, the Browser SDK signs the payout payload client-side.",
+      apiSurface: [
+        { name: "POST /api/organizations", desc: "Register an end-user (individual/business); then drive KYB/KYC via the kyc-link. Approval auto-provisions an Account." },
+        { name: "GET /api/accounts", desc: "List/fetch Global Stablecoin Accounts — wallet addresses, balances, and payin (deposit) instructions per rail." },
+        { name: "POST /api/payins/payin", desc: "Initiate a deposit; fiat (ACH/Wire/SEPA/PSE) auto-converts to USDC/USDT. Pair with /payins/exchange-rate for quotes." },
+        { name: "POST /api/payouts/payout", desc: "Create a payout request with a sourceAccountId and a payouts[] array (FIAT or BLOCKCHAIN) — up to 350 per request." },
+        { name: "POST /api/payouts/payout/{id}/execute", desc: "Execute a created request (transfer-api-key for client-custodial; signed payload for end-user-custodial). Locks the FX rate." },
+        { name: "POST /api/payouts/fees/token-to-fiat", desc: "Quote fees + FX before executing (also fiat-to-token); rates lock only at execution." },
+        { name: "POST /api/webhooks", desc: "Subscribe to account credit/debit + payout status events (AWAITING_EXECUTION → PENDING → EXECUTED/FAILED)." },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Create a bulk fiat payout request (USDC → local-currency bank payouts) via REST.",
+        code: `const res = await fetch('https://api.muralpay.com/api/payouts/payout', {
+  method: 'POST',
+  headers: {
+    'Authorization': \`Bearer \${MURAL_API_KEY}\`,
+    'Content-Type': 'application/json',
+    'On-Behalf-Of': ORGANIZATION_ID,        // which Organization is paying
+  },
+  body: JSON.stringify({
+    sourceAccountId: SOURCE_ACCOUNT_ID,      // a Global Stablecoin Account
+    memo: 'May contractor run',
+    payouts: [                               // up to 350 per request
+      {
+        amount: { tokenSymbol: 'USDC', tokenAmount: 100 },
+        payoutDetails: {
+          type: 'fiat',
+          bankName: 'Bancolombia',
+          fiatAndRailDetails: {
+            type: 'cop',                      // pay out in Colombian pesos
+            accountType: 'CHECKING',
+            bankAccountNumber: '1234567890',
+          },
+        },
+        recipientInfo: {
+          type: 'individual',
+          firstName: 'Javier',
+          lastName: 'Gomez',
+          email: 'javier@example.com',
+        },
+      },
+    ],
+  }),
+});
+
+const { id } = await res.json();             // status: AWAITING_EXECUTION
+
+// Phase 2: execute to lock FX + send (client-custodial model)
+await fetch(\`https://api.muralpay.com/api/payouts/payout/\${id}/execute\`, {
+  method: 'POST',
+  headers: {
+    'Authorization': \`Bearer \${MURAL_API_KEY}\`,
+    'transfer-api-key': MURAL_TRANSFER_KEY,  // separate key gates fund movement
+  },
+});`,
+      },
+      buildNotes: [
+        "Two-phase by design: creating a payout reserves nothing and the FX rate locks only at /execute — quotes can expire, so execute promptly or re-quote.",
+        "Keep the transfer-api-key out of any read-only path; it's the only thing standing between a leaked Bearer key and moved money.",
+        "Build against the Sandbox first — it auto-approves KYC and auto-completes payouts so you can test the full lifecycle without real settlement.",
+        "Treat webhooks as the source of truth for payout state (AWAITING_EXECUTION → PENDING → EXECUTED/FAILED/CANCELED), not the synchronous create response.",
+        "[verify against live docs — endpoint host (api. vs app.), exact 350-payout cap, and the full local-currency list evolve]",
+      ],
+    },
+    deepDive: [
+      {
+        heading: "Payout flow & last-mile settlement",
+        body:
+          "A payout is two objects in sequence: a PayoutRequest you create, then an execution that commits it. This split exists because cross-border FX is time-sensitive — Mural quotes a rate but only locks it when you execute, so the platform isn't exposed to rate drift between request and send.",
+        bullets: [
+          "FIAT payouts settle to a recipient's local bank account (COP, MXN, BRL, ARS, etc.) — Mural converts the account's USDC/USDT to local currency and pushes it over domestic rails.",
+          "BLOCKCHAIN payouts send stablecoins straight to a wallet on Ethereum/Polygon/Base/Celo.",
+          "Status lifecycle: AWAITING_EXECUTION → PENDING → EXECUTED (or FAILED/CANCELED), surfaced via webhooks.",
+          "Some corridors require supporting documents (invoices, contracts) attached to the payout for compliance.",
+        ],
+      },
+      {
+        heading: "Bulk-payout architecture",
+        body:
+          "The payouts[] array is the core scale primitive: one request can carry up to ~350 individual payouts, each with its own recipient, amount, currency, and rail. This collapses a contractor/vendor run into a single API call and a single execution.",
+        bullets: [
+          "Each line item is independently routed (different recipients, currencies, FIAT vs. BLOCKCHAIN) but shares one sourceAccountId.",
+          "Per-recipient developer fees can be withheld automatically from each payout and remitted back to the platform — a built-in monetization hook.",
+          "One execution step commits the whole batch, so the FX rate is locked across the run at execution time.",
+        ],
+      },
+      {
+        heading: "Compliance & custody (KYB/KYC)",
+        body:
+          "Compliance is a gate, not an afterthought: no Account exists until its Organization clears verification. Mural offers hosted KYC links so platforms can pass their end-users through without handling the documents themselves.",
+        bullets: [
+          "Individual KYC: name, DOB, address, government ID, tax ID. Business KYB: legal name, entity type, formation docs, tax ID, UBO documentation.",
+          "Account auto-provisions only on approval — KYB/KYC is the prerequisite for both funding and payouts.",
+          "Two custody models: client-custodial (Mural/platform holds keys, execute with transfer-api-key) vs. end-user-custodial (end-user key signs via the Browser SDK, backed by Turnkey).",
+          "Operational guardrails: IP allowlists (CIDR), a separate transfer key for fund movement, and a full-parity Sandbox.",
+        ],
+      },
+      {
+        heading: "FX & emerging-market risk",
+        body:
+          "Mural's value is concentrated in the last mile of LatAm and other emerging-market corridors — exactly where it carries the most risk. The stablecoin leg is fast and global; the local-currency leg depends on banking partners and local liquidity that can be thin or volatile.",
+        bullets: [
+          "FX spread on stablecoin ⇄ local currency is the main revenue line, but local-currency volatility (ARS, COP) compresses or threatens margins.",
+          "Last-mile reach depends on local banking partners per currency — a partner outage degrades a whole corridor.",
+          "Regulatory regimes for money movement differ sharply by country, raising licensing and compliance cost as corridors expand.",
+          "At a single $5.6M seed, Mural is earlier-stage than Bridge/BVNK; distribution and corridor depth, not the rail itself, are the battleground.",
+        ],
+      },
     ],
   },
   {
