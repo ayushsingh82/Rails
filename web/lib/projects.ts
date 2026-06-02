@@ -173,43 +173,214 @@ export const PROJECTS: Project[] = [
     name: "Bridge",
     url: "https://www.bridge.xyz/",
     layers: ["L2"],
-    product: "API to accept / store / convert / pay out stablecoins; issue your own stablecoin.",
-    customer: "Developers & platforms",
+    product:
+      "API to move / store / accept / pay out stablecoins, issue your own stablecoin (Open Issuance / USDB), and provision Visa cards.",
+    customer: "Developers, fintechs & platforms",
     moat:
-      "Acquired by Stripe ($1.1B, 2025). Own-stablecoin issuance with T-bill yield share + Stripe distribution.",
-    region: "Global",
+      "Owned by Stripe ($1.1B acquisition). Issuance + T-bill yield share, USDB, Visa card rails, and an OCC-chartered trust bank in flight.",
+    region: "Global (100+ countries)",
     status: "researched",
     tagline: "Stripe for stablecoins.",
     whatItIs:
-      "Bridge is a stablecoin orchestration API. With a few lines of code a developer can accept, store, convert, and pay out stablecoins, or even issue their own — Bridge handles the wallets, chains, banking partners, and compliance underneath. Stripe acquired it in 2025 for $1.1B, its largest deal ever.",
+      "Bridge is a stablecoin orchestration API. With a few lines of code a developer can move, store, accept, and pay out stablecoins across crypto and fiat rails, custody funds in wallets, issue their own stablecoin, or provision Visa cards — Bridge abstracts the chains, banking partners, and compliance underneath. Stripe acquired it in February 2025 for ~$1.1B, its largest deal ever, and now uses Bridge to power Stripe's own stablecoin Financial Accounts.",
     howItWorks: [
-      "Orchestration: move/store/accept stablecoins via API while Bridge abstracts chains + compliance.",
-      "Issuance: spin up your own stablecoin; Bridge invests the reserves in US Treasuries and shares the yield with you.",
-      "Money transfer: send funds globally and offer USD/EUR accounts to consumers and businesses.",
-      "Now distributed through Stripe's payments stack to its global merchant base.",
+      "Orchestration / Transfers: a single REST API moves stablecoins between crypto and fiat rails (ACH, SEPA, wire) while Bridge abstracts chains, KYC, and banking partners.",
+      "Virtual + liquidation addresses: customers get bank-account or on-chain deposit details that auto-convert and route incoming funds to a destination (e.g. fiat in → USDC out, or crypto in → fiat payout).",
+      "Issuance: spin up a custom stablecoin via Open Issuance, or use Bridge's own USDB; reserves sit in cash + short-duration money-market funds and short-term Treasuries (BlackRock, Fidelity, Superstate), and the majority of the reserve yield is shared back as a developer fee.",
+      "Cards: provision Visa cards that draw down a stablecoin balance and settle to merchants in local fiat at 150M+ Visa locations.",
+      "Distribution: surfaced through Stripe's stack — Stripe's Financial Accounts hold USDC and Bridge's USDB across 100+ countries.",
     ],
     differentiators: [
-      "Owned by Stripe — instant distribution and trust most rivals can't match.",
-      "Issuance + T-bill yield share is a revenue line, not just plumbing.",
-      "Abstracts regulatory + technical complexity behind a clean developer API.",
+      "Owned by Stripe — instant distribution to Stripe's merchant base and trust most rivals can't match.",
+      "Issuance + reserve-yield share (USDB / Open Issuance) turns the stablecoin itself into a revenue line, not just plumbing.",
+      "End-to-end surface: transfers, virtual/liquidation addresses, wallets, issuance, and Visa card provisioning behind one API.",
+      "Regulatory ambition: pursuing an OCC national trust bank charter to issue stablecoins and custody reserves under direct federal oversight.",
     ],
-    businessModel: "Fees on volume + a share of reserve (T-bill) yield on issued stablecoins.",
-    dependsOn: ["Banking partners", "Circle/Tether liquidity", "Stripe", "Underlying chains"],
+    businessModel:
+      "Fees on transfer/conversion volume + developer fees on transfers, plus a share of reserve (T-bill / money-market) yield on issued stablecoins (USDB and Open Issuance tokens); card interchange on the Visa product.",
+    dependsOn: [
+      "Stripe (parent + distribution)",
+      "Banking partners (e.g. Lead Bank)",
+      "Reserve managers / custodians (BlackRock, Fidelity, Superstate)",
+      "Visa (card issuing)",
+      "Stablecoin liquidity (Circle USDC / Tether USDT)",
+      "Underlying chains (Ethereum, Solana, Base, Polygon, Tron, etc.) [verify exact chain list]",
+    ],
     risks: [
-      "Regulatory exposure as a (now) bank-adjacent stablecoin issuer.",
-      "Concentration: deeply tied to Stripe's strategy post-acquisition.",
+      "Regulatory exposure as a bank-adjacent stablecoin issuer (GENIUS Act regime; OCC charter still only conditionally approved).",
+      "Reserve-yield revenue is rate-sensitive — Fed rate cuts compress the T-bill yield that funds developer rewards.",
+      "Concentration: deeply tied to Stripe's strategy and roadmap post-acquisition.",
+      "Competes with Circle, BVNK, and Stripe-adjacent rails even while inside Stripe.",
     ],
     keyFacts: [
-      { label: "Founded", value: "2022 (San Francisco)" },
-      { label: "Founders", value: "Zach Abrams, Sean Yu (ex-Coinbase / Square Cash App)" },
-      { label: "Funding", value: "~$58M (Haun, Sequoia, Ribbit, Index)" },
-      { label: "Owned by", value: "Stripe — $1.1B acquisition, closed early 2025" },
-      { label: "Notable users", value: "SpaceX/Starlink (Argentina repatriation), consumers in Nigeria" },
+      { label: "Founded", value: "2022 (San Antonio / SF) — Zach Abrams, Sean Yu (ex-Coinbase / Square Cash App)" },
+      { label: "Pre-acquisition funding", value: "~$58M (Haun Ventures, Sequoia, Ribbit, Index)" },
+      { label: "Owned by", value: "Stripe — ~$1.1B acquisition, closed Feb 4, 2025 (Stripe's largest)" },
+      { label: "USDB", value: "1:1-backed infra stablecoin; reserves at BlackRock; majority of reserve yield shared with developers" },
+      { label: "Open Issuance", value: "Launched Sept 2025 — any business mints a custom stablecoin; reserves via BlackRock, Fidelity, Superstate" },
+      { label: "Stripe Financial Accounts", value: "Holds USDC + USDB across 100+ countries (launched May 20, 2025)" },
+      { label: "Visa cards", value: "Stablecoin-linked Visa cards launched LatAm (Apr 2025); expanding to 100+ countries by end of 2026" },
+      { label: "OCC charter", value: "Conditional approval for a national trust bank (Feb 2026) [verify final approval]" },
+      { label: "Notable users", value: "SpaceX/Starlink (Argentina FX repatriation), consumers in emerging markets" },
     ],
     links: [
       { label: "Site", url: "https://www.bridge.xyz/" },
       { label: "API docs", url: "https://apidocs.bridge.xyz/" },
+      { label: "Issuance product", url: "https://www.bridge.xyz/product/issuance" },
+      { label: "USDB", url: "https://www.bridge.xyz/news/usdb" },
+      { label: "Open Issuance announcement", url: "https://www.bridge.xyz/blog/introducing-open-issuance" },
       { label: "Stripe acquisition", url: "https://stripe.com/newsroom/news/stripe-completes-bridge-acquisition" },
+      { label: "Visa card partnership", url: "https://stripe.com/newsroom/news/bridge-partners-with-visa" },
+      { label: "Stripe stablecoin Financial Accounts", url: "https://docs.stripe.com/crypto/stablecoin-financial-accounts" },
+      { label: "OCC conditional approval", url: "https://www.bridge.xyz/blog/bridge-receives-occ-conditional-approval-to-organize-a-federally-chartered-national-trust-bank" },
+    ],
+    builder: {
+      architecture:
+        "Bridge sits between the chains and the banking system as a single orchestration API. The core objects are Customers (which carry KYC state), Transfers (a source → destination money movement), and the deposit primitives that make money move automatically: Virtual Accounts (fiat bank details that convert incoming fiat to stablecoin) and Liquidation Addresses (on-chain addresses that auto-convert and route incoming crypto to a fiat or crypto destination). External Accounts hold a customer's payout bank details; Bridge Wallets custody balances; Developer Fees let the integrator skim a fee on each transfer; and Cards provision Visa cards that draw down a stablecoin balance. State changes are delivered via Webhooks. All calls authenticate with a server-side Api-Key header and use an Idempotency-Key to make POSTs safe to retry.",
+      integration:
+        "Server-to-server REST. Onboard a Customer and clear KYC (hosted KYC Links or direct submission), attach an External Account for fiat payout, then either create one-off Transfers or stand up a Virtual Account / Liquidation Address so funds convert and route automatically. Configure Developer Fees once to monetize volume, and subscribe a Webhook endpoint to track Customer/KYC, transfer, and card events. Cursor-based pagination on all list endpoints.",
+      apiSurface: [
+        { name: "POST /customers + POST /kyc-links", desc: "Create a customer and generate a hosted KYC link; KYC/AML and sanctions screening clear before money can move." },
+        { name: "POST /transfers", desc: "Move money source → destination across crypto + fiat rails (e.g. fiat in → USDC out); specify amount, currency, and on/off-ramp details." },
+        { name: "POST /virtual-accounts", desc: "Issue per-customer fiat bank details (ACH/SEPA/wire); incoming fiat auto-converts to a stablecoin and lands at the destination." },
+        { name: "POST /liquidation-addresses", desc: "Create an on-chain address that auto-converts incoming crypto and routes it to a fiat external account or another address." },
+        { name: "POST /external-accounts", desc: "Register a customer's destination bank account for fiat payouts; reusable across transfers." },
+        { name: "PUT /developers/fees", desc: "Configure the developer fee taken on transfers; paired with POST /developers/fee-external-account for payout." },
+        { name: "POST /card-accounts + POST /webhooks", desc: "Provision a Visa card that spends from a stablecoin balance; subscribe webhooks for transfer, KYC, and card events." },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Create a liquidation address that auto-converts incoming USDC to USD and pays out to a bank account.",
+        code: `const BRIDGE_API = 'https://api.bridge.xyz/v0';
+
+async function createLiquidationAddress(customerId: string, externalAccountId: string) {
+  const res = await fetch(\`\${BRIDGE_API}/customers/\${customerId}/liquidation_addresses\`, {
+    method: 'POST',
+    headers: {
+      'Api-Key': process.env.BRIDGE_API_KEY!,        // server-side only
+      'Idempotency-Key': crypto.randomUUID(),         // safe to retry
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      chain: 'ethereum',
+      currency: 'usdc',
+      // incoming USDC is converted and paid out as USD via ACH
+      destination_payment_rail: 'ach',
+      destination_currency: 'usd',
+      external_account_id: externalAccountId,
+    }),
+  });
+
+  if (!res.ok) throw new Error(\`Bridge error \${res.status}: \${await res.text()}\`);
+  return res.json(); // -> { id, address, chain, currency, ... }
+}`,
+      },
+      buildNotes: [
+        "Treat webhooks (not the API response) as the source of truth for transfer + KYC state; verify the signature and make handlers idempotent.",
+        "A Customer must reach an approved KYC state before transfers settle — gate money movement on the KYC webhook.",
+        "Liquidation addresses and virtual accounts are the 'set-and-forget' primitives: stand one up per customer and money routes automatically without per-payment API calls.",
+        "[verify exact base URL/version, path casing (snake_case vs hyphen), and supported chains/rails against the live apidocs.bridge.xyz — these evolve].",
+      ],
+    },
+    products: [
+      {
+        name: "Orchestration / Transfers",
+        tagline: "Move, store, and accept stablecoins via one API.",
+        whatItIs:
+          "The core money-movement layer. Developers create Transfers and stand up Virtual Accounts and Liquidation Addresses so funds convert and route automatically across crypto and fiat rails — Bridge abstracts the chains, KYC, and banking partners. This is the rail that powers payouts, on/off-ramps, and treasury flows.",
+        mechanics: [
+          "Customers clear KYC, then transfers move money source → destination (fiat ⇄ stablecoin ⇄ fiat).",
+          "Virtual Accounts: per-customer fiat bank details that auto-convert incoming fiat to a stablecoin.",
+          "Liquidation Addresses: on-chain addresses that auto-convert incoming crypto and pay out to fiat or another address.",
+          "Developer Fees let the integrator monetize a slice of each transfer.",
+        ],
+        stats: [
+          { label: "Rails", value: "ACH, SEPA, wire + on-chain (multi-chain)" },
+          { label: "Auth", value: "Api-Key (server-side) + Idempotency-Key" },
+        ],
+      },
+      {
+        name: "Issuance (USDB / Open Issuance)",
+        tagline: "Launch your own stablecoin — and earn the reserve yield.",
+        whatItIs:
+          "Bridge lets any business mint a custom, fully-reserved stablecoin in a few lines of code (Open Issuance, Sept 2025), or use Bridge's own USDB. Reserves sit 1:1 in cash, short-duration money-market funds, and short-term Treasuries; unlike legacy issuers that keep the float, Bridge shares the majority of reserve yield back with developers and end users.",
+        mechanics: [
+          "USDB: 1:1-backed infra stablecoin, reserves at BlackRock; free conversion to/from USDC; on/off-chain validations, whitelisting, freeze/burn controls.",
+          "Open Issuance: custom-branded stablecoin with reserves managed by BlackRock, Fidelity, and Superstate.",
+          "Reserves invested in US Treasuries / money-market funds earning ~3–4%; majority paid out as a developer fee.",
+          "Earn rewards simply by switching from other stablecoins into USDB via Bridge APIs.",
+        ],
+        stats: [
+          { label: "USDB backing", value: "1:1 cash + short-duration MMFs (BlackRock)" },
+          { label: "Reserve yield", value: "~3–4%, majority shared with developers" },
+          { label: "Open Issuance", value: "Launched Sept 2025; custodians BlackRock / Fidelity / Superstate" },
+        ],
+      },
+      {
+        name: "Stablecoin Financial Accounts & Cards",
+        tagline: "Hold stablecoins in Stripe; spend them on Visa.",
+        whatItIs:
+          "Bridge powers Stripe's stablecoin Financial Accounts — businesses hold USDC or USDB balances inside Stripe, fund them over crypto and fiat rails, and send stablecoins worldwide. The Visa card product lets partners provision cards that draw down a stablecoin balance and settle to merchants in local fiat.",
+        mechanics: [
+          "Financial Accounts hold USDC + USDB, receive via ACH/SEPA + crypto, and send stablecoins globally.",
+          "On a card swipe, Bridge deducts the stablecoin balance and converts to fiat so the merchant is paid locally.",
+          "Usable at 150M+ Visa-accepting merchant locations.",
+          "Card provisioning via the /card-accounts API (freeze/unfreeze, transactions, authorizations).",
+        ],
+        stats: [
+          { label: "Financial Accounts", value: "100+ countries (launched May 20, 2025)" },
+          { label: "Card launch", value: "LatAm Apr 2025; 100+ countries targeted by end-2026" },
+          { label: "Supported coins", value: "USDC + USDB (more planned)" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "API architecture: customers, transfers, and auto-routing primitives",
+        body:
+          "Bridge's API reduces stablecoin movement to a small set of composable objects so a fintech never touches chains or wallets directly.",
+        bullets: [
+          "Customer carries KYC/AML state; nothing settles until the customer is approved.",
+          "Transfer is a one-off source → destination movement across crypto + fiat rails.",
+          "Virtual Account = fiat bank details that auto-convert incoming fiat to stablecoin; Liquidation Address = on-chain address that auto-converts incoming crypto to a fiat/crypto destination.",
+          "External Account holds payout bank details; Bridge Wallets custody balances; Developer Fees monetize volume.",
+          "Webhooks deliver state changes — the integrator treats them, not the HTTP response, as the source of truth.",
+        ],
+      },
+      {
+        heading: "Issuance economics: reserves, T-bill yield, and the developer share",
+        body:
+          "The strategic shift is who keeps the float. Legacy issuers (Circle, Tether) pocket the yield on reserves; Bridge inverts this to win developers.",
+        bullets: [
+          "USDB / Open Issuance tokens are 1:1-backed by cash, money-market funds, and short-term US Treasuries.",
+          "Reserves earn the short-term rate (~3–4%); Bridge shares the MAJORITY of that yield back as a developer fee.",
+          "This makes the stablecoin a revenue line for the integrator — a structural lever Circle/Tether don't offer at the API layer.",
+          "Rate risk: the model's economics compress directly with Fed rate cuts.",
+          "Reserve managers/custodians: BlackRock (USDB), plus Fidelity and Superstate for Open Issuance.",
+        ],
+      },
+      {
+        heading: "Stripe distribution: from API to default rail",
+        body:
+          "The ~$1.1B acquisition (closed Feb 4, 2025, Stripe's largest) is fundamentally a distribution play — Bridge gets Stripe's merchant base; Stripe gets a stablecoin backbone.",
+        bullets: [
+          "Stripe's stablecoin Financial Accounts (launched May 20, 2025, 100+ countries) hold USDC and Bridge's USDB.",
+          "Bridge + Visa stablecoin-linked cards launched in LatAm (Apr 2025) and target 100+ countries by end of 2026.",
+          "Stablecoins moved ~$15.6T in 2024 (on par with Visa); B2B stablecoin payments hit ~$226B in 2025 — the TAM behind the bet.",
+          "Concentration risk cuts both ways: Bridge's roadmap is now Stripe's roadmap.",
+        ],
+      },
+      {
+        heading: "Compliance & regulatory posture",
+        body:
+          "As a bank-adjacent issuer, Bridge's moat increasingly is its regulatory standing under the new US stablecoin regime.",
+        bullets: [
+          "Banking partner Lead Bank backs the card / fiat rails; KYC/AML and sanctions screening are built into the Customer object.",
+          "Received OCC conditional approval to organize a federally-chartered national trust bank (Feb 2026) — would let it issue stablecoins and custody reserves under direct OCC oversight. [verify final approval]",
+          "USDB ships with on-chain + off-chain validations, whitelisting, and freeze/burn controls for sanctions compliance.",
+          "Operates under the emerging GENIUS Act framework for US payment stablecoins. [verify current status]",
+        ],
+      },
     ],
   },
   {
@@ -217,42 +388,211 @@ export const PROJECTS: Project[] = [
     name: "BVNK",
     url: "https://bvnk.com/",
     layers: ["L2", "L3"],
-    product: "Enterprise stablecoin payments, virtual accounts, embedded processing.",
-    customer: "Enterprises, fintechs, marketplaces",
+    product:
+      "Enterprise stablecoin payments: payins/payouts, virtual accounts, embedded wallets, and Layer1 self-custody settlement infrastructure.",
+    customer: "Enterprises, fintechs, marketplaces, PSPs",
     moat:
-      "Enterprise SLAs (99.9% uptime), ~$30B annualized volume, Visa partnership, full US + EU coverage.",
-    region: "EU + US",
+      "Mastercard-acquired (~$1.8B, Mar 2026). ~$30B annualized volume, Visa Direct partnership, 25+ licenses (US MTLs, EU/UK EMI, MiCA CASP).",
+    region: "EU + UK + US (130+ countries payout)",
     status: "researched",
-    tagline: "Enterprise-grade stablecoin payment infrastructure.",
+    tagline: "Enterprise-grade stablecoin payment infrastructure — now Mastercard's on-chain rail.",
     whatItIs:
-      "BVNK is a stablecoin payments platform aimed at enterprises and fintechs. It offers virtual accounts, embedded payment processing, and payouts with traditional payment-processor reliability — the pick when SLAs and per-merchant configuration matter more than raw chain coverage.",
+      "BVNK is a stablecoin payments platform for enterprises, fintechs, and marketplaces. It gives a business one API to accept (payin), hold, convert, and pay out (payout) money across fiat and stablecoins, plus virtual accounts in GBP/EUR and embedded wallets. Its Layer1 product lets large enterprises run a self-custody stablecoin stack in-house. BVNK is the pick when SLAs, named virtual accounts, and broad licensing matter more than raw chain coverage — and in March 2026 Mastercard agreed to acquire it for up to $1.8B, the largest stablecoin deal to date.",
     howItWorks: [
-      "Merchants get virtual accounts and an API to accept + settle in stablecoins or fiat.",
-      "Configurable per-merchant rules; posts 99.9% uptime as an enterprise SLA.",
-      "Settles across stablecoin networks and bank rails, with payouts in local currency.",
-      "Visa partnership extends stablecoin settlement into card flows.",
+      "Payments API: create a payin or payout (type IN/OUT) via the merchant API; BVNK quotes FX, settles across stablecoin networks and bank rails, and pays out in local currency.",
+      "Channels: a reusable crypto address/route an end user can repeatedly pay into, with per-customer compliance metadata attached.",
+      "Virtual accounts: named GBP/EUR IBAN-style accounts connected to major payment schemes for fiat payin/payout.",
+      "Embedded wallets: white-label, per-end-user wallets that move between USD/EUR/GBP and stablecoins inside the partner's product (BVNK custodies).",
+      "Layer1: self-custody infrastructure so an enterprise runs its own wallets, keys, reconciliation, and routing — BVNK is not in the flow of funds.",
+      "Webhooks push status changes (payment, channel, crypto, customer, ledger) signed with HMAC-SHA256 so the partner treats them as source of truth.",
+      "Visa Direct partnership lets enterprises pre-fund in stablecoins and send payouts to recipient wallets across Visa's network.",
     ],
     differentiators: [
-      "Enterprise SLAs + virtual accounts vs. developer-only APIs.",
-      "Scale: ~$30B annualized volume across ~2.8M transactions.",
-      "Broad licensing — full US state-wide coverage + EU authorization.",
+      "Enterprise SLAs + named virtual accounts + embedded wallets vs. developer-only APIs.",
+      "Layer1 self-custody: enterprises keep their own keys and data — a different posture from custodial rivals (Bridge, Zero Hash).",
+      "Deep licensing: 25+ authorizations incl. US MSB + state MTLs, UK & Malta EMI, VASP, and a Malta MiCA CASP licence (Feb 2026) it passports across the EU.",
+      "Distribution: Visa Direct partnership and Visa Ventures + Citi Ventures backing, then a Mastercard acquisition for up to $1.8B.",
     ],
-    businessModel: "Processing fees on payment volume + FX spread on conversion.",
-    dependsOn: ["Banking partners", "Card networks (Visa)", "Stablecoin issuers"],
+    businessModel:
+      "Processing fees on payment volume + FX spread on conversion; SaaS/platform fees for Layer1 self-custody infrastructure and embedded wallets.",
+    dependsOn: [
+      "Banking partners (fiat payin/payout, virtual accounts)",
+      "Card networks (Visa Direct; now Mastercard parent)",
+      "Stablecoin issuers (USDC/USDT/EURC) + underlying chains",
+      "Compliance vendors (e.g. Elliptic risk intelligence on Layer1)",
+    ],
     risks: [
       "Enterprise sales cycles are long; growth tied to large-customer wins.",
-      "Competes directly with Bridge/Stripe's distribution muscle.",
+      "Integration + strategic risk from the pending Mastercard acquisition (up to $1.8B, ~$300M contingent, expected to close 2026).",
+      "Competes directly with Bridge/Stripe and Zero Hash on distribution.",
+      "Regulatory exposure as a multi-jurisdiction money transmitter / EMI / CASP.",
     ],
     keyFacts: [
-      { label: "Founded", value: "2021 (London)" },
-      { label: "Funding", value: "$50M Series B (Haun Ventures; Coinbase Ventures, Tiger Global)" },
-      { label: "Valuation", value: "~$750M (Dec 2024)" },
-      { label: "Volume", value: "~$30B annualized (2.3× YoY), ~2.8M tx" },
-      { label: "Partners", value: "Visa" },
+      { label: "Founded", value: "2021 (London) — Jesse Hemson-Struthers (CEO), Chris Harmse, Donald Jackson (ex-Coindirect)" },
+      { label: "Acquisition", value: "Mastercard, up to $1.8B (~$300M contingent), announced Mar 2026 — largest stablecoin deal to date" },
+      { label: "Prior valuation", value: "~$750M (pre-Oct 2025); raised above that after Citi Ventures stake" },
+      { label: "Funding", value: "$50M Series B (Haun Ventures; Tiger Global, Coinbase Ventures) + Visa Ventures (May 2025) + Citi Ventures (Oct 2025)" },
+      { label: "Volume", value: "~$30B annualized at acquisition (from ~$10B Dec 2024 → ~$20B Oct 2025)" },
+      { label: "Licenses", value: "25+ authorizations: US MSB + state MTLs (NMLS 2531294), UK & Malta EMI, VASP, Malta MiCA CASP (Feb 2026)" },
+      { label: "Reach", value: "130+ countries for send/receive across major chains" },
+      { label: "Partners", value: "Visa (Visa Direct stablecoin payouts); now Mastercard (parent)" },
     ],
     links: [
       { label: "Site", url: "https://bvnk.com/" },
       { label: "Payments", url: "https://bvnk.com/payments" },
+      { label: "Embedded Wallets", url: "https://bvnk.com/embedded-wallets" },
+      { label: "Layer1", url: "https://bvnk.com/blog/layer-1" },
+      { label: "API docs", url: "https://docs.bvnk.com/" },
+      { label: "API reference", url: "https://docs.bvnk.com/reference/overview" },
+      { label: "Webhooks", url: "https://docs.bvnk.com/docs/listening-for-payment-webhooks" },
+      { label: "Mastercard acquisition", url: "https://www.mastercard.com/us/en/news-and-trends/press/2026/march/Mastercard-to-acquire-BVNK-to-connect-on-chain-payments-and-fiat-rails.html" },
+      { label: "Visa Direct partnership", url: "https://bvnk.com/blog/bvnk-powers-stablecoin-payments-for-visa-direct" },
+    ],
+    builder: {
+      architecture:
+        "BVNK sits between bank rails (for fiat payin/payout and virtual accounts) and stablecoin chains, exposing one RESTful merchant API over HTTPS with JSON. Core primitives are the Payment (an IN or OUT object with a quoted FX rate and an expiry), the Channel (a reusable address/route an end user can pay into repeatedly), and the Wallet (fiat + stablecoin balances). For custodial products BVNK holds keys and is in the flow of funds; for Layer1, the enterprise self-custodies and BVNK only provides orchestration. State changes are delivered via signed webhooks, which are the source of truth — the client/redirect is not.",
+      integration:
+        "Authenticate with Hawk auth (an API key ID + secret you generate in the Merchant Portal) over a sandbox (api.sandbox.bvnk.com) then production base URL. Two main collection patterns: hosted — create a payment and redirect the customer to BVNK's returned redirectUrl to finish; or merchant-hosted — quote currencies/protocols yourself and supply payout details so funds route with no redirect. Reusable inbound flows use Channels. Verify every webhook's x-signature (HMAC-SHA256 over the raw JSON body) before acting.",
+      apiSurface: [
+        { name: "POST /api/v1/pay/summary", desc: "Create a payment summary — an incoming (IN) or outgoing (OUT) crypto payment with a quoted rate; returns a redirectUrl unless payout details are supplied inline." },
+        { name: "PUT /api/v1/pay/{uuid}/update/summary", desc: "Select the pay currency/protocol on an existing payment summary to lock the quote. [verify exact path]" },
+        { name: "GET /api/v1/pay/{uuid}", desc: "Read a payment's current status and details (poll fallback to webhooks)." },
+        { name: "POST /api/v2/channel", desc: "Create a Channel — a reusable address/route end users pay into, with payCurrency, displayCurrency, reference, customerId, and compliance/originator details." },
+        { name: "GET /api/v2/channel/{id}", desc: "Read a channel and its associated payments (channelPaymentRead)." },
+        { name: "POST payout (fiat/crypto)", desc: "Create a payout to a bank account (EUR/GBP) or wallet/address; settles from your merchant balance or wallet." },
+        { name: "Webhooks (x-signature, HMAC-SHA256)", desc: "Subscribe to payment, channel, crypto, customer, and ledger status events; verify signature over the raw payload." },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Create a crypto payin via the merchant API, then verify the status webhook (Hawk auth + HMAC-SHA256).",
+        code: `import crypto from 'node:crypto';
+
+// 1) Create an incoming payment (hosted flow returns a redirectUrl).
+const res = await fetch('https://api.sandbox.bvnk.com/api/v1/pay/summary', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    // Hawk auth header derived from your API key id + secret:
+    Authorization: hawkHeader(BVNK_KEY_ID, BVNK_SECRET, 'POST', '/api/v1/pay/summary'),
+  },
+  body: JSON.stringify({
+    merchantId: BVNK_MERCHANT_ID,
+    type: 'IN',
+    displayCurrency: { currency: 'EUR' },
+    walletCurrency: 'USDC',
+    reference: 'order-123',
+  }),
+});
+const payment = await res.json();
+// Redirect the customer to payment.redirectUrl to complete the pay-in.
+
+// 2) Webhook handler — treat the webhook, NOT the redirect, as source of truth.
+function handleWebhook(rawBody: string, headers: Record<string, string>) {
+  const expected = crypto
+    .createHmac('sha256', BVNK_WEBHOOK_SECRET)
+    .update(rawBody) // raw JSON, unparsed
+    .digest('hex');
+  if (headers['x-signature'] !== expected) throw new Error('bad signature');
+  const event = JSON.parse(rawBody); // { status: 'COMPLETE' | 'EXPIRED' | ... }
+  // reconcile order-123 against event.status
+}`,
+      },
+      buildNotes: [
+        "Hawk auth signs each request with your key id + secret; quotes on a payment expire, so lock the pay currency/protocol promptly and handle EXPIRED.",
+        "Always build against the sandbox base URL first; switch host + keys for production.",
+        "Webhook signature is HMAC-SHA256 over the raw, unparsed body — verify before JSON.parse, and idempotently reconcile by your own reference.",
+        "[verify exact endpoint paths, versions (v1 pay vs v2 channel), and field names against the live docs.bvnk.com reference.]",
+      ],
+    },
+    products: [
+      {
+        name: "Payments (Payins & Payouts)",
+        tagline: "One API to accept, convert, and pay out across fiat and stablecoins.",
+        whatItIs:
+          "The core merchant product: accept incoming payments (fiat payin to a virtual account, or crypto via a payment/channel), convert with a quoted FX rate, and pay out to a bank account (EUR/GBP) or a wallet/address. Reusable Channels handle repeat inbound flows; hosted and merchant-hosted integration patterns are both supported.",
+        mechanics: [
+          "Payin: fiat to named GBP/EUR virtual accounts, or crypto via a payment summary / channel.",
+          "Convert: BVNK quotes an FX rate (with expiry) between fiat and stablecoins.",
+          "Payout: to bank accounts (EUR/GBP) or to wallets/addresses across major chains, in 130+ countries.",
+          "Status delivered by signed webhooks; hosted flow returns a redirectUrl, merchant-hosted routes inline.",
+        ],
+        stats: [
+          { label: "Volume", value: "~$30B annualized (at acquisition)" },
+          { label: "Reach", value: "130+ countries; major chains" },
+        ],
+      },
+      {
+        name: "Embedded Wallets",
+        tagline: "White-label, per-user wallets unifying fiat and stablecoins.",
+        whatItIs:
+          "Full-stack embedded wallets (launched as part of Layer1, Mar 2025) that let a platform's end users hold and move between USD/EUR/GBP and stablecoins inside the partner's own product. Programmable, white-labelable, and mapped per end-user, with custody, payment, liquidity, and compliance handled by BVNK.",
+        mechanics: [
+          "Per-end-user wallets mapped inside the partner platform.",
+          "Move between USD/EUR/GBP and stablecoins; programmable + white-label.",
+          "BVNK provides custody, liquidity, and compliance underneath.",
+          "BVNK claims the first embedded wallet 'unifying fiat and stablecoins'.",
+        ],
+        stats: [{ label: "Launched", value: "Mar 2025" }],
+      },
+      {
+        name: "Layer1 (Self-Custody Settlement Infrastructure)",
+        tagline: "Run your own stablecoin payments network in-house.",
+        whatItIs:
+          "A self-hosted, self-custody infrastructure product so an enterprise runs its own stablecoin stack — wallets, keys, integrations, and reconciliation — under direct control. BVNK is not in the flow of funds; it provides a modular, payments-first orchestration engine (omnibus wallets, automated consolidation, multi-venue trading, treasury) plus Smart Treasury for AI-driven, real-time liquidity management.",
+        mechanics: [
+          "Enterprise self-custodies keys and owns its data; BVNK only orchestrates.",
+          "Automates wallet creation, reconciliation, asset management, and third-party integrations.",
+          "Smart Treasury: AI-powered, 24/7 liquidity routing across chains, wallets, and venues.",
+          "Risk intelligence powered by Elliptic for compliant settlement at scale.",
+        ],
+        stats: [{ label: "Launched", value: "Layer1, 2025" }],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "Architecture: payments, channels & virtual accounts",
+        body:
+          "BVNK bridges bank rails and stablecoin chains behind one RESTful merchant API (JSON over HTTPS, Hawk auth). The primitives compose into payin/payout flows.",
+        bullets: [
+          "Payment: an IN or OUT object carrying a quoted FX rate and an expiry; hosted flow returns a redirectUrl, merchant-hosted routes inline with payout details.",
+          "Channel: a reusable address/route an end user pays into repeatedly, tagged with per-customer compliance/originator metadata (api/v2/channel).",
+          "Virtual accounts: named GBP/EUR accounts wired to major payment schemes for fiat payin/payout.",
+          "Webhooks (x-signature, HMAC-SHA256) are the source of truth for status — payment, channel, crypto, customer, ledger events.",
+        ],
+      },
+      {
+        heading: "Layer1 & the self-custody settlement model",
+        body:
+          "Layer1 inverts the usual custodial model: instead of BVNK holding funds, the enterprise runs its own stablecoin network and BVNK provides orchestration only — so BVNK is explicitly not in the flow of funds.",
+        bullets: [
+          "Enterprise controls wallets, keys, integrations, reconciliation, and data.",
+          "Modular, payments-first orchestration: omnibus wallets, automated consolidation, multi-venue trading, Digital Asset Engine.",
+          "Smart Treasury adds predictive, AI-powered, 24/7 liquidity management across chains/wallets/venues.",
+          "Elliptic supplies risk intelligence to keep self-managed settlement compliant.",
+        ],
+      },
+      {
+        heading: "Visa Direct partnership & the Mastercard acquisition",
+        body:
+          "BVNK moved from card-network partner to card-network asset within roughly a year — a signal of how strategic stablecoin rails became to the networks.",
+        bullets: [
+          "Visa Ventures invested in BVNK (May 2025); BVNK then powers stablecoin payouts for Visa Direct pilots (enterprises pre-fund in stablecoins, recipients get wallet payouts).",
+          "Citi Ventures took a stake (Oct 2025), pushing valuation above the prior ~$750M.",
+          "Coinbase reportedly neared a ~$2B acquisition before talks ended around Nov 2025.",
+          "Mastercard agreed to acquire BVNK for up to $1.8B (~$300M contingent), announced Mar 2026 — the largest stablecoin deal to date, eclipsing Stripe/Bridge ($1.1B).",
+        ],
+      },
+      {
+        heading: "Compliance & licensing footprint",
+        body:
+          "BVNK's moat is heavily regulatory: a broad, multi-jurisdiction license stack underpins enterprise trust and the network partnerships.",
+        bullets: [
+          "US: registered MSB with FinCEN + state money transmitter (or equivalent) licenses (NMLS ID 2531294).",
+          "UK/EU: two EMI licenses — UK FCA (via the 2022 SPS acquisition) and Malta — plus a VASP registration.",
+          "Malta MiCA CASP licence secured Feb 2026, passported across the EU.",
+          "25+ authorizations in total; compliance/KYC/sanctions screening embedded in payin/channel flows.",
+        ],
+      },
     ],
   },
   {
