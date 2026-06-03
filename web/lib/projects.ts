@@ -2059,81 +2059,441 @@ export function BuyUsdc() {
   {
     slug: "ethena",
     name: "Ethena",
-    url: "https://docs.ethena.fi/",
+    url: "https://ethena.fi/",
     layers: ["L4"],
-    product: "USDe — a delta-neutral synthetic dollar — plus sUSDe for yield.",
-    customer: "Protocols, neo-banks, on-chain users",
-    moat: "Crypto-backed (not fiat reserves) via short-perp hedge. ~5% APY, $14B+ TVL — 3rd largest stablecoin.",
+    product: "USDe (delta-neutral synthetic dollar) + sUSDe (yield) + USDtb (T-bill stable) + iUSDe (institutional).",
+    customer: "Protocols, neo-banks, institutions, on-chain users",
+    moat:
+      "Crypto-collateralized via a basis trade (not bank reserves); higher-than-T-bill yield, $500M+ reserve fund, and the 3rd-largest dollar asset in crypto.",
     region: "Global / on-chain",
     status: "researched",
-    tagline: "A synthetic dollar backed by crypto, not banks.",
+    tagline: "A synthetic dollar backed by crypto and a basis trade, not banks.",
     whatItIs:
-      "Ethena issues USDe, a synthetic dollar backed entirely by digital assets rather than fiat reserves. Staking it into sUSDe earns yield from the hedge. With $14B+ TVL it's among the largest dollar assets in crypto — and a popular yield 'ingredient' for neo-banks.",
+      "Ethena issues USDe, a synthetic dollar backed by crypto collateral that is delta-hedged with short perpetual futures rather than held in fiat bank reserves. Staking USDe into sUSDe (an ERC-4626 vault) captures the protocol's yield — funding-rate income plus staking rewards. It has grown into a multi-token family: USDe (the dollar), sUSDe (the 'Internet Bond' yield token), USDtb (a T-bill/BUIDL-backed stablecoin), and iUSDe (a transfer-restricted institutional wrapper). USDe is among the largest dollar assets in crypto and a popular yield 'ingredient' for neo-banks like UR Global.",
     howItWorks: [
-      "User deposits ETH / staked ETH to mint USDe.",
-      "Ethena simultaneously opens a short ETH perpetual-futures position.",
-      "The short hedges spot price risk, keeping USDe ≈ $1 (delta-neutral).",
-      "Yield = staking rewards + perp funding/basis spread → paid to sUSDe holders (~5% APY).",
+      "A whitelisted market maker deposits crypto collateral (stETH, BTC, USDtb/stables) and mints USDe 1:1 via the permissioned mint/redeem contract.",
+      "Ethena simultaneously opens an equivalent short perpetual-futures position on that collateral, so the portfolio is delta-neutral (~$1 of long spot offset by ~$1 of short perp).",
+      "Collateral is held by off-exchange settlement (OES) custodians (Copper, Ceffu, Fireblocks) and only delegated to exchanges as margin — never moved into exchange custody.",
+      "Yield = perp funding/basis spread + LST staking rewards + a T-bill/stables allocation; it is streamed to the sUSDe vault, so USDe itself stays a non-yield $1 unit and sUSDe accrues value.",
     ],
     differentiators: [
-      "No fiat reserves or bank dependency — fully crypto-collateralized.",
-      "Yield from the derivatives funding rate, often above the T-bill rate.",
-      "Composable across DeFi and embedded by neo-banks (e.g. UR Global).",
+      "No fiat bank reserves — backed by crypto collateral plus an offsetting short-perp hedge (a tokenized basis trade).",
+      "Yield from the derivatives funding rate, historically above the T-bill rate (funding has averaged ~11% APY across the cycle, though it swings negative in bear markets).",
+      "OES custody model keeps collateral off exchanges, reducing (not eliminating) exchange-failure risk.",
+      "Multi-token stack lets it serve DeFi (sUSDe), compliance-sensitive holders (USDtb), and TradFi institutions (iUSDe) from one engine.",
     ],
-    businessModel: "Protocol keeps a portion of the hedge yield; ENA governance token.",
-    dependsOn: ["Perp/futures markets + funding rate", "Staked ETH", "Centralized exchanges (for hedges)"],
+    businessModel:
+      "Protocol retains a share of generated yield (the spread between total hedge/staking income and what is passed to sUSDe) plus reserve-fund accrual; governed by the ENA token, with fee-switch potential to ENA stakers.",
+    dependsOn: [
+      "Perp/futures markets + the funding rate (the core yield source)",
+      "Liquid staking tokens (mostly Lido stETH) and spot BTC as collateral",
+      "Centralized exchanges (for the short hedges)",
+      "OES custodians (Copper, Ceffu, Fireblocks)",
+      "BlackRock BUIDL / tokenized T-bills (for USDtb reserves)",
+    ],
     risks: [
-      "Negative funding rates can erode or invert yield.",
-      "Exchange/custody counterparty risk on the short positions.",
-      "Not a fiat-redeemable stablecoin — a different risk profile entirely.",
+      "Negative funding rates can erode or invert yield; the reserve fund ($500M+) is the buffer against sustained negative funding.",
+      "Exchange counterparty/settlement risk on the short legs, plus custodian (OES) risk.",
+      "Not a fiat-redeemable stablecoin — a distinct, more reflexive risk profile than USDC/USDT.",
+      "Scaling is bounded by open-interest and liquidity in perp markets; mint/redeem is permissioned to whitelisted market makers.",
+      "Smart-contract and de-peg/liquidity risk, as seen in the broad market stress of Oct 2025.",
     ],
     keyFacts: [
-      { label: "Founded", value: "2023 — Guy Young (Ethena Labs)" },
-      { label: "Funding", value: "~$156M (Dragonfly, Brevan Howard, Franklin Templeton, Galaxy, Arthur Hayes)" },
-      { label: "TVL", value: "$14B+ (3rd-largest USD stablecoin, Oct 2025)" },
-      { label: "Token", value: "ENA (governance)" },
+      { label: "Founded", value: "2023 — Guy Young (Ethena Labs); thesis inspired by Arthur Hayes' 'Dust on Crust'" },
+      { label: "Funding", value: "~$120M+ (Dragonfly, Brevan Howard Digital, Franklin Templeton, Fidelity, Galaxy, Arthur Hayes/Maelstrom; plus ENA raises)" },
+      { label: "USDe supply / TVL", value: "~$4–6B range (3rd-largest USD stablecoin; peaked ~$14B in 2025) [verify current]" },
+      { label: "sUSDe APY", value: "Variable — ~4–15% in 2025; ~9–12% trailing avg early 2026, compressing to ~4% in low-funding periods [verify current]" },
+      { label: "Reserve fund", value: "$500M+ buffer against negative funding" },
+      { label: "Tokens", value: "USDe, sUSDe, USDtb, iUSDe; ENA (governance) + sENA (staked)" },
     ],
     links: [
+      { label: "Site", url: "https://ethena.fi/" },
       { label: "Docs", url: "https://docs.ethena.fi/" },
-      { label: "USDe overview", url: "https://docs.ethena.fi/solution-overview/usde-overview" },
+      { label: "USDtb", url: "https://usdtb.money/" },
+      { label: "USDtb docs", url: "https://docs.ethena.fi/usdtb" },
+      { label: "Key addresses", url: "https://docs.ethena.fi/solution-design/key-addresses" },
+      { label: "Minting API docs", url: "https://public.api.ethena.fi/docs/" },
+      { label: "Minting client (GitHub)", url: "https://github.com/ethena-labs/ethena-minting-client" },
     ],
+    products: [
+      {
+        name: "USDe",
+        tagline: "The delta-neutral synthetic dollar.",
+        whatItIs:
+          "A crypto-backed dollar token that targets $1 by pairing long spot collateral (stETH, BTC, stables) with an equal short perpetual-futures position. USDe itself is not yield-bearing — it is the transactional/composable $1 unit; yield lives in sUSDe. Minting/redeeming 1:1 is permissioned to whitelisted market makers via an RFQ flow, while secondary trading is open to anyone.",
+        mechanics: [
+          "Backed ~1:1 by long crypto offset by short perps → portfolio delta ≈ 0, so price tracks $1.",
+          "Collateral sits with OES custodians; exchanges only see it as posted margin.",
+          "Distributed multi-chain via LayerZero OFT (Ethereum, BNB Chain, Arbitrum, Solana, others).",
+          "Holding raw USDe forgoes yield; users stake into sUSDe to earn.",
+        ],
+        stats: [
+          { label: "Peg target", value: "$1.00 (delta-neutral, not fiat-redeemable)" },
+          { label: "Rank", value: "3rd-largest USD stablecoin (2025)" },
+          { label: "Mint/redeem", value: "Permissioned — whitelisted MMs via RFQ" },
+        ],
+      },
+      {
+        name: "sUSDe",
+        tagline: "The 'Internet Bond' — staked USDe that earns the protocol yield.",
+        whatItIs:
+          "An ERC-4626 vault token: deposit USDe, receive sUSDe whose redemption value grows as the protocol streams in funding income + staking rewards. It is the yield-bearing leg of the system and the asset most DeFi protocols integrate as collateral.",
+        mechanics: [
+          "ERC-4626 value-accruing vault — sUSDe:USDe exchange rate rises with yield (not a rebasing balance).",
+          "Yield = perp funding/basis + LST staking + T-bill/stables allocation, net of protocol share.",
+          "Unstaking has a ~7-day cooldown before USDe can be withdrawn.",
+          "Widely integrated as collateral / fixed-yield base (Aave, Pendle, Morpho, etc.).",
+        ],
+        stats: [
+          { label: "APY", value: "Variable — ~4–15% (2025); ~9–12% trailing early 2026 [verify]" },
+          { label: "Standard", value: "ERC-4626 vault" },
+          { label: "Cooldown", value: "~7 days to unstake" },
+        ],
+      },
+      {
+        name: "USDtb",
+        tagline: "A T-bill / BUIDL-backed stablecoin — the 'risk-off' sibling.",
+        whatItIs:
+          "A fiat-style stablecoin backed primarily (>90%) by BlackRock's tokenized T-bill fund (BUIDL), launched Dec 2024. It serves as a low-volatility reserve asset that Ethena can rotate USDe collateral into when funding turns negative, and as a GENIUS-Act-oriented product for institutions. Issued on US soil via Anchorage Digital Bank from Oct 2025.",
+        mechanics: [
+          ">90% of reserves in BlackRock BUIDL (tokenized short-term US Treasuries / repo / cash).",
+          "Acts as an 'insurance' collateral leg: USDe backing can shift into USDtb in bear/negative-funding regimes.",
+          "US issuance through Anchorage Digital Bank (federally chartered crypto bank).",
+          "Targets compliance-sensitive and institutional holders.",
+        ],
+        stats: [
+          { label: "Backing", value: ">90% BlackRock BUIDL (tokenized T-bills)" },
+          { label: "Launched", value: "Dec 16, 2024" },
+          { label: "US issuer", value: "Anchorage Digital Bank (from Oct 15, 2025)" },
+        ],
+      },
+      {
+        name: "iUSDe",
+        tagline: "Institutional, transfer-restricted wrapper of sUSDe.",
+        whatItIs:
+          "A 'TradFi-wrapped sUSDe' that adds programmable transfer restrictions so regulated entities can hold the same delta-neutral yield without touching open crypto rails — often accessed via special-purpose vehicles (SPVs). Functionally identical economics to sUSDe, with compliance guardrails layered on. [verify live status]",
+        mechanics: [
+          "Wrapper around sUSDe with programmable transfer/whitelist restrictions.",
+          "Institutions gain exposure via SPV shares, avoiding direct crypto custody.",
+          "Same underlying yield engine as sUSDe (funding + staking).",
+        ],
+        stats: [
+          { label: "Type", value: "Compliance-wrapped sUSDe (institutional)" },
+          { label: "Access", value: "Via SPVs / restricted transfer" },
+          { label: "Status", value: "Announced; rollout ongoing [verify]" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "Delta-neutral mechanics (the basis trade)",
+        body:
+          "USDe is a tokenized cash-and-carry basis trade. For each USDe, Ethena holds ~$1 of long spot collateral and an offsetting short perpetual-futures position, so the net price exposure (delta) is ~zero and the token holds its $1 value through volatility.",
+        bullets: [
+          "Long leg: LSTs (mostly Lido stETH) and spot BTC, plus stables/USDtb.",
+          "Short leg: perpetual futures on ETH/BTC sized to offset the spot delta.",
+          "If spot falls, the short gains and offsets the spot loss (and vice versa) → peg stability.",
+          "The trade is what hedge funds/market-makers have run for years; Ethena's innovation is packaging it into a transferable token.",
+        ],
+      },
+      {
+        heading: "Yield sources & sustainability",
+        body:
+          "sUSDe yield is the sum of three streams, net of the protocol's cut. The headline driver is perp funding, which is positive most of the time in bull/neutral markets but turns negative in bear markets — the central risk to the yield (and the reason for the reserve fund).",
+        bullets: [
+          "Perpetual funding / basis spread on the short legs (the main, most volatile component).",
+          "Staking rewards from LST collateral (e.g. stETH base ~3%).",
+          "Allocation to T-bills / USDtb / stables for a baseline return.",
+          "Funding has averaged ~11% APY across the cycle but ranged from roughly -6% (2022 bear) to +75% (early-2024 bull).",
+          "Only sUSDe earns; raw USDe holders effectively subsidize stakers, boosting the staked yield.",
+        ],
+      },
+      {
+        heading: "Custody & exchange counterparty model (OES)",
+        body:
+          "Ethena does not deposit collateral directly onto exchanges. It uses Off-Exchange Settlement (OES) providers — institutional custodians that hold assets on-chain while letting the protocol delegate them to exchanges as margin without transferring custody. This caps, but does not remove, exchange-failure loss.",
+        bullets: [
+          "OES providers: Copper (ClearLoop), Ceffu (MirrorX), and Fireblocks.",
+          "Collateral is mirrored to exchanges as margin; an exchange insolvency does not directly seize the underlying.",
+          "Residual exposure: unsettled PnL/funding owed by an exchange between settlement cycles, plus custodian risk itself.",
+          "Settlement happens on a frequent cadence to minimize the amount 'at risk' on any venue at a time.",
+        ],
+      },
+      {
+        heading: "Reserve fund & risk management",
+        bullets: [
+          "Reserve fund $500M+ acts as the backstop for sustained negative funding and to absorb tail losses.",
+          "Collateral can rotate toward USDtb / T-bills when funding is negative, trading yield for stability.",
+          "Reserve-fund RWA allocations were voted on by ENA governance — BlackRock's BUIDL received the largest allocation.",
+          "Key residual risks: prolonged negative funding draining the reserve, exchange/custody failure, LST de-peg, and smart-contract bugs.",
+        ],
+      },
+      {
+        heading: "Converge chain & ENA ecosystem",
+        body:
+          "Ethena is expanding from an issuer into an ecosystem. ENA is the governance token; sENA (staked ENA) secures forthcoming infrastructure. Converge is a planned EVM/WASM L1 aimed at bridging TradFi and DeFi, secured by a validator network using sENA.",
+        bullets: [
+          "ENA — governance over collateral assets, risk parameters, and reserve allocations; sENA is its staked form.",
+          "Converge — high-performance EVM chain for institutional + retail access to tokenized assets, secured via sENA (Converge Validator Network).",
+          "Ethereal — an Ethena-aligned DEX in the ecosystem voted on by ENA governance.",
+          "Roadmap themes: institutional iUSDe, payments/neo-bank ambitions, and deeper TradFi distribution.",
+        ],
+      },
+    ],
+    contracts: [
+      { label: "USDe (token)", value: "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3" },
+      { label: "sUSDe (ERC-4626 vault)", value: "0x9D39A5DE30e57443BfF2A8307A4256c8797A3497" },
+      { label: "USDtb (token)", value: "0xC139190F447e929f090Edeb554D95AbB8b18aC1C" },
+      { label: "ENA (governance token)", value: "0x57e114B691Db790C35207b2e685D4A43181e6061" },
+      { label: "sENA (staked ENA)", value: "0x8bE3460A480c80728a8C4D7a5D5303c85ba7B3b9" },
+      { label: "Mint & Redeem V2", value: "0xe3490297a08d6fC8Da46Edb7B6142E4F461b62D3" },
+    ],
+    builder: {
+      architecture:
+        "Two integration surfaces. (1) For consumers/protocols, sUSDe is a standard ERC-4626 vault: deposit USDe, receive value-accruing shares, and read the live exchange rate via convertToAssets — this is how Aave/Pendle/Morpho list it as collateral. (2) For market makers, USDe minting/redemption is a permissioned RFQ flow against the Mint & Redeem V2 contract: stream indicative quotes, request a formal quote, then submit an EIP-712-signed order; Ethena uses a last-look architecture with tight quote-validity windows, and only whitelisted benefactor addresses can execute.",
+      integration:
+        "Most builders integrate sUSDe (the ERC-4626 token) rather than the mint flow. Holding/earning is permissionless; minting USDe 1:1 is not. The public minting API (public.api.ethena.fi) plus Python/TypeScript SDKs are gated to whitelisted MMs.",
+      apiSurface: [
+        { name: "ERC4626.deposit / mint", desc: "Stake USDe into the sUSDe vault to receive value-accruing shares." },
+        { name: "ERC4626.convertToAssets(shares)", desc: "Read the USDe value of sUSDe — the basis for collateral pricing in DeFi." },
+        { name: "cooldownShares / cooldownAssets", desc: "Begin the ~7-day unstake cooldown before withdrawing USDe." },
+        { name: "POST /rfq (minting API)", desc: "Whitelisted MMs request a firm mint/redeem quote (pair, side MINT|REDEEM, size, benefactor)." },
+        { name: "POST /order (minting API)", desc: "Submit an EIP-712-signed mint/redeem order referencing the RFQ id (last-look)." },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Read the live sUSDe→USDe rate to price it as collateral (permissionless, ERC-4626).",
+        code: `import { createPublicClient, http, parseAbi, parseUnits } from 'viem';
+import { mainnet } from 'viem/chains';
+
+const sUSDe = '0x9D39A5DE30e57443BfF2A8307A4256c8797A3497';
+const client = createPublicClient({ chain: mainnet, transport: http() });
+
+// 1 sUSDe share -> how many USDe? (rate > 1 and rising as yield accrues)
+const usdePerShare = await client.readContract({
+  address: sUSDe,
+  abi: parseAbi(['function convertToAssets(uint256) view returns (uint256)']),
+  functionName: 'convertToAssets',
+  args: [parseUnits('1', 18)],
+});
+// Use this rate to mark sUSDe collateral; staking/unstaking USDe is via deposit() + cooldownShares().`,
+      },
+      buildNotes: [
+        "sUSDe is value-accruing (ERC-4626), not rebasing — track the exchange rate, never a fixed 1:1 to USDe.",
+        "Unstaking is not instant: a ~7-day cooldown gates USDe withdrawal; model this in any leverage/liquidation logic.",
+        "Minting USDe is permissioned (whitelisted market makers, RFQ + last-look); typical integrators source USDe/sUSDe on the secondary market instead.",
+        "[verify exact API field names and cooldown duration against the latest docs — these evolve]",
+      ],
+    },
   },
   {
     slug: "ondo-finance",
     name: "Ondo Finance",
-    url: "https://ondo.finance/usdy",
+    url: "https://ondo.finance/",
     layers: ["L4"],
-    product: "USDY — a tokenized note backed by short-term US Treasuries; rUSDY rebasing version.",
-    customer: "Non-US investors, protocols",
-    moat: "T-bill yield in a transferable token; multi-chain (incl. Stellar). RWA-first brand.",
+    product:
+      "Tokenized US Treasuries — USDY (yield-bearing note) & OUSG (BlackRock-backed fund) — plus Ondo Chain, an L1 for RWAs.",
+    customer: "Non-US investors, institutions, protocols",
+    moat:
+      "RWA category leader: $2.75B+ TVL across USDY + OUSG, instant USDC mint/redeem, multi-chain, and Ondo Chain — a permissioned-validator L1 with TradFi design advisors (Franklin Templeton, WisdomTree).",
     region: "Global (ex-US)",
     status: "researched",
-    tagline: "T-bill yield, tokenized.",
+    tagline: "Tokenized US Treasuries, and the rails to trade them.",
     whatItIs:
-      "Ondo's USDY is a tokenized note secured by short-term US Treasuries and bank deposits — a stablecoin-like instrument that also pays the T-bill yield. It comes in an accruing form (price drifts above $1) and a rebasing form, rUSDY, that holds $1 and pays yield as extra tokens.",
+      "Ondo Finance is the leading real-world-asset (RWA) protocol, tokenizing US Treasuries and short-term cash. USDY is a yield-bearing token backed by short-term Treasuries and bank deposits for non-US retail/institutions; OUSG is an institutional fund holding tokenized Treasuries (incl. BlackRock's BUIDL) with instant USDC mint/redeem. Ondo is extending from products into infrastructure with Ondo Global Markets (tokenized US stocks/ETFs) and Ondo Chain, a purpose-built L1 for tokenized finance.",
     howItWorks: [
-      "Deposits buy short-term US Treasuries + bank demand deposits as collateral.",
-      "Yield accrues daily; USDY's price drifts above $1 as interest compounds.",
-      "rUSDY: rebasing variant stays at $1, paying yield via extra tokens.",
-      "Issued multi-chain (e.g. Ethereum, Stellar).",
+      "USDY: deposit USDC (or wire $100K+); reserves buy short-term US Treasuries + bank demand deposits. Yield accrues daily — USDY's price drifts above $1 as interest compounds.",
+      "rUSDY: a rebasing wrapper that holds a $1.00 price and pays yield as additional tokens each business day, so it composes like a normal stablecoin.",
+      "OUSG: a tokenized fund (largely BlackRock BUIDL + short-term Treasury ETFs) for qualified investors, with instant subscribe/redeem against USDC (PYUSD planned) via on-chain InstantManager contracts.",
+      "Ondo Nexus: routes instant liquidity/redemption across third-party tokenized Treasuries (BlackRock, Franklin Templeton, Wellington, WisdomTree) using OUSG's mint/redeem engine.",
+      "Ondo Chain: an L1 with permissioned validators, RWA-backed staking, enshrined oracles, and native omnichain bridging to host institutional RWA markets.",
     ],
     differentiators: [
-      "Real-world-asset (RWA) brand leader; institutional framing.",
-      "Choice of accruing (USDY) vs. rebasing (rUSDY).",
-      "Yield from the risk-free rate, not derivatives.",
+      "RWA brand + scale leader: $2.75B+ TVL; USDY live across Ethereum, Solana, Sui, Aptos, Mantle, Stellar, XRP, Noble and more.",
+      "Instant, programmatic mint/redeem against USDC via on-chain InstantManager contracts — not just wire-based subscription.",
+      "Vertical integration: products (USDY/OUSG) + liquidity (Nexus) + securities (Global Markets) + its own L1 (Ondo Chain).",
+      "Institutional credibility: BlackRock BUIDL backing for OUSG; TradFi design advisors (Franklin Templeton, Wellington, WisdomTree, Google Cloud).",
     ],
-    businessModel: "Management fee on assets (yield ceiling = fed funds − fee).",
-    dependsOn: ["US Treasury market", "Regulated custodians/brokers", "Chains"],
-    risks: ["Restricted from US persons.", "Rate-cut risk compresses yield.", "RWA/custody + legal structure risk."],
+    businessModel:
+      "Management fee on assets (yield ceiling ≈ risk-free rate − fee); spread/fees on Global Markets securities; future Ondo Chain transaction + infrastructure economics.",
+    dependsOn: [
+      "US Treasury market + interest rates",
+      "BlackRock (BUIDL) and regulated custodians/brokers",
+      "USDC liquidity (Circle) for instant mint/redeem",
+      "Underlying chains (Ethereum, Solana, etc.) until Ondo Chain matures",
+    ],
+    risks: [
+      "USDY/OUSG restricted from US persons; KYC/registry-gated (OndoIDRegistry) access.",
+      "Rate-cut risk compresses the underlying T-bill yield.",
+      "RWA/custody + legal-structure risk; reliance on off-chain Treasury custodians and BlackRock's fund.",
+      "Execution risk on the move from products into an L1 + a tokenized-securities exchange against TradFi and crypto incumbents.",
+    ],
     keyFacts: [
-      { label: "Founded", value: "2021 (New York) — Nathan Allman, Pinku Surana" },
-      { label: "Funding", value: "$20M Series A (Founders Fund, Pantera) + $250M (Pantera, 2025)" },
-      { label: "Collateral", value: "Short-term US Treasuries + bank deposits" },
-      { label: "Variants", value: "USDY (accruing), rUSDY (rebasing)" },
+      { label: "Founded", value: "2021 (New York) — Nathan Allman (ex-Goldman), Pinku Surana" },
+      { label: "Funding", value: "~$46M (Founders Fund, Pantera, Coinbase Ventures) + Ondo Catalyst — $250M RWA fund with Pantera (Jul 2025)" },
+      { label: "TVL / AUM", value: "$2.75B+ total (early 2026); OUSG ~$1.1B+, USDY ~$740M supply" },
+      { label: "USDY yield", value: "~4.65% APY (Apr 2026); OUSG ~3.75% (late 2025)" },
+      { label: "Variants", value: "USDY (accruing), rUSDY (rebasing), OUSG (institutional fund)" },
+      { label: "Chains", value: "Ethereum, Solana, Sui, Aptos, Mantle, Arbitrum, Stellar, XRP, Noble, Polygon (OUSG)" },
+      { label: "Token", value: "ONDO (governance / ecosystem)" },
+      { label: "Ondo Chain", value: "RWA L1 announced Feb 2025 (Ondo Summit)" },
+      { label: "Global Markets", value: "Tokenized US stocks/ETFs; launched Sep 2025 — $6.8B+ cumulative volume, $460M+ TVL" },
     ],
     links: [
-      { label: "USDY", url: "https://ondo.finance/usdy" },
       { label: "Site", url: "https://ondo.finance/" },
+      { label: "USDY", url: "https://ondo.finance/usdy" },
+      { label: "OUSG", url: "https://ondo.finance/ousg" },
+      { label: "Ondo Chain", url: "https://ondo.finance/ondo-chain" },
+      { label: "Docs", url: "https://docs.ondo.finance/" },
+      { label: "Smart contract addresses", url: "https://docs.ondo.finance/addresses" },
+      { label: "USDY InstantManager guide", url: "https://docs.ondo.finance/developer-guides/usdy-instant-manager-integration" },
+      { label: "Ondo Nexus", url: "https://blog.ondo.finance/introducing-ondo-nexus/" },
+      { label: "Pantera $250M (Catalyst)", url: "https://www.coindesk.com/business/2025/07/03/ondo-pantera-capital-to-invest-250m-in-real-world-asset-projects" },
+    ],
+    products: [
+      {
+        name: "USDY / rUSDY",
+        tagline: "A yield-bearing tokenized dollar for non-US holders.",
+        whatItIs:
+          "USDY is a tokenized note backed by short-term US Treasuries and bank demand deposits, available to qualifying non-US individuals and institutions. It comes in two forms: USDY (accruing — the price drifts above $1 as yield compounds) and rUSDY (rebasing — holds a $1.00 price and pays yield as extra tokens), so integrators can pick whichever unit suits their app.",
+        mechanics: [
+          "Mint with USDC (instant, via InstantManager) or wire $100K+; a 40–50 day initial holding/settlement applies before first transfer on some paths. [verify exact lockup]",
+          "USDY price updates each business day off the reference yield; rUSDY rebases the same balance to keep ~$1.00.",
+          "Redeem to USDC (via Ondo Global Markets BVI) or to a non-US bank account via wire; $5K minimum on most chains.",
+          "Issued natively across Ethereum, Solana, Sui, Aptos, Mantle, Stellar, XRP, Noble and more.",
+        ],
+        stats: [
+          { label: "Supply", value: "~$740M (Apr 2026)" },
+          { label: "Yield", value: "~4.65% APY" },
+          { label: "Forms", value: "USDY (accruing) · rUSDY (rebasing)" },
+        ],
+      },
+      {
+        name: "OUSG",
+        tagline: "Institutional tokenized Treasuries with instant USDC settlement.",
+        whatItIs:
+          "OUSG is a tokenized, yield-bearing Treasuries fund for qualified/accredited investors, backed largely by BlackRock's BUIDL fund plus short-term Treasury ETFs. Its headline feature is instant, 24/7 mint and redeem against USDC through on-chain InstantManager contracts — turning a T-bill fund into a programmable, liquid token.",
+        mechanics: [
+          "Subscribe/redeem instantly against USDC (PYUSD planned); minimum $5K instant redemption, $50K non-instant.",
+          "Instant minting limits: $50M global / $25M per investor within 24 hours.",
+          "Callers must be registered in the OndoIDRegistry (KYC-gated, non-US qualified investors).",
+          "Backing held in BlackRock BUIDL + short-term Treasury ETFs via regulated custody.",
+        ],
+        stats: [
+          { label: "TVL", value: "~$1.1B+ (late 2025)" },
+          { label: "Yield", value: "~3.75%" },
+          { label: "Settlement", value: "Instant mint/redeem in USDC" },
+        ],
+      },
+      {
+        name: "Ondo Chain & Global Markets",
+        tagline: "An L1 for RWAs plus a tokenized-securities platform.",
+        whatItIs:
+          "Ondo's infrastructure bet. Ondo Chain (announced Feb 2025) is a Layer 1 purpose-built for tokenized finance, combining permissioned institutional validators with open developer access. Ondo Global Markets brings traditional public securities (US stocks/ETFs) on-chain via APIs, so apps can offer tokenized equities the way they offer tokenized Treasuries today.",
+        mechanics: [
+          "Ondo Chain four-pillar design: permissioned validators, RWA-backed staking, enshrined oracles, native omnichain bridging.",
+          "Global Markets: APIs to mint/trade tokenized US stocks and ETFs with on-chain settlement.",
+          "Design advisors include Franklin Templeton, Wellington Management, WisdomTree, Google Cloud, ABN Amro.",
+          "Nexus provides cross-issuer instant liquidity for third-party tokenized Treasuries.",
+        ],
+        stats: [
+          { label: "GM volume", value: "$6.8B+ cumulative (since Sep 2025)" },
+          { label: "GM TVL", value: "$460M+" },
+          { label: "Chain status", value: "Announced Feb 2025; rolling out" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "USDY vs rUSDY: accrual mechanics",
+        body:
+          "USDY ships in two interchangeable forms so integrators choose the right unit of account. The economics are identical — both earn the yield on short-term Treasuries and bank deposits — but the balance/price behavior differs.",
+        bullets: [
+          "USDY (accruing): fixed balance, rising price. The token's reference price updates each business day and drifts above $1.00 as interest compounds — like a money-market NAV.",
+          "rUSDY (rebasing): fixed ~$1.00 price, growing balance. Yield arrives as additional rUSDY tokens, so it behaves like a normal stablecoin in UIs and DeFi accounting.",
+          "Convertible 1:1 in value between the two via the rUSDY wrapper.",
+          "rUSDY is the friendlier primitive for payments/DeFi where a clean $1 unit matters; USDY suits treasuries that want a single non-rebasing holding.",
+        ],
+      },
+      {
+        heading: "OUSG instant mint/redeem & BlackRock backing",
+        body:
+          "OUSG is the institutional product and the liquidity engine behind Ondo Nexus. Unlike wire-based fund subscriptions, OUSG can be minted and redeemed on-chain in USDC around the clock through InstantManager contracts.",
+        bullets: [
+          "Backing is dominated by BlackRock's BUIDL tokenized money-market fund plus short-term Treasury ETFs.",
+          "Instant subscribe converts USDC → OUSG; instant redeem converts OUSG → USDC, both gated to OndoIDRegistry-registered qualified investors.",
+          "Guardrails: $50M global / $25M per-investor instant-mint caps per 24h; $5K instant / $50K non-instant redemption minimums.",
+          "Nexus reuses this engine to offer instant redemption across third-party tokenized Treasuries (Franklin Templeton, Wellington, WisdomTree).",
+        ],
+      },
+      {
+        heading: "Ondo Chain & Global Markets strategy",
+        body:
+          "Ondo is moving up the stack from issuing RWA tokens to owning the rails. The thesis: institutions won't run core markets on fully permissionless chains, but want public-chain composability — so Ondo is building an L1 that bridges both, plus a securities platform to bring stocks on-chain.",
+        bullets: [
+          "Ondo Chain: permissioned validators (regulated institutions) for trust + open access for developers; RWA-backed staking and enshrined oracles reduce reliance on third-party price feeds.",
+          "Global Markets: tokenized US equities/ETFs via API, extending Ondo's Treasury playbook to the broader securities market ($6.8B+ volume since Sep 2025).",
+          "Ondo Catalyst: a $250M fund with Pantera (Jul 2025) seeding RWA protocols/infrastructure — building an ecosystem around Ondo's rails.",
+          "Vertical stack — products + Nexus liquidity + Global Markets + L1 — is the real moat vs. single-product T-bill issuers like Mountain.",
+        ],
+      },
+      {
+        heading: "Regulatory & risk posture",
+        bullets: [
+          "USDY and OUSG are explicitly restricted from US persons and gated by KYC/registry (OndoIDRegistry) — a compliance-first, non-US framing.",
+          "Yield is the risk-free rate minus fee, so Fed rate cuts directly compress returns.",
+          "Off-chain dependencies: Treasury custodians, BlackRock's BUIDL fund, and USDC liquidity for instant redemption.",
+          "Issuance via offshore entities (e.g. Ondo Global Markets BVI / Ondo USDY LLC) carries legal-structure and bankruptcy-remoteness considerations. [verify entity details]",
+        ],
+      },
+    ],
+    builder: {
+      architecture:
+        "Ondo exposes its products as standard tokens (USDY/rUSDY 18-decimal ERC-20s; OUSG) plus on-chain 'InstantManager' contracts that handle subscribe (USDC → RWA) and redeem (RWA → USDC). Access is permissioned: a caller must be registered in the OndoIDRegistry (KYC for non-US qualified investors) and must approve the manager contract to spend its tokens before any mint/redeem. There is no separate REST API for mint/redeem — integration is direct smart-contract calls; ONDO governance and reference-price updates happen on-chain.",
+      integration:
+        "To embed USDY/OUSG: (1) get the integrating wallet KYC'd into the OndoIDRegistry, (2) approve the USDY_InstantManager / OUSG_InstantManager for USDC and the RWA token, (3) call subscribe()/redeem() with slippage bounds. USDC is 6 decimals; USDY/OUSG are 18 decimals, so amounts must be scaled accordingly (e.g. 100e6 USDC, 100e18 USDY).",
+      apiSurface: [
+        { name: "subscribe(depositToken, depositAmount, minimumRwaReceived)", desc: "InstantManager: convert USDC → USDY/OUSG. minimumRwaReceived is slippage protection in the RWA's 18 decimals (0 is safe for direct minting)." },
+        { name: "redeem(rwaAmount, receivingToken, minimumTokenReceived)", desc: "InstantManager: convert USDY/OUSG → USDC. minimumTokenReceived is in the receiving token's decimals." },
+        { name: "OndoIDRegistry (KYC gate)", desc: "Caller address must be registered/whitelisted before subscribe/redeem succeed." },
+        { name: "ERC-20 approve()", desc: "Approve the InstantManager to spend USDC (mint) or the RWA token (redeem) first." },
+        { name: "rUSDY wrap/unwrap", desc: "Wrap accruing USDY into rebasing rUSDY (or back) for a clean $1.00 unit in DeFi. [verify exact wrapper method names]" },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Instant-mint USDY with 100 USDC via the USDY_InstantManager (ethers v6).",
+        code: `import { Contract, parseUnits } from 'ethers';
+
+const USDC  = '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'; // 6 decimals
+const USDY_INSTANT_MANAGER = '0xa42613C243b67BF6194Ac327795b926B4b491f15';
+
+// caller wallet must already be registered in the OndoIDRegistry (KYC)
+const usdc = new Contract(USDC, ['function approve(address,uint256) returns (bool)'], signer);
+await usdc.approve(USDY_INSTANT_MANAGER, parseUnits('100', 6));
+
+const manager = new Contract(
+  USDY_INSTANT_MANAGER,
+  ['function subscribe(address depositToken, uint256 depositAmount, uint256 minimumRwaReceived)'],
+  signer,
+);
+// 100 USDC -> USDY; 0 minOut is safe for direct minting (no AMM)
+await manager.subscribe(USDC, parseUnits('100', 6), 0n);`,
+      },
+      buildNotes: [
+        "Decimals mismatch is the classic bug: USDC is 6 decimals, USDY/OUSG are 18 — scale amounts per token, not a shared constant.",
+        "Mint/redeem are gated: an un-registered address will revert. Onboard the wallet to the OndoIDRegistry first (non-US qualified investors only).",
+        "OUSG instant flows have caps ($50M global / $25M per investor per 24h) and minimums ($5K instant / $50K non-instant redeem) — handle revert/queue cases.",
+        "[verify current addresses against docs.ondo.finance/addresses before mainnet use — proxies and per-chain addresses change]",
+      ],
+    },
+    contracts: [
+      { label: "USDY (Ethereum)", value: "0x96F6eF951840721AdBF46Ac996b59E0235CB985C" },
+      { label: "rUSDY (Ethereum)", value: "0xaf37c1167910ebC994e266949387d2c7C326b879" },
+      { label: "USDY_InstantManager (Ethereum)", value: "0xa42613C243b67BF6194Ac327795b926B4b491f15" },
+      { label: "OUSG (Ethereum)", value: "0x1B19C19393e2d034D8Ff31ff34c81252FcBbee92" },
+      { label: "OUSG_InstantManager (Ethereum)", value: "0x93358db73B6cd4b98D89c8F5f230E81a95c2643a" },
+      { label: "USDY (Solana)", value: "A1KLoBrKBde8Ty9qtNQUtq3C2ortoC3u7twggz7sEto6" },
+      { label: "OUSG (Solana)", value: "i7u4r16TcsJTgq1kAG8opmVZyVnAKBwLKu6ZPMwzxNc" },
     ],
   },
   {
