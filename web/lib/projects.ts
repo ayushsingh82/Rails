@@ -3305,68 +3305,337 @@ export function handleWebhook(event: { event: string; order_id: string }) {
     name: "Nubank",
     url: "https://nubank.com.br/",
     layers: ["L5"],
-    product: "LatAm digital bank adding stablecoin yield + spend on top of core banking.",
-    customer: "120M+ consumers (Brazil/LatAm)",
-    moat: "Massive distribution; diversifying from interchange/FX into stablecoin yield products.",
-    region: "Brazil / LatAm",
+    product:
+      "LatAm digital bank with in-app crypto trading (Nubank Cripto) and 4%-yield USDC rewards on top of core banking + Pix.",
+    customer: "131M+ consumers (Brazil, Mexico, Colombia)",
+    moat:
+      "Distribution at sovereign scale (131M+ users) + bank licenses; routes Paxos crypto rails and USDC yield to a profitable retail base ($2.9B FY25 net income).",
+    region: "Brazil / Mexico / Colombia",
     status: "researched",
-    tagline: "LatAm's banking giant, adding stablecoin rails.",
+    tagline: "LatAm's banking giant, putting a yield-bearing dollar in 131M pockets.",
     whatItIs:
-      "Nubank is one of the world's largest digital banks, with 120M+ customers across Brazil and Latin America. It's layering stablecoin features — yield and spend — onto an enormous existing user base, diversifying beyond interchange and FX.",
+      "Nubank (NYSE: NU; parent Nu Holdings) is one of the world's largest digital banks, with 131M+ customers across Brazil, Mexico, and Colombia. Its crypto/stablecoin lens is Nubank Cripto — in-app buy/sell of crypto powered by Paxos — and, most importantly, a USDC rewards product paying a fixed 4% per year on USDC balances. With ~90% of Brazilian crypto activity already in stablecoins, Nubank is effectively distributing a yield-bearing digital dollar to a mass-retail base that few crypto-natives can reach, while diversifying revenue beyond interchange, credit, and FX.",
     howItWorks: [
-      "Core digital bank: accounts, cards, credit for 120M+ users.",
-      "Adding USDC/USDT support with in-app conversion + spend.",
-      "Positioned to route stablecoin yield to a massive retail base.",
+      "Core digital bank: NuConta accounts, the purple Mastercard, credit cards, lending, and instant Pix payments for 131M+ users.",
+      "Nubank Cripto: customers buy, hold, and sell crypto (BTC, ETH, USDC, SOL, and more) inside the main app — custody and brokerage are handled by Paxos, so Nubank never builds the trading/custody stack itself.",
+      "USDC rewards: opt-in 'I Want to Participate' on a USDC balance ≥10 USDC earns a fixed 4%/yr, credited automatically every day with immediate liquidity — the standout stablecoin product, expanded to all Nubank Cripto users in Brazil in Jan 2025.",
+      "Roadmap: piloting stablecoin-funded credit-card payments in Brazil (announced at Stellar's Meridian 2025 by vice-chairman Roberto Campos Neto), tying blockchain dollars to everyday spend.",
     ],
     differentiators: [
-      "Distribution at a scale few crypto-natives can reach.",
-      "Profitable (~$2B net income, 2024).",
-      "Trusted consumer brand across LatAm.",
+      "Distribution at a scale crypto-natives can't touch — 131M+ users, ~30% of Nubank Cripto holders already hold USDC, and >50% of new Cripto users pick USDC as their first asset.",
+      "A real yield product (fixed 4% on USDC) wrapped in a trusted, regulated bank app — not a speculative trade.",
+      "Profitable at scale: $2.9B FY25 net income, $16.3B revenue (+45% YoY), ~33% ROE — funds the crypto bets from earnings, not venture cash.",
+      "Composes Paxos rails rather than building custody/brokerage, keeping crypto a feature of the bank, not a separate venture.",
     ],
-    businessModel: "Interchange, credit, FX — adding stablecoin yield spread.",
-    dependsOn: ["Banking licenses", "Stablecoin issuers"],
-    risks: ["LatAm macro + FX volatility.", "[verify exact stablecoin product scope]"],
+    businessModel:
+      "Interchange, net interest income (credit cards + lending), and FX, plus a spread on Nubank Cripto trading (low, transparent fees via Paxos) and the margin between the USDC reserve/yield it earns and the 4% it pays customers. Crypto is a retention + ARPAC driver more than a standalone profit center today.",
+    dependsOn: [
+      "Paxos (crypto custody + brokerage rails behind Nubank Cripto)",
+      "Circle / USDC (the stablecoin and its reserve yield)",
+      "Banking + payment licenses (Brazil, Mexico, Colombia)",
+      "Local instant-payment rails (Pix in Brazil, SPEI in Mexico)",
+      "Mastercard (card issuing + spend)",
+    ],
+    risks: [
+      "LatAm macro + FX volatility, and rate cuts that compress the reserve yield funding the 4% USDC rewards.",
+      "Stablecoin/crypto regulatory and tax uncertainty in Brazil (and across markets) — the credit-card stablecoin pilot faces classification, peg, and consumer-protection roadblocks.",
+      "Closed-loop pivot risk: Nubank's own token (Nucoin) was discontinued as a tradable crypto asset in 2024 — a reminder that consumer-token bets can be unwound.",
+      "Counterparty/concentration risk on Paxos and Circle for the entire crypto stack.",
+    ],
     keyFacts: [
-      { label: "Founded", value: "2013 (São Paulo)" },
-      { label: "Users", value: "120M+ (Brazil, Mexico, Colombia)" },
-      { label: "Listed", value: "NYSE: NU" },
-      { label: "Status", value: "🟡 verify stablecoin scope" },
+      { label: "Founded", value: "2013 (São Paulo) — David Vélez, Cristina Junqueira, Edward Wible" },
+      { label: "Listed", value: "NYSE: NU (Nu Holdings); BDR ROXO34 (B3). IPO Dec 2021" },
+      { label: "Customers", value: "131M+ (Dec 2025) across Brazil, Mexico, Colombia" },
+      { label: "FY2025 revenue", value: "$16.3B (+45% YoY)" },
+      { label: "FY2025 net income", value: "$2.9B (vs $2.0B FY24); Q4'25 $895M, ~33% ROE" },
+      { label: "USDC rewards", value: "Fixed 4%/yr, min 10 USDC, credited daily (all Brazil Cripto users since Jan 2025)" },
+      { label: "USDC adoption", value: "USDC held by customers grew ~10× in 2024; ~30% of Cripto users hold it" },
+      { label: "Crypto partner", value: "Paxos (custody + brokerage) for Nubank Cripto since 2022" },
     ],
-    links: [{ label: "Site", url: "https://nubank.com.br/" }],
+    links: [
+      { label: "Site", url: "https://nubank.com.br/" },
+      { label: "Investor relations", url: "https://international.nubank.com.br/investors/" },
+      { label: "USDC rewards for all customers", url: "https://international.nubank.com.br/consumers/nubank-expands-usdc-rewards-program-to-all-customers/" },
+      { label: "Paxos × Nubank crypto launch", url: "https://www.paxos.com/newsroom/nubank-enters-crypto-trading-with-simple-and-safe-in-app-experience-that-will-democratize-access" },
+      { label: "FY2025 results", url: "https://international.nubank.com.br/company/nu-holdings-ltd-reports-fourth-quarter-and-full-year-2025-financial-results/" },
+      { label: "Pix, Open Finance & tokenization", url: "https://international.nubank.com.br/company/david-velez-and-roberto-campos-neto-discuss-the-next-frontier-of-global-financial-services-pix-open-finance-and-tokenization/" },
+    ],
+    products: [
+      {
+        name: "USDC Rewards",
+        tagline: "A yield-bearing digital dollar for the mass market.",
+        whatItIs:
+          "An opt-in feature inside Nubank Cripto that pays a fixed 4% per year on USDC balances, credited automatically every day with immediate liquidity. Rolled out to a pilot group through 2024 (at variable rates) and expanded to all Nubank Cripto users in Brazil in January 2025. This is Nubank's flagship stablecoin product — a simple savings-like dollar return wrapped in the bank app.",
+        mechanics: [
+          "Activate via 'I Want to Participate' in the in-app crypto wallet; deactivate/reactivate anytime.",
+          "Minimum balance of 10 USDC to earn; rewards accrue and credit daily.",
+          "Fixed 4%/yr rate (replacing the earlier variable-rate pilot).",
+          "USDC is redeemable 1:1 for US dollars and backed by the issuer's reserves; Nubank earns the spread between reserve yield and the 4% paid out.",
+        ],
+        stats: [
+          { label: "Rate", value: "Fixed 4% per year" },
+          { label: "Minimum", value: "10 USDC; credited daily" },
+          { label: "Availability", value: "All Brazil Cripto users since Jan 2025" },
+          { label: "Adoption", value: "USDC holdings ~10× in 2024; ~30% of Cripto users hold USDC" },
+        ],
+      },
+      {
+        name: "Nubank Cripto",
+        tagline: "In-app crypto trading, powered by Paxos.",
+        whatItIs:
+          "An exclusive in-app experience (live since 2022) where customers buy, hold, and sell crypto directly inside the main Nubank app. Paxos provides custody and brokerage, so Nubank ships a regulated trading product without building exchange/custody infrastructure. Launched with BTC and ETH; the asset list has since broadened (incl. USDC, SOL, and others).",
+        mechanics: [
+          "Trades execute through Paxos as custodian/broker — no separate exchange app or external wallet needed.",
+          "Started with trades from BRL 1.00 (~US$0.20); low, transparent commission (initially ~0.12–0.18% of trade value, no spread/markup).",
+          "Sits inside the same app as accounts, cards, and Pix — crypto as a banking feature, not a silo.",
+          "Feeds the USDC rewards funnel: >50% of new Cripto users choose USDC as their first asset.",
+        ],
+        stats: [
+          { label: "Partner", value: "Paxos (custody + brokerage)" },
+          { label: "Live since", value: "2022 (Brazil)" },
+          { label: "Min trade", value: "From BRL 1.00 (~$0.20)" },
+        ],
+      },
+      {
+        name: "Core banking + Pix",
+        tagline: "The 131M-user account the crypto rides on.",
+        whatItIs:
+          "Nubank's foundation: the NuConta account, purple Mastercard, credit cards, lending, and instant payments via Pix (Brazil) and equivalents like SPEI (Mexico). This base is the distribution engine and the moat — every crypto/stablecoin feature is bolted onto an already-loved, profitable consumer app.",
+        mechanics: [
+          "Free/low-cost accounts + cards drive interchange and net interest income.",
+          "Pix instant payments make Nubank a daily-use app, deepening engagement and ARPAC.",
+          "Multi-market: interoperates with each country's rails (Pix/BR, SPEI/MX).",
+          "Stablecoin roadmap: piloting stablecoin-funded credit-card payments in Brazil (Meridian 2025).",
+        ],
+        stats: [
+          { label: "Customers", value: "131M+ (Dec 2025)" },
+          { label: "ARPAC", value: "~$15/active customer (Q4'25)" },
+          { label: "Markets", value: "Brazil, Mexico, Colombia" },
+        ],
+      },
+      {
+        name: "Nucoin",
+        tagline: "From tradable token to closed-loop loyalty points.",
+        whatItIs:
+          "Nubank's loyalty token, launched March 2023 on Polygon to reward everyday banking activity. As a tradable crypto asset it was discontinued in 2024: trading was suspended and holders were offered conversion to Bitcoin or USDC. It now survives only as a closed-loop rewards mechanism redeemable for benefits inside the Nubank ecosystem (shopping discounts, brand experiences) — not withdrawable on-chain.",
+        mechanics: [
+          "Originally minted on Polygon; 100B unit supply, ~80% earmarked for customers.",
+          "Earned through card spend, investing, and account usage.",
+          "Tradable functionality discontinued in 2024 — converted to BTC/USDC for opted-in holders.",
+          "Now functions purely as in-app loyalty points; cannot be moved to external wallets.",
+        ],
+        stats: [
+          { label: "Launched", value: "Mar 2023 (Polygon)" },
+          { label: "Status", value: "Trading discontinued 2024; now closed-loop loyalty" },
+          { label: "Supply", value: "100B units (~80% to customers)" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "The stablecoin product & Paxos rails",
+        body:
+          "Nubank's crypto stack is deliberately composed, not built. Paxos provides custody and brokerage for Nubank Cripto, and USDC (Circle) is the dollar primitive. The strategic product is the 4% USDC rewards feature — a savings-like dollar return that meets a very real LatAm demand for dollar exposure without a US bank account.",
+        bullets: [
+          "Custody + brokerage outsourced to Paxos since 2022 — Nubank owns the customer and UX, not the exchange/custody risk.",
+          "USDC rewards: fixed 4%/yr on ≥10 USDC, daily credit, instant liquidity, opt-in/out anytime.",
+          "Economics: Nubank captures the spread between USDC reserve yield and the 4% paid to users; rate-cut exposure on that spread.",
+          "Demand signal: ~30% of Cripto users hold USDC, >50% of new Cripto users pick USDC first, USDC balances grew ~10× in 2024.",
+        ],
+      },
+      {
+        heading: "Distribution & scale moat",
+        body:
+          "Nubank's edge over crypto-natives is sovereign-scale distribution funded by real profit. With 131M+ customers and $2.9B FY25 net income, it can put a yield-bearing dollar in front of more people than any crypto wallet — and it does so from inside an app users already trust for daily banking.",
+        bullets: [
+          "131M+ customers across Brazil, Mexico, Colombia; +17M added in FY25.",
+          "FY25: $16.3B revenue (+45% YoY), $2.9B net income, ~33% ROE, ARPAC ~$15.",
+          "Crypto/stablecoin features increase engagement and ARPAC rather than standing alone as a P&L line.",
+          "Trust + regulated status convert mass-retail skeptics into stablecoin holders.",
+        ],
+      },
+      {
+        heading: "Pix, Brazil rails & Open Finance",
+        body:
+          "Nubank sits on top of Pix, Brazil's instant-payment system, which made the app a daily-use utility. Leadership (incl. vice-chairman and former central-bank governor Roberto Campos Neto) frames the next frontier as Pix + Open Finance + tokenization — and is piloting stablecoin-funded credit-card payments to fuse blockchain dollars with everyday spend.",
+        bullets: [
+          "Pix (BR) and SPEI (MX) integration make Nubank a daily transactional hub, not just a card.",
+          "Roberto Campos Neto (ex-Banco Central do Brasil governor) is vice-chairman — deep policy + payments credibility.",
+          "Stablecoin credit-card pilot announced at Stellar's Meridian 2025; aims to settle/spend with dollar-pegged stablecoins.",
+          "Open Finance + tokenization positioned as the path to embed stablecoin rails into mainstream payments.",
+        ],
+      },
+      {
+        heading: "Risk posture",
+        bullets: [
+          "Macro/FX: LatAm currency and rate volatility; falling rates compress the reserve yield behind 4% USDC rewards.",
+          "Regulatory: stablecoin classification, taxation, peg and consumer-protection questions gate the credit-card pilot.",
+          "Counterparty: the whole crypto stack leans on Paxos (custody/brokerage) and Circle (USDC).",
+          "Execution: the Nucoin wind-down (tradable token → closed-loop points, 2024) shows consumer-token bets can be reversed.",
+        ],
+      },
+    ],
   },
   {
     slug: "ur-global",
     name: "UR Global",
     url: "https://www.ur.app/",
     layers: ["L5"],
-    product: "Multi-currency neo-bank with unified crypto + fiat accounts and Mastercard spend.",
-    customer: "Consumers in 45+ countries",
-    moat: "Native Ethena USDe integration (up to ~5% APY); fee-free fiat ⇄ USDe conversion.",
-    region: "45+ countries",
+    product:
+      "On-chain neo-bank: Swiss IBAN + multi-currency fiat/crypto account, native Ethena USDe yield, and (soon) Mastercard spend — plus a banking-as-an-API offering.",
+    customer: "Consumers in 45+ countries + wallets/fintechs (B2B API)",
+    moat:
+      "FINMA fintech license (via SR Saphirstein AG) + native USDe yield (~5% APY) with fee-free USDe⇄fiat off-ramp. Same team that built Fiat24.",
+    region: "Switzerland-licensed; live in 45+ countries",
     status: "researched",
-    tagline: "A crypto-native neo-bank built around USDe.",
+    tagline: "A Swiss-licensed, on-chain neo-bank built around USDe.",
     whatItIs:
-      "UR Global is a multi-currency neo-bank offering unified crypto and fiat accounts. It integrated Ethena's USDe at launch, so users can hold USDe alongside fiat, convert fee-free, earn up to ~5% APY, and spend via Mastercard across 45+ countries.",
+      "UR (ur.app) is an on-chain neo-bank operated by Zurich-based SR Saphirstein AG — the same FINMA-licensed entity behind Fiat24 — that puts fiat and crypto in one self-custody account. It launched its consumer app in October 2025 across 45+ countries with Ethena's USDe integrated from day one: users hold USDe alongside seven fiat currencies, convert fee-free, earn up to ~5% APY (paid weekly, no staking or lock-up), and will soon spend via a Mastercard debit card. UR also exposes the same stack as a banking-as-an-API product ('the account layer for the open economy') — Swiss IBAN, 7 currencies, SEPA/SWIFT, card issuing, and compliance — for wallets and fintechs to embed.",
     howItWorks: [
-      "Unified account holds fiat + crypto, including USDe.",
-      "Fee-free conversion between fiat and USDe.",
-      "USDe balances earn up to ~5% APY; spend via Mastercard.",
+      "Two-click onboarding creates a self-custody wallet (keys secured via Turnkey + biometric auth) tied to a Swiss IBAN; KYC unlocks yield and higher limits.",
+      "The unified account holds fiat (USD, EUR, SGD, HKD, JPY, CHF, RMB) and crypto, including USDe, with on/off-ramp conversions on-chain.",
+      "USDe deposited (or swapped from USDC) on the Mantle Network earns up to ~5% APY, distributed weekly — UR passes through Ethena's yield rather than running its own.",
+      "Off-ramping USDe back to fiat is fee-free; balances are recorded on Mantle for on-chain transparency.",
+      "Mastercard debit card (Apple/Google/Samsung Pay, Alipay, WeChat Pay) to spend USDe directly is rolling out post-launch [verify live date].",
+      "The same rails are offered B2B as one API (IBAN + multi-currency + card + compliance) for partners to embed banking.",
     ],
     differentiators: [
-      "USDe yield baked into the consumer experience.",
-      "Multi-currency from day one across 45+ countries.",
-      "Card spend directly from yield-bearing balances.",
+      "Built by a FINMA-licensed Swiss entity (SR Saphirstein AG / ex-Fiat24), not an unregulated app — a Swiss banking-act Art. 1b fintech license sits under it.",
+      "Native USDe yield (~5% APY) baked into a consumer account with no staking step and fee-free off-ramp — the yield 'just appears' weekly.",
+      "Self-custody by default (Turnkey-secured keys) rather than the custodial model of most fiat neo-banks.",
+      "Dual model: a consumer neo-bank AND a banking-as-an-API product on the same stack.",
     ],
-    businessModel: "Interchange + spread; shares Ethena yield with users.",
-    dependsOn: ["Ethena (USDe)", "Mastercard", "Banking partners"],
-    risks: ["Inherits USDe's funding-rate risk.", "[verify scale, licensing, launch markets]"],
+    businessModel:
+      "Card interchange + FX/conversion spread + tiered 'Pro' subscriptions (fee exemptions, higher limits); a share of Ethena's USDe yield is passed to users. B2B API likely adds platform/issuing fees. [verify exact take-rate]",
+    dependsOn: [
+      "Ethena (USDe) — the yield engine and dollar asset",
+      "Mantle Network — where USDe is held and yield accrues",
+      "Turnkey — wallet key infrastructure / self-custody",
+      "Mastercard — card spend rail",
+      "FINMA license held by SR Saphirstein AG",
+    ],
+    risks: [
+      "Inherits USDe's funding-rate risk: negative perp funding can erode the ~5% yield, and USDe is a synthetic dollar, not a fiat-redeemable stablecoin.",
+      "Very early — consumer app launched Oct 2025; user numbers and traction are unproven. [verify scale]",
+      "Concentration on a single yield asset (USDe) and a single chain (Mantle).",
+      "Mastercard spend was still 'coming soon' at launch — card execution risk. [verify live]",
+      "FINMA fintech license caps public deposits (CHF 100M) and is narrower than a full banking license — limits scale until upgraded.",
+    ],
     keyFacts: [
-      { label: "Yield asset", value: "Ethena USDe (~5% APY)" },
-      { label: "Spend", value: "Mastercard" },
-      { label: "Reach", value: "45+ countries" },
-      { label: "Status", value: "Live" },
+      { label: "Operator", value: "SR Saphirstein AG — Zurich (CHE-256.014.995); UR is its trademark" },
+      { label: "Founders / team", value: "Haoning Zhang (CEO, ex-ETH/Avaloq/UBS/Coutts), Yang Lan, Nico Buechel — the Fiat24 team" },
+      { label: "Licensing", value: "FINMA fintech license, Swiss Banking Act Art. 1b (CHF 100M deposit cap)" },
+      { label: "Backers", value: "China Merchants Bank Int'l, Fenbushi Capital (earlier rounds, as Fiat24) [verify current cap table]" },
+      { label: "Launched", value: "Consumer app Oct 7, 2025 — iOS, Android, web; 45+ countries" },
+      { label: "Yield asset", value: "Ethena USDe — up to ~5% APY, paid weekly, no lock-up" },
+      { label: "Currencies", value: "USD, EUR, SGD, HKD, JPY, CHF, RMB + USDe" },
+      { label: "Stack", value: "Self-custody via Turnkey; USDe + on-chain ledger on Mantle Network" },
+      { label: "Spend", value: "Mastercard debit (rolling out post-launch) [verify live]" },
     ],
-    links: [{ label: "Site", url: "https://www.ur.app/" }],
+    links: [
+      { label: "Site (consumer)", url: "https://www.ur.app/" },
+      { label: "Web app", url: "https://get.ur.app/" },
+      { label: "Docs", url: "https://docs.ur.app/" },
+      { label: "Blog", url: "https://ur.app/blog" },
+      { label: "Ethena partnership (crypto.news)", url: "https://crypto.news/ethenas-usde-stablecoin-integrated-into-urs-multi-currency-neobank-at-launch/" },
+      { label: "Ethena Labs announcement (X)", url: "https://x.com/ethena_labs/status/1975482653882327104" },
+    ],
+    products: [
+      {
+        name: "USDe Earn",
+        tagline: "Native synthetic-dollar yield — the 'savings account'.",
+        whatItIs:
+          "Hold USDe in the UR account and earn up to ~5% APY with no staking step or lock-up. UR passes through the yield Ethena generates from its delta-neutral basis trade; rewards are credited weekly once the user is KYC'd and holding USDe on Mantle. Off-ramping USDe to fiat is fee-free.",
+        mechanics: [
+          "Deposit USDe — or swap USDC → USDe inside the app — to start earning; balance sits on the Mantle Network.",
+          "Yield accrues passively (no separate stake/lock action) and is paid out weekly.",
+          "Yield source is Ethena's USDe (staking rewards + perp funding), so the rate floats with funding markets — not a fixed deposit rate.",
+          "Fee-free conversion back to fiat at off-ramp.",
+        ],
+        stats: [
+          { label: "APY", value: "Up to ~5% (floats with USDe funding)" },
+          { label: "Payout", value: "Weekly, no lock-up" },
+          { label: "Chain", value: "Mantle Network" },
+        ],
+      },
+      {
+        name: "Multi-currency account",
+        tagline: "Swiss IBAN holding fiat + crypto in one place.",
+        whatItIs:
+          "A self-custody account anchored to a Swiss IBAN that holds seven fiat currencies plus crypto (incl. USDe), with SEPA/SWIFT transfers and instant on/off-ramp conversions. Keys are secured via Turnkey with biometric auth, so users keep custody while getting bank-rail reach.",
+        mechanics: [
+          "Two-click account creation; Swiss IBAN issued under SR Saphirstein AG's FINMA license.",
+          "Hold/convert USD, EUR, SGD, HKD, JPY, CHF, RMB and crypto in one balance.",
+          "Send/receive via SEPA and SWIFT; peer-to-peer transfers at bank-rate efficiency.",
+          "Self-custody (Turnkey-secured keys); on-chain activity recorded on Mantle.",
+        ],
+        stats: [
+          { label: "Fiat currencies", value: "7 (USD/EUR/SGD/HKD/JPY/CHF/RMB)" },
+          { label: "Rails", value: "Swiss IBAN, SEPA, SWIFT" },
+          { label: "Custody", value: "Self-custody (Turnkey)" },
+        ],
+      },
+      {
+        name: "Mastercard spend",
+        tagline: "Spend USDe and fiat directly — the 'spending account'.",
+        whatItIs:
+          "A Mastercard debit card that lets users spend USDe (and fiat) at merchants, with wallet support for Apple Pay, Google Pay, Samsung Pay, Alipay, and WeChat Pay. Announced at launch as rolling out in the weeks after — spend execution is the newest, least-proven leg. [verify live status]",
+        mechanics: [
+          "Card draws from the unified UR balance, converting USDe/crypto to fiat at the point of sale.",
+          "Mobile-wallet support: Apple/Google/Samsung Pay + Alipay + WeChat Pay.",
+          "Pairs with fee-free off-ramp so spending doesn't incur conversion fees. [verify card fee schedule]",
+        ],
+        stats: [
+          { label: "Network", value: "Mastercard (debit)" },
+          { label: "Wallets", value: "Apple/Google/Samsung Pay, Alipay, WeChat Pay" },
+          { label: "Status", value: "Rolling out post-launch [verify]" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "How USDe yield flows to users",
+        body:
+          "UR does not manufacture yield — it embeds Ethena's. The neo-bank holds users' USDe on the Mantle Network and passes through the return Ethena earns from its delta-neutral basis trade (staked-ETH rewards + perpetual-futures funding). The consumer experience is deliberately flat: no staking screen, no lock-up, just a balance that grows, with rewards credited weekly after KYC.",
+        bullets: [
+          "User deposits USDe (or swaps USDC → USDe) → balance held on Mantle.",
+          "Ethena's hedge generates yield off-chain/on-chain; UR distributes a pass-through share weekly.",
+          "APY is therefore variable (~5% headline) and tracks USDe funding, not a fixed Swiss deposit rate.",
+          "Fee-free USDe⇄fiat off-ramp is the key UX hook — yield-bearing dollars that spend like cash.",
+        ],
+      },
+      {
+        heading: "Account architecture (self-custody + Swiss IBAN)",
+        body:
+          "UR threads a regulated fiat wrapper around a self-custody crypto core. Wallet keys are provisioned and secured through Turnkey with biometric auth, so users retain custody; on top sits a Swiss IBAN issued under SR Saphirstein AG's FINMA fintech license, giving SEPA/SWIFT reach and seven fiat currencies. On-chain state lives on Mantle for transparency, while the same rails are also packaged as a banking-as-an-API product for partners.",
+        bullets: [
+          "Self-custody keys via Turnkey (not a custodial omnibus model).",
+          "Swiss IBAN + 7 fiat currencies under FINMA fintech license (Art. 1b, CHF 100M deposit cap).",
+          "Ledger/transactions on Mantle Network for auditability.",
+          "Dual surface: consumer app (ur.app) and embeddable banking API ('account layer for the open economy').",
+        ],
+      },
+      {
+        heading: "Card & spend leg",
+        body:
+          "The spending layer is a Mastercard debit card that converts USDe/crypto to fiat at the point of sale, fronted by broad mobile-wallet support (Apple/Google/Samsung Pay, Alipay, WeChat Pay) aimed at both Western and Asian users — fitting the team's China-bridge heritage. At the October 2025 launch this was 'coming weeks,' so it is the least battle-tested part of the stack.",
+        bullets: [
+          "Spend from a yield-bearing USDe balance without manually off-ramping first.",
+          "Asia + West wallet coverage (Alipay/WeChat Pay alongside Apple/Google Pay).",
+          "Issuance presumably via UR's own card-issuing rail (also offered B2B). [verify issuer/BIN sponsor]",
+        ],
+      },
+      {
+        heading: "Risk: inherited USDe + early-stage execution",
+        bullets: [
+          "Funding-rate risk: USDe yield comes from perp funding; sustained negative funding can shrink or invert the ~5% APY.",
+          "Synthetic-dollar risk: USDe is crypto-collateralized and delta-neutral, not fiat-redeemable — a different risk profile than a Swiss bank deposit.",
+          "Single-asset / single-chain concentration: yield depends on USDe on Mantle specifically.",
+          "Early traction: consumer app is new (Oct 2025); user/volume numbers unproven [verify].",
+          "Regulatory ceiling: the FINMA fintech license caps deposits at CHF 100M and is narrower than a full banking license.",
+        ],
+      },
+    ],
   },
 ];
 
