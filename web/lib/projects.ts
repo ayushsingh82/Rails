@@ -3076,34 +3076,229 @@ const usdsValue = await vault.convertToAssets(shares); // > deposited over time`
     name: "Revolut",
     url: "https://www.revolut.com/",
     layers: ["L5"],
-    product: "Consumer super-app: accounts, cards, FX, crypto, and stablecoin conversion.",
-    customer: "68M+ retail consumers",
-    moat: "Scale + licenses (MiCA via Cyprus). Fee-free stablecoin↔USD; $10.5B+ stablecoin sent (+156% YoY).",
-    region: "40 markets (EU-led)",
+    product:
+      "Consumer super-app: accounts, cards, FX, investing, crypto (Revolut X), staking, stablecoin conversion — plus Revolut Business with a real public API.",
+    customer: "65M+ retail consumers + business accounts",
+    moat:
+      "Scale + a deep license stack (MiCA/CASP via Cyprus, Lithuanian EMI, UK bank). Fee-free 1:1 stablecoin↔USD; ~$10.5B stablecoin sent in 2025 (+156% YoY); reported own-stablecoin plan.",
+    region: "40+ markets (EU-led; UK; expanding US)",
     status: "researched",
-    tagline: "The fiat-native super-app moving into stablecoins.",
+    tagline: "The fiat-native super-app bolting on stablecoin rails.",
     whatItIs:
-      "Revolut is a consumer financial super-app — accounts, cards, FX, investing, and crypto — now adding stablecoin rails at scale. It serves 68M+ retail customers across 40 markets and has cumulatively sent $10.5B+ in stablecoin payments.",
+      "Revolut is a consumer financial super-app — multi-currency accounts, cards, FX, investing, and crypto — now adding stablecoin rails at scale. It serves 65M+ retail customers across 40+ markets, runs a dedicated crypto exchange (Revolut X), and in 2025 layered on a MiCA-licensed 'Crypto 2.0' offering: 280+ tokens, zero-fee staking, and commission-free 1:1 USD↔USDC/USDT conversion. It is reportedly developing its own USD/EUR stablecoin, which would turn the super-app from a stablecoin distributor into an issuer.",
     howItWorks: [
-      "Users hold fiat, crypto, and 280+ tokens in one app.",
-      "Fee-free 1:1 stablecoin ↔ USD conversion.",
-      "Stablecoin settlement across Ethereum, Tron, Solana, Arbitrum.",
+      "Users hold fiat, crypto, and 280+ tokens in one app; the same balance sheet that powers cards/FX now touches stablecoins.",
+      "Crypto 2.0 (live under MiCA from late-2025): commission-free 1:1 swaps between USD and USDC/USDT with no spread.",
+      "Stablecoins move across 6+ chains (Ethereum, Solana, Tron, Arbitrum, and others) for deposits/withdrawals to external wallets.",
+      "Revolut X (advanced order-book exchange) offers ~210 tokens with low flat fees (~0% maker / ~0.09% taker) for active traders.",
+      "Zero-fee staking on ETH/SOL/ADA/DOT/POL/XTZ routes network rewards to users; Revolut keeps a margin elsewhere.",
+      "Revolut Business exposes a real public Merchant API (accept online payments) and Business API (accounts/payouts) for developers.",
     ],
     differentiators: [
-      "Massive distribution (68M+ users) + profitability ($2.3B pre-tax, 2025).",
-      "Licenses: MiCA via Cyprus → passportable across 30 EEA markets.",
-      "Bolting stablecoins onto an already-loved consumer app.",
+      "Distribution at neo-bank scale (65M+ users) attached to a profitable P&L — stablecoins ride existing rails, not a cold-start.",
+      "License stack lets it issue: MiCA/CASP via Cyprus (Revolut Digital Assets Europe Ltd) passports crypto across 30 EEA states; a Lithuanian EMI provides the legal frame to issue e-money/stablecoins; full UK bank (restrictions lifted Mar 2026).",
+      "Fee-free, spread-free 1:1 stablecoin↔USD conversion uses Revolut's own ledger rather than card rails — a cost edge ramps can't match.",
+      "Two-sided crypto: a simple in-app experience plus Revolut X for pro traders, and Revolut Ramp/Pay distribute its rails into 21+ third-party wallets/apps (e.g. Trust Wallet, MoonPay).",
     ],
-    businessModel: "Interchange, subscriptions, FX, and trading spreads.",
-    dependsOn: ["Banking + card licenses", "Stablecoin issuers", "Chains"],
-    risks: ["Heavy regulatory scrutiny across many jurisdictions.", "Crypto revenue can be cyclical."],
+    businessModel:
+      "Interchange, subscription tiers, FX spreads, wealth/trading fees, and crypto trade/exchange spreads. Stablecoins add conversion/transfer economics today; a proprietary stablecoin would add reserve (T-bill) yield on float [verify].",
+    dependsOn: [
+      "Banking + EMI + card licenses (UK PRA, Lithuania EMI, Cyprus CASP)",
+      "Stablecoin issuers (Circle/USDC, Tether/USDT) until/unless it issues its own",
+      "Underlying chains (Ethereum, Solana, Tron, Arbitrum)",
+      "Card networks (Visa/Mastercard) and partner ramps (MoonPay, Onramper) for Revolut Ramp distribution",
+    ],
+    risks: [
+      "Heavy, multi-jurisdiction regulatory scrutiny; an own-stablecoin would invite reserve/redemption and securities-law questions.",
+      "Crypto revenue is cyclical — it swelled 2024 profit and can contract sharply in a downturn.",
+      "Stablecoin↔USD economics are thin if offered fee-free; the payoff depends on float/issuance, which is unproven for Revolut.",
+      "Competes for the same super-app endgame as Nubank, Coinbase, and DeFi-native neo-banks.",
+    ],
     keyFacts: [
-      { label: "Founded", value: "2015 (London)" },
-      { label: "Users", value: "68.3M retail, 40 markets" },
-      { label: "2025 results", value: "$6B revenue, $2.3B pre-tax profit" },
-      { label: "Stablecoin sent", value: "$10.5B+ cumulative (+156% YoY)" },
+      { label: "Founded", value: "2015 (London) — Nik Storonsky, Vlad Yatsenko" },
+      { label: "Users", value: "52.5M retail (end-2024); ~65M+ reported in 2025 across 40+ markets" },
+      { label: "2024 results", value: "$4.0B revenue (+72%), $1.4B pre-tax profit (+149%), $1.0B net" },
+      { label: "Valuation", value: "~$75B (2025 secondary share sales; up from $45B in 2024)" },
+      { label: "Stablecoin volume", value: "~$10.5B sent in 2025 (+156% YoY, third-party estimate)" },
+      { label: "Crypto licenses", value: "MiCA/CASP via Cyprus (CySEC, Oct 2025; effective 25 Nov 2025), passportable across 30 EEA states" },
+      { label: "Bank license", value: "UK bank — restricted license Jul 2024, restrictions lifted / mobilisation ended 11 Mar 2026" },
+      { label: "Own stablecoin", value: "Reported in development (USD/EUR), Lithuanian EMI provides the issuance frame [verify launch]" },
     ],
-    links: [{ label: "Site", url: "https://www.revolut.com/" }],
+    links: [
+      { label: "Site", url: "https://www.revolut.com/" },
+      { label: "Revolut X (exchange)", url: "https://www.revolut.com/revolut-x/" },
+      { label: "Revolut Ramp", url: "https://www.revolut.com/ramp/" },
+      { label: "2024 Annual Report", url: "https://www.revolut.com/news/record_growth_and_diverse_product_offering_drive_revolut_to_1_4bn_profit_in_2024/" },
+      { label: "MiCA license (CoinDesk)", url: "https://www.coindesk.com/policy/2025/10/23/revolut-secures-mica-license-in-cyprus-expanding-regulated-crypto-services-across-europe" },
+      { label: "Developer portal", url: "https://developer.revolut.com/" },
+      { label: "Merchant API docs", url: "https://developer.revolut.com/docs/merchant/merchant-api" },
+      { label: "Business API docs", url: "https://developer.revolut.com/docs/business/business-api" },
+    ],
+    products: [
+      {
+        name: "Crypto 2.0 (in-app crypto + stablecoins)",
+        tagline: "The consumer crypto layer — now MiCA-licensed.",
+        whatItIs:
+          "The mainstream in-app crypto experience inside the super-app, relaunched as 'Crypto 2.0' once the Cyprus MiCA license took effect (late 2025). It widens the token menu to 280+, makes staking free, and — most relevant to stablecoin rails — adds commission-free, spread-free 1:1 conversion between USD and USDC/USDT, with on-chain deposits/withdrawals to external wallets.",
+        mechanics: [
+          "1:1 USD↔USDC/USDT swaps with no commission and no spread (launched Oct 2025).",
+          "Deposit/withdraw stablecoins to external wallets across 6+ chains (Ethereum, Solana, Tron, Arbitrum, others).",
+          "280+ tokens; new MiCA-era fee structure from 8 Dec 2025.",
+          "Existing KYC/balance is reused, so conversion stays inside Revolut's ledger rather than card rails.",
+        ],
+        stats: [
+          { label: "Tokens", value: "280+" },
+          { label: "USD↔stablecoin", value: "1:1, 0 commission / 0 spread" },
+          { label: "Stablecoin sent (2025)", value: "~$10.5B (+156% YoY)" },
+        ],
+      },
+      {
+        name: "Revolut X",
+        tagline: "An advanced order-book exchange for active traders.",
+        whatItIs:
+          "A standalone, pro-grade crypto exchange (web + app) separate from the simple in-app flow, aimed at frequent traders. It runs a real order book with low flat fees and a wider asset list, and is offered across the EEA under the MiCA license.",
+        mechanics: [
+          "Order-book trading across ~210 tokens.",
+          "Flat fees ~0% maker / ~0.09% taker.",
+          "On-chain deposits/withdrawals for 35+ tokens to/from external wallets.",
+          "Distributed across the EEA under the Cyprus MiCA/CASP authorization.",
+        ],
+        stats: [
+          { label: "Tokens", value: "~210" },
+          { label: "Fees", value: "~0% maker / ~0.09% taker" },
+          { label: "Coverage", value: "EEA (MiCA)" },
+        ],
+      },
+      {
+        name: "Crypto staking",
+        tagline: "Zero-fee staking inside the super-app.",
+        whatItIs:
+          "In-app staking that passes network rewards to users with a 0% Revolut fee on the rewards, across major proof-of-stake assets. It complements the stablecoin/conversion economics by deepening crypto engagement.",
+        mechanics: [
+          "0% fee on staking rewards.",
+          "Supported assets include ETH, SOL, ADA, DOT, POL (ex-MATIC), XTZ.",
+          "Advertised rates vary by asset (e.g. ETH up to ~3.6%, SOL up to ~7.1%); headline 'up to ~22%' cited for some assets [verify].",
+        ],
+        stats: [
+          { label: "Reward fee", value: "0%" },
+          { label: "Assets", value: "ETH, SOL, ADA, DOT, POL, XTZ" },
+          { label: "ETH / SOL APY", value: "up to ~3.6% / ~7.1% [verify]" },
+        ],
+      },
+      {
+        name: "Revolut Business + API",
+        tagline: "The developer surface: accept payments + automate accounts.",
+        whatItIs:
+          "Revolut Business is the SMB/enterprise account product, and unlike most of the consumer app it ships a real public API. The Merchant API accepts online payments (orders, refunds, webhooks) and the Business API automates the business account (balances, counterparties, payouts). Business customers were ~15% of group revenue in 2024.",
+        mechanics: [
+          "Merchant account is a sub-account of the Business account, dedicated to e-commerce acceptance.",
+          "Merchant API: create/capture/cancel/refund orders, hosted checkout, webhooks for the order lifecycle.",
+          "Business API: accounts, counterparties, payments/payouts, transactions (OAuth-based for third-party apps).",
+          "Crypto/stablecoin endpoints are not part of the public Merchant/Business API today [verify].",
+        ],
+        stats: [
+          { label: "Business revenue", value: "$592M (2024), ~15% of group" },
+          { label: "Surfaces", value: "Merchant API + Business API" },
+          { label: "Auth", value: "Secret API key (Merchant) / OAuth (Business)" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "Stablecoin strategy & the own-coin plan",
+        body:
+          "Revolut's near-term play is distribution: make stablecoins frictionless inside an app 65M+ people already use. The 2025 move to commission-free, spread-free 1:1 USD↔USDC/USDT — settled on Revolut's own ledger rather than card rails — is the wedge. The bigger, reported step is issuance.",
+        bullets: [
+          "Today: distributes third-party stablecoins (USDC, USDT) with 1:1 fee-free conversion and on-chain withdrawal across 6+ chains.",
+          "Reported plan: issue its own USD and EUR stablecoins for zero-cost transfers between Revolut accounts and on-chain wallets; in talks with at least one crypto-native firm [verify].",
+          "Legal frame: its Lithuanian EMI is cited as the basis for issuing e-money/stablecoins; the Cyprus entity is a CASP (service provider), not the issuer.",
+          "Strategic prize: an own-stablecoin converts thin conversion economics into reserve (T-bill) yield on float, mirroring Circle/Bridge.",
+        ],
+      },
+      {
+        heading: "Licensing & regulatory footprint",
+        body:
+          "Revolut's real moat is a stack of licenses few crypto-natives or neo-banks hold simultaneously, letting it both bank users and offer/issue crypto under one roof.",
+        bullets: [
+          "MiCA/CASP via Cyprus (CySEC), granted Oct 2025, effective 25 Nov 2025 — passports regulated crypto across all 30 EEA states under one rule set.",
+          "EU crypto entity: Revolut Digital Assets Europe Ltd (ex RT Digital Securities Cyprus Ltd), CySEC ref 001/22.",
+          "Lithuanian EMI underpins e-money / potential stablecoin issuance.",
+          "UK banking license: restricted grant Jul 2024 (£50k deposit cap during mobilisation), restrictions lifted / mobilisation ended 11 Mar 2026 — full UK bank.",
+          "US: pursuing a US bank with plans for FDIC-insured and stablecoin-linked accounts [verify timing].",
+        ],
+      },
+      {
+        heading: "Scale & distribution moat",
+        body:
+          "Revolut adds stablecoins from a position of profitable scale, so each new rail is incremental rather than a standalone business that must find users.",
+        bullets: [
+          "52.5M retail customers at end-2024 (+38% YoY), ~65M+ reported through 2025, across 40+ markets.",
+          "2024: $4.0B revenue (+72%), $1.4B pre-tax profit (+149%), $1.0B net — fourth straight profitable year.",
+          "Crypto/wealth was a major 2024 growth driver (wealth revenue +298% to $647M).",
+          "~$75B valuation in 2025 secondary sales (vs ~$45B in 2024).",
+          "Revolut Ramp/Pay push its rails outward into 21+ partner apps (Trust Wallet, MoonPay), reusing existing KYC for higher conversion.",
+        ],
+      },
+      {
+        heading: "Developer surface & risk",
+        bullets: [
+          "Public API lives almost entirely on the Business side: Merchant API (accept payments) + Business API (account automation, OAuth).",
+          "Merchant API uses header versioning (Revolut-Api-Version) and Secret API key auth; sandbox at sandbox-merchant.revolut.com.",
+          "No public crypto/stablecoin API today — stablecoin features are consumer-app surfaces, not developer endpoints [verify].",
+          "Risks: cyclical crypto revenue, thin fee-free conversion margins, and intense multi-jurisdiction regulation (heightened if it becomes a stablecoin issuer).",
+        ],
+      },
+    ],
+    builder: {
+      architecture:
+        "The public developer surface is Revolut Business, split in two. The Merchant API accepts online payments: a Merchant account (a sub-account of the Business account) holds an Order object that walks a lifecycle (created → authorised → completed, plus cancelled/failed/refunded), and webhooks push each state change to your server. The Business API automates the business account itself (balances, counterparties, payouts, transactions) and uses OAuth for third-party apps. Crypto/stablecoin conversion is a consumer-app feature, not part of this API [verify].",
+      integration:
+        "Generate API keys in the Revolut Business dashboard. Merchant API auth is a Secret API key (server-side) with a publishable key for the client checkout widget; the Business API uses OAuth 2.0 for apps acting on a business's behalf. All Merchant calls send a Revolut-Api-Version header (request-header versioning). Test against the sandbox base URL https://sandbox-merchant.revolut.com/ , then switch to production https://merchant.revolut.com/ by swapping keys.",
+      apiSurface: [
+        { name: "POST /api/orders", desc: "Create an Order — amount, currency, capture mode; returns an order id + checkout token for the payment widget." },
+        { name: "GET /api/orders/{id}", desc: "Retrieve an order and its current state (created / authorised / completed / cancelled / failed)." },
+        { name: "POST /api/orders/{id}/capture", desc: "Capture the funds of an authorised, uncaptured order to move it to processing." },
+        { name: "POST /api/orders/{id}/cancel", desc: "Cancel an existing uncaptured order." },
+        { name: "POST /api/orders/{id}/refund", desc: "Full or partial refund of a completed order, back to the original payment method." },
+        { name: "POST /api/1.0/webhooks", desc: "Register a webhook URL (max 10) for events like ORDER_AUTHORISED, ORDER_COMPLETED, ORDER_CANCELLED, ORDER_FAILED." },
+        { name: "Business API (OAuth)", desc: "Accounts, counterparties, payments/payouts, and transactions for automating the business account on a user's behalf." },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Merchant API: create an order, then verify completion from the webhook (the source of truth).",
+        code: `// 1) Server-side: create an order with your Secret API key.
+const res = await fetch('https://merchant.revolut.com/api/orders', {
+  method: 'POST',
+  headers: {
+    'Authorization': \`Bearer \${REVOLUT_SECRET_KEY}\`, // never ship to the client
+    'Revolut-Api-Version': '2024-09-01',               // request-header versioning
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    amount: 5000,          // minor units: 50.00
+    currency: 'EUR',
+    capture_mode: 'automatic',
+  }),
+});
+const order = await res.json();
+// Pass order.token to the RevolutCheckout widget on the client to collect payment.
+
+// 2) Webhook handler — treat ORDER_COMPLETED, not the client, as truth.
+export function handleWebhook(event: { event: string; order_id: string }) {
+  if (event.event === 'ORDER_COMPLETED') {
+    fulfil(event.order_id);
+  }
+}`,
+      },
+      buildNotes: [
+        "Order lifecycle: created → authorised → completed (or cancelled/failed/refunded). Fulfil on the ORDER_COMPLETED webhook, never on a client redirect.",
+        "Auth split: Merchant API = Secret API key (Bearer); Business API = OAuth 2.0 for third-party apps.",
+        "Always send the Revolut-Api-Version header on Merchant calls; the API pins behaviour to that date.",
+        "Max 10 webhook URLs per merchant — registering more returns 422 Unprocessable Content.",
+        "Sandbox first (sandbox-merchant.revolut.com), then swap keys for production (merchant.revolut.com).",
+        "[verify exact paths/version string against the current developer.revolut.com docs — endpoint prefixes and the version date evolve; no public crypto/stablecoin API confirmed]",
+      ],
+    },
   },
   {
     slug: "nubank",
