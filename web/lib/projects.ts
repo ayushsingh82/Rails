@@ -2501,68 +2501,427 @@ await manager.subscribe(USDC, parseUnits('100', 6), 0n);`,
     name: "Mountain Protocol",
     url: "https://mountainprotocol.com/",
     layers: ["L4"],
-    product: "USDM — a permissionless, yield-bearing stablecoin that rebases daily.",
-    customer: "Protocols, treasuries, non-US holders",
-    moat: "Regulated (Bermuda) T-bill-backed rebasing token; composable as plain ERC-20.",
+    product:
+      "USDM — a regulated, T-bill-backed yield-bearing stablecoin that rebases daily; wUSDM — its non-rebasing ERC-4626 wrapper.",
+    customer: "Protocols, institutional treasuries, non-US holders",
+    moat:
+      "Bermuda-regulated (BMA/DABA) T-bill-backed rebasing dollar, composable as plain ERC-20 + 4626 wrapper. Acquired by Anchorage Digital (May 2025); USDM now in orderly wind-down.",
     region: "Global (ex-US)",
     status: "researched",
-    tagline: "A regulated, yield-bearing dollar that rebases daily.",
+    tagline: "A regulated, yield-bearing dollar that rebases daily — now wound down post-Anchorage.",
     whatItIs:
-      "Mountain Protocol issues USDM, a permissionless yield-bearing stablecoin backed by short-term US Treasuries. Interest is paid as a daily rebase to the same token balance, and USDM stays a plain ERC-20 so it composes across DeFi.",
+      "Mountain Protocol issued USDM, a permissionless yield-bearing stablecoin fully backed by short-term US Treasuries and held in a bankruptcy-remote Bermuda SPV. Interest was paid as a daily rebase to the same ERC-20 balance, with a non-rebasing wrapper, wUSDM (ERC-4626), for cleaner DeFi composability. Anchorage Digital acquired Mountain in May 2025 and absorbed its team and BMA license; USDM has since entered an orderly wind-down, with redemption migrating to a Uniswap v4 wUSDM:USDC pool.",
     howItWorks: [
-      "Deposits back USDM with short-term US Treasuries (regulated, Bermuda).",
-      "Yield distributed daily via rebase — your balance grows, price stays ~$1.",
-      "Plain ERC-20 → usable across DeFi without wrappers.",
+      "Primary (KYC-approved institutional) users minted/redeemed USDM 1:1 with USDC or fiat wires via web portal or API; secondary users acquired it on DEXs and could not mint/redeem directly.",
+      "Reserves — short-duration US T-bills (~60-day avg maturity), money-market funds, Treasury ETFs and repos — held by USDM Reserves Ltd, a Bermuda bankruptcy-remote SPV managed by EQ Capital, segregated from operating accounts.",
+      "Yield distributed daily via rebase: balanceOf = shares × rewardMultiplier, with the multiplier accruing ~12:00 UTC (a share-based model akin to Lido's stETH) so balances grow while price stays ~$1.",
+      "wUSDM wraps USDM into a non-rebasing ERC-4626 vault share whose exchange rate appreciates instead of the balance — easier for DeFi protocols that assume static balances.",
+      "Deployed identically across Ethereum, Base, Polygon, Arbitrum and Optimism (same addresses) for multi-chain composability.",
     ],
     differentiators: [
-      "Daily rebase keeps a clean $1 unit while paying yield.",
-      "Regulated issuer (Bermuda Monetary Authority).",
-      "Composable as a vanilla ERC-20.",
+      "Daily rebase keeps a clean $1 unit of account while paying the T-bill yield directly to holders.",
+      "Regulated issuer under the Bermuda Monetary Authority (DABA + Single-Currency Pegged Stablecoin guidance), with monthly third-party reserve attestations.",
+      "Composable two ways: vanilla rebasing ERC-20 (USDM) and non-rebasing ERC-4626 (wUSDM) — same address across five chains.",
+      "Credibility from a regulated acquirer: Anchorage Digital (the only US federally chartered crypto bank) absorbed the team and license.",
     ],
-    businessModel: "Management fee on reserves.",
-    dependsOn: ["US Treasury market", "Custodians", "Ethereum/L2s"],
-    risks: ["Restricted from US persons.", "Rate-cut risk.", "[verify funding + traction]"],
+    businessModel:
+      "Management fee on reserves — the spread between the T-bill yield earned and the (capped) rebase rate paid to holders.",
+    dependsOn: [
+      "US Treasury market + interest-rate environment",
+      "Reserve manager (EQ Capital) + bankruptcy-remote SPV custody",
+      "Ethereum / L2s (Base, Polygon, Arbitrum, Optimism)",
+      "Bermuda Monetary Authority licensing",
+      "Post-wind-down: Uniswap v4 liquidity (wUSDM:USDC) for redemption",
+    ],
+    risks: [
+      "USDM is in orderly wind-down post-acquisition — minting disabled (May 2025), rewards cut to 0% (June 2025), and from Aug 22 2025 redemption is only via a Uniswap v4 wUSDM:USDC pool, not the platform.",
+      "Restricted from US persons.",
+      "Rate-cut risk compresses (compressed) the yield available to holders.",
+      "Reserve/custody + legal-structure risk on the Bermuda SPV; secondary-market peg risk now that primary redemption is gone.",
+    ],
     keyFacts: [
-      { label: "Token", value: "USDM (rebasing)" },
-      { label: "Regulator", value: "Bermuda Monetary Authority" },
-      { label: "Collateral", value: "Short-term US Treasuries" },
-      { label: "Status", value: "Live" },
+      { label: "Founded", value: "2022 — Martin Carrica (CEO) & Matias Caricato" },
+      { label: "Funding", value: "~$12M total: $4M seed (2023, Castle Island/Nic Carter) + $8M Series A (Jun 2024)" },
+      { label: "Investors", value: "Multicoin Capital (led A), Castle Island, Coinbase Ventures, New Form, Bankless Ventures" },
+      { label: "Acquired by", value: "Anchorage Digital — announced May 12, 2025; team + BMA license absorbed" },
+      { label: "Regulator", value: "Bermuda Monetary Authority (DABA license #202302512)" },
+      { label: "Collateral", value: "Short-term US T-bills (~60-day avg), MMFs, Treasury ETFs, repos — SPV via EQ Capital" },
+      { label: "Peak supply", value: "~$150M+ USDM circulating at 2024 peak [verify]" },
+      { label: "Status", value: "Wound down — redemption via Uniswap v4 wUSDM:USDC (from Aug 22, 2025)" },
     ],
-    links: [{ label: "Site", url: "https://mountainprotocol.com/" }],
+    links: [
+      { label: "Site", url: "https://mountainprotocol.com/" },
+      { label: "Docs", url: "https://docs.mountainprotocol.com/" },
+      { label: "USDM token docs", url: "https://docs.mountainprotocol.com/reference/usdm-token" },
+      { label: "GitHub (tokens)", url: "https://github.com/mountainprotocol/tokens" },
+      { label: "Anchorage acquisition", url: "https://www.anchorage.com/insights/anchorage-digital-acquire-mountain-protocol-to-accelerate-institutional-adoption-of-stablecoins" },
+      { label: "Series A coverage", url: "https://www.theblock.co/post/298910/yield-bearing-stablecoin-mountain-protocol-funding" },
+      { label: "USDM on Etherscan", url: "https://etherscan.io/token/0x59D9356E565Ab3A36dD77763Fc0d87fEaf85508C" },
+    ],
+    products: [
+      {
+        name: "USDM",
+        tagline: "Permissionless rebasing yield-bearing dollar.",
+        whatItIs:
+          "A T-bill-backed stablecoin that pays yield as a daily rebase: your token balance grows while the price stays ~$1. Implemented as a share-based ERC-20 (balanceOf = shares × rewardMultiplier, à la stETH), so it composes wherever a plain ERC-20 is accepted — across Ethereum, Base, Polygon, Arbitrum and Optimism.",
+        mechanics: [
+          "rewardMultiplier accrues ~12:00 UTC each day via addRewardMultiplier; share count is fixed, balance rises.",
+          "Primary mint/redeem 1:1 with USDC or fiat wire for KYC-approved institutional accounts only.",
+          "Blocklist + pause controls for regulatory compliance (OFAC/sanctions screening).",
+          "Same contract address on all five supported chains.",
+        ],
+        stats: [
+          { label: "Yield (pre-windown)", value: "~T-bill rate (e.g. ~3.8% APY example), capped vs reserves" },
+          { label: "Type", value: "Rebasing ERC-20" },
+          { label: "Status", value: "Rewards cut to 0% (Jun 2025); minting disabled" },
+        ],
+      },
+      {
+        name: "wUSDM",
+        tagline: "Non-rebasing ERC-4626 wrapper for DeFi.",
+        whatItIs:
+          "Wrapped USDM: an OpenZeppelin ERC-4626 vault share. Deposit USDM, receive a fixed wUSDM balance whose exchange rate appreciates as yield accrues — so protocols that assume static balances (AMMs, lending markets) can integrate yield without handling rebases.",
+        mechanics: [
+          "ERC-4626 deposit/withdraw between USDM (asset) and wUSDM (share).",
+          "Balance stays constant; value accrues via the rising share-to-USDM exchange rate.",
+          "Preferred form for LPs, Aave-style collateral, and Pendle-style yield markets.",
+          "Now the redemption vehicle: USDM holders exit via a Uniswap v4 wUSDM:USDC pool.",
+        ],
+        stats: [
+          { label: "Standard", value: "ERC-4626 (OpenZeppelin)" },
+          { label: "Behavior", value: "Non-rebasing, value-accruing share" },
+          { label: "Chains", value: "Ethereum, Base, Polygon, Arbitrum, Optimism" },
+        ],
+      },
+      {
+        name: "Institutional mint/redeem",
+        tagline: "KYC primary-market access via portal or API.",
+        whatItIs:
+          "Approved institutions opened accounts to mint and redeem USDM 1:1 against USDC or fiat wires through a web portal or API, with weekly transaction limits (raisable on application). Reserves sat in a Bermuda bankruptcy-remote SPV (USDM Reserves Ltd) managed by EQ Capital, with monthly third-party attestations.",
+        mechanics: [
+          "KYB/KYC onboarding to become a Primary User.",
+          "Mint with USDC or wire; redeem 1:1; secondary users cannot mint/redeem directly.",
+          "Reserves segregated, T-bill-heavy, over-collateralized buffer vs rate moves.",
+          "Monthly attestations + BMA reporting (now in wind-down).",
+        ],
+        stats: [
+          { label: "Redemption", value: "1:1 (primary, pre-windown)" },
+          { label: "Reserve manager", value: "EQ Capital / USDM Reserves Ltd (SPV)" },
+          { label: "Attestations", value: "Monthly, third-party" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "Rebase mechanics & the wUSDM wrapper",
+        body:
+          "USDM distributes yield by adjusting a global reward multiplier rather than minting per-holder, using a share-based accounting model similar to Lido's stETH.",
+        bullets: [
+          "balanceOf(account) = shares[account] × rewardMultiplier; shares are fixed at deposit.",
+          "rewardMultiplier increases daily (~12:00 UTC) via addRewardMultiplier — e.g. 1.000 → 1.038 after a year at 3.8% APY, turning 100 USDM into 103.8 USDM.",
+          "Rebasing breaks naive DeFi integrations that cache balances, so wUSDM wraps USDM in an ERC-4626 vault.",
+          "wUSDM keeps a static balance while the share-to-asset exchange rate climbs — the standard non-rebasing pattern protocols expect.",
+        ],
+      },
+      {
+        heading: "Reserves & Bermuda regulation",
+        body:
+          "USDM was a regulated, fully-reserved instrument rather than a DeFi-native synthetic — its credibility rested on the SPV structure and BMA oversight.",
+        bullets: [
+          "Issued under Bermuda's Digital Asset Business Act (DABA) + Single-Currency Pegged Stablecoin (SCPS) guidance; BMA license #202302512.",
+          "Reserves in USDM Reserves Ltd, a bankruptcy-remote SPV, segregated from operating funds and managed by EQ Capital.",
+          "Composition: short-duration US T-bills (~60-day avg maturity), money-market funds, Treasury ETFs, repos, plus an over-collateralization buffer.",
+          "AML/CFT monitoring, OFAC/sanctions screening, and monthly third-party reserve attestations.",
+        ],
+      },
+      {
+        heading: "Composability & multi-chain footprint",
+        body:
+          "Mountain optimized for being an 'ingredient' dollar that other protocols and neo-banks embed.",
+        bullets: [
+          "Deployed on Ethereum, Base, Polygon, Arbitrum and Optimism — same USDM and wUSDM addresses across chains.",
+          "USDM usable as a plain rebasing ERC-20; wUSDM as a non-rebasing ERC-4626 share for AMMs, lending and yield markets.",
+          "Open-source token contracts on GitHub (mountainprotocol/tokens).",
+          "Series A thesis (Multicoin, 2024) was to extend USDM to Solana and real-world businesses — superseded by the Anchorage acquisition.",
+        ],
+      },
+      {
+        heading: "Acquisition & wind-down risk",
+        body:
+          "Anchorage Digital announced the acquisition on May 12, 2025, absorbing Mountain's team, technology and BMA license to bolster institutional stablecoin offerings — and Mountain simultaneously began an orderly wind-down of USDM.",
+        bullets: [
+          "Phase 1 (May 12 – Jun 11, 2025): minting disabled, rewards still active.",
+          "Phase 2 (Jun 12 – Jul 11, 2025): reward rate reduced to 0%.",
+          "Phase 3 (from Aug 22, 2025): reserves migrated to a Uniswap v4 concentrated-liquidity wUSDM:USDC pool on Ethereum; holders redeem exclusively via Uniswap — no platform custody.",
+          "Residual risk: secondary-market peg now depends on Uniswap liquidity rather than 1:1 primary redemption; BMA coordination continues through the transition.",
+        ],
+      },
+    ],
+    contracts: [
+      { label: "USDM (all chains: ETH/Base/Polygon/Arbitrum/OP)", value: "0x59D9356E565Ab3A36dD77763Fc0d87fEaf85508C" },
+      { label: "wUSDM (all chains: ETH/Base/Polygon/Arbitrum/OP)", value: "0x57F5E098CaD7A3D1Eed53991D4d66C45C9AF7812" },
+    ],
+    builder: {
+      architecture:
+        "USDM is a share-based rebasing ERC-20: the contract stores per-account shares and a global rewardMultiplier, deriving balanceOf as shares × rewardMultiplier. wUSDM is an OpenZeppelin ERC-4626 vault wrapping USDM into a non-rebasing, value-accruing share. Both are deployed at identical addresses on Ethereum, Base, Polygon, Arbitrum and Optimism. Mint/redeem against fiat/USDC was gated behind a KYC'd primary-market account (web portal or API); on-chain, USDM and wUSDM behave like ordinary tokens, so most integrators just consumed them as ERC-20 / ERC-4626.",
+      integration:
+        "Three integration shapes: (1) hold/transfer USDM as a rebasing ERC-20 and let balances grow; (2) wrap to wUSDM via the ERC-4626 deposit/withdraw interface to get a static, composable balance for AMMs and lending; (3) for primary mint/redeem, onboard as a KYC'd institution and call the mint/redeem platform API. [verify current API surface — the platform is in wind-down and redemption has moved to a Uniswap v4 wUSDM:USDC pool].",
+      apiSurface: [
+        { name: "balanceOf / sharesOf", desc: "USDM balance = shares × rewardMultiplier; sharesOf returns the fixed underlying share count." },
+        { name: "rewardMultiplier()", desc: "Global accrual factor, bumped daily (~12:00 UTC) via addRewardMultiplier (privileged)." },
+        { name: "deposit / mint (ERC-4626)", desc: "wUSDM: deposit USDM → receive non-rebasing wUSDM shares." },
+        { name: "redeem / withdraw (ERC-4626)", desc: "wUSDM: burn shares → receive USDM (convertToAssets for quoting)." },
+        { name: "Primary mint/redeem API", desc: "KYC-gated: buy USDM with USDC/fiat wire and redeem 1:1, with weekly limits. [verify — wind-down]" },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Wrap rebasing USDM into non-rebasing wUSDM (ERC-4626) for DeFi composability.",
+        code: `import { createWalletClient, http, parseUnits, getContract } from 'viem';
+import { mainnet } from 'viem/chains';
+
+const USDM  = '0x59D9356E565Ab3A36dD77763Fc0d87fEaf85508C';
+const WUSDM = '0x57F5E098CaD7A3D1Eed53991D4d66C45C9AF7812';
+
+const client = createWalletClient({ chain: mainnet, transport: http() });
+
+// 1) approve wUSDM to pull USDM
+await client.writeContract({
+  address: USDM, abi: erc20Abi, functionName: 'approve',
+  args: [WUSDM, parseUnits('1000', 18)],
+});
+
+// 2) deposit USDM -> receive value-accruing wUSDM shares (ERC-4626)
+await client.writeContract({
+  address: WUSDM, abi: erc4626Abi, functionName: 'deposit',
+  args: [parseUnits('1000', 18), myAddress],
+});
+// wUSDM balance stays flat; convertToAssets(shares) rises as yield accrues.`,
+      },
+      buildNotes: [
+        "Never cache USDM balances — they rebase daily; read balanceOf fresh, or hold wUSDM and use convertToAssets for valuation.",
+        "USDM/wUSDM share the same address on all five chains, simplifying multi-chain integrations.",
+        "USDM is restricted from US persons and primary mint/redeem requires KYC; secondary holders are DEX-only.",
+        "[verify] Project is in wind-down — redemption now flows through a Uniswap v4 wUSDM:USDC pool rather than the issuer; treat the platform API as deprecated.",
+      ],
+    },
   },
   {
     slug: "sky",
     name: "Sky (ex-MakerDAO)",
     url: "https://sky.money/",
     layers: ["L4"],
-    product: "USDS stablecoin + sUSDS savings (Sky Savings Rate).",
-    customer: "DeFi users, protocols",
-    moat: "Largest decentralized stablecoin lineage (DAI); on-chain savings rate, deep DeFi integration.",
+    product: "USDS stablecoin + sUSDS savings (Sky Savings Rate) + SKY governance; Spark as the first Star.",
+    customer: "DeFi users, protocols, on-chain treasuries",
+    moat:
+      "The DAI lineage — the largest, longest-running decentralized stablecoin. On-chain savings rate + SKY rewards, RWA-backed revenue, and a SubDAO ('Star') ecosystem (Spark) routing $7B+ of reserves across DeFi.",
     region: "Global / on-chain",
     status: "researched",
     tagline: "The decentralized dollar, rebranded from Maker/DAI.",
     whatItIs:
-      "Sky is the rebrand of MakerDAO. It issues USDS (the successor to DAI) and offers sUSDS, which pays the Sky Savings Rate. It's the largest decentralized-stablecoin lineage and is deeply integrated across DeFi.",
+      "Sky is the 2024 rebrand and 'Endgame' upgrade of MakerDAO — the oldest and largest decentralized-stablecoin issuer in DeFi. It issues USDS, the 1:1 successor to DAI (both still circulate), and sUSDS, an ERC-4626 savings token that accrues the Sky Savings Rate. SKY is the sole governance token (upgraded from MKR at 24,000:1). Revenue from collateral stability fees, USDC-backed T-bill reserves, and tokenized-RWA strategies funds the savings rate and SKY Token Rewards. The protocol is being broken into semi-autonomous SubDAOs called 'Stars', the first and largest being Spark.",
     howItWorks: [
-      "USDS is minted against collateral via the Sky protocol (DAI lineage).",
-      "Holders can deposit into sUSDS to earn the Sky Savings Rate.",
-      "Governed on-chain; revenue from collateral + RWA allocations funds the rate.",
+      "USDS is minted against crypto collateral (ETH, wstETH, etc.) via stability-fee vaults, against USDC 1:1 through the Peg Stability Module (PSM), or by upgrading DAI 1:1 through the SkyMoneyConverter (zero fee, zero slippage).",
+      "Holders deposit USDS into sUSDS (ERC-4626 vault) to earn the Sky Savings Rate; the sUSDS↔USDS exchange rate drifts upward continuously (no rebasing).",
+      "Separately, depositing USDS can earn Sky Token Rewards (STR) — ~600M SKY/yr distributed to USDS suppliers — paid in SKY or partner tokens.",
+      "Yield is funded by three revenue streams: vault stability fees, T-bill yield on PSM/USDC reserves via the Sky Allocator system, and curated tokenized-RWA strategies (Monetalis, BlockTower, etc.).",
+      "SKY governs all parameters (savings rate, collateral, allocations) on-chain; SKY can be staked in the Staking Engine to borrow USDS, delegate votes, and earn rewards.",
+      "Spark (the first Star) borrows from Sky's reserves via the Spark Liquidity Layer to deploy USDS/sUSDS across DeFi, RWAs, and multiple chains.",
     ],
     differentiators: [
-      "Most established decentralized stablecoin (DAI heritage).",
-      "Native on-chain savings rate (sUSDS).",
-      "Deep, battle-tested DeFi integration.",
+      "Most established decentralized stablecoin — direct DAI heritage, 2017-onward track record, ~$11.7B USDS supply.",
+      "Native, governance-set on-chain savings rate (sUSDS) plus a second SKY-denominated reward stream (STR) on top.",
+      "RWA + USDC T-bill reserves are now the largest revenue source — a hybrid of DeFi collateral and real-world yield.",
+      "Modular 'Star'/SubDAO architecture (Spark) lets specialized teams scale lending and multichain distribution without bloating the core.",
+      "Deeply composable: USDS is a plain ERC-20 and sUSDS an ERC-4626 vault, integrated across Aave, Pendle, Spark, and L2s.",
     ],
-    businessModel: "Spread between collateral yield and the savings rate; governance token.",
-    dependsOn: ["Collateral assets (incl. RWAs)", "Ethereum", "Governance"],
-    risks: ["Collateral + governance risk.", "Regulatory pressure on decentralized issuers.", "[verify current metrics]"],
+    businessModel:
+      "Spread between revenue (collateral stability fees + USDC/RWA T-bill yield) and what it pays out via the Sky Savings Rate and SKY Token Rewards; protocol surplus accrues to the Sky treasury and backs SKY. Reported ~$123.8M gross revenue and ~$46M protocol surplus in Q1 2026.",
+    dependsOn: [
+      "Collateral assets (ETH/wstETH and other crypto)",
+      "USDC + the PSM (large reserve component)",
+      "Tokenized RWAs / US Treasury market + asset managers (Monetalis, BlockTower)",
+      "Ethereum (and Spark-bridged L2s/Solana)",
+      "SKY governance",
+    ],
+    risks: [
+      "Collateral + RWA concentration risk: a large share of reserves sits in USDC and off-chain tokenized Treasuries, reintroducing centralized/counterparty exposure to a 'decentralized' dollar.",
+      "Governance risk: parameter and allocation decisions concentrated in SKY voting; SubDAO/Star structure adds complexity.",
+      "Rate-cut risk: the savings rate tracks Fed-funds-driven yield (cut from 6.5% to 4.5% in March, ~4.75% in 2026), so payouts compress as rates fall.",
+      "Regulatory pressure on decentralized issuers and on RWA/USDC reserves.",
+      "Migration friction: DAI, USDS, MKR, and SKY coexisting creates integration and liquidity-fragmentation complexity.",
+    ],
     keyFacts: [
-      { label: "Lineage", value: "MakerDAO → Sky (rebrand 2024)" },
-      { label: "Tokens", value: "USDS, sUSDS (savings)" },
-      { label: "Type", value: "Decentralized / on-chain" },
-      { label: "Status", value: "Live" },
+      { label: "Lineage", value: "MakerDAO → Sky (rebrand Aug 2024); MKR → SKY at 24,000:1" },
+      { label: "Tokens", value: "USDS + sUSDS (savings) · SKY (governance) · DAI/MKR legacy" },
+      { label: "USDS supply", value: "~$11.7B (Q1 2026, +67.9% YoY); DAI+USDS ~$13B" },
+      { label: "Sky Savings Rate", value: "~4.75% (2026); cut 6.5%→4.5% Mar 2026" },
+      { label: "Protocol TVL", value: "~$7.5B (Mar 2026) — ~4th-largest DeFi protocol" },
+      { label: "Revenue (Q1 2026)", value: "~$123.8M gross · ~$46M surplus" },
+      { label: "SKY token", value: "~23.3B circulating · ~$1.55B mkt cap [verify]" },
+      { label: "Sky Token Rewards", value: "~600M SKY/yr to USDS suppliers" },
+      { label: "First Star", value: "Spark — TVL ~$4.8–5B (2026)" },
     ],
-    links: [{ label: "Site", url: "https://sky.money/" }],
+    links: [
+      { label: "Site", url: "https://sky.money/" },
+      { label: "sUSDS savings", url: "https://sky.money/susds" },
+      { label: "App", url: "https://app.sky.money/" },
+      { label: "Developer docs", url: "https://developers.sky.money/" },
+      { label: "MKR→SKY upgrade", url: "https://upgrademkrtosky.skyeco.com/" },
+      { label: "Spark (first Star)", url: "https://spark.fi/" },
+      { label: "Spark docs", url: "https://docs.spark.fi/" },
+      { label: "Messari profile", url: "https://messari.io/project/sky-protocol" },
+    ],
+    products: [
+      {
+        name: "USDS",
+        tagline: "The decentralized dollar — DAI's 1:1 successor.",
+        whatItIs:
+          "USDS is Sky's flagship overcollateralized stablecoin, the upgrade path from DAI at a fixed 1:1 rate with no fee. It's minted against crypto collateral via stability-fee vaults, against USDC 1:1 through the Peg Stability Module, or by converting DAI through the SkyMoneyConverter. It's a plain ERC-20 designed for institutional integration (with optional KYC-friendly features) and composes across DeFi.",
+        mechanics: [
+          "Mint by upgrading DAI 1:1 (SkyMoneyConverter — lock/mint, burn/release, zero slippage).",
+          "Mint against USDC 1:1 via the PSM (small governance fee window) — the dominant reserve source.",
+          "Mint against crypto collateral (ETH, wstETH, etc.) in stability-fee vaults.",
+          "Reserves earn T-bill yield (USDC via Sky Allocator) + curated tokenized-RWA strategies; surplus backs the peg and the treasury.",
+        ],
+        stats: [
+          { label: "Supply", value: "~$11.7B (Q1 2026)" },
+          { label: "Backing", value: "Crypto collateral + USDC + tokenized RWAs" },
+          { label: "DAI parity", value: "1:1, no-fee converter" },
+        ],
+      },
+      {
+        name: "sUSDS (Sky Savings Rate)",
+        tagline: "The on-chain savings account for USDS.",
+        whatItIs:
+          "sUSDS is an ERC-4626 vault token: deposit USDS and receive sUSDS whose exchange rate against USDS rises continuously at the Sky Savings Rate. No rebasing, no lockup, no minimum, no fee — yield accrues into the redemption value and the token stays liquid and composable (Aave, Pendle, Spark, L2s).",
+        mechanics: [
+          "Deposit USDS → mint sUSDS at the current exchange rate (value-accruing, not rebasing).",
+          "SSR set by SKY governance, broadly tracking Fed-funds-driven reserve yield (~4.75% in 2026; was 6.5%→4.5% in March).",
+          "Redeem sUSDS for USDS at any time at the accrued rate (e.g. ~1.094 USDS/sUSDS, Apr 2026).",
+          "Distinct from Sky Token Rewards — sUSDS pays USDS yield; STR pays SKY/partner tokens separately.",
+        ],
+        stats: [
+          { label: "Rate", value: "~4.75% SSR (2026)" },
+          { label: "Standard", value: "ERC-4626 vault" },
+          { label: "Savings TVL", value: "~$6.5B in sUSDS (2026)" },
+        ],
+      },
+      {
+        name: "Spark (first Star) + SKY governance",
+        tagline: "The SubDAO that scales lending + the token that governs it.",
+        whatItIs:
+          "Spark is the first and largest 'Star' (SubDAO) of Sky — an open-source liquidity and lending platform with three modules: SparkLend (an Aave-V3-fork money market), Savings (spUSDS/sUSDS), and the Spark Liquidity Layer (SLL) that borrows from Sky's $7B+ reserves to mint, bridge, and deploy USDS/sUSDS across chains. SKY is the sole governance token of the core protocol (upgraded from MKR at 24,000:1); SPK is Spark's own token.",
+        mechanics: [
+          "SLL routes Sky reserve liquidity to DeFi + RWA venues across Ethereum, Base, Arbitrum, OP Mainnet, and Unichain.",
+          "SparkLend: deposit USDS → receive spUSDS receipt token; yield distributed as additional spUSDS.",
+          "SKY: governs collateral, rates, and allocations; stake in the Staking Engine to borrow USDS, delegate votes, and earn rewards.",
+          "SPK: Spark's token (10B max supply; 65% farming rewards over 10y, 23% ecosystem/airdrops, 12% team).",
+        ],
+        stats: [
+          { label: "Spark TVL", value: "~$4.8–5B (2026)" },
+          { label: "MKR→SKY", value: "24,000 SKY per MKR" },
+          { label: "SLL chains", value: "Ethereum, Base, Arbitrum, OP, Unichain" },
+        ],
+      },
+    ],
+    deepDive: [
+      {
+        heading: "USDS / DAI lineage & the 1:1 upgrade",
+        body:
+          "Sky is MakerDAO's 'Endgame' rebrand (August 2024). Rather than retire DAI, Sky launched USDS as a parallel, upgradeable dollar — both circulate side by side in 2026, with combined supply ~$13B (USDS ~$11.7B). The bridge between them is a smart-contract escrow, not a market.",
+        bullets: [
+          "SkyMoneyConverter: lock DAI → mint USDS (and burn USDS → release DAI) at a fixed 1:1 rate, zero fee, zero slippage, effectively infinite liquidity.",
+          "PSM still accepts USDC 1:1 (small governance fee window) to mint USDS — a major reserve component.",
+          "Why upgrade: USDS unlocks both sUSDS (SSR) and Sky Token Rewards (STR), which DAI's legacy DSR does not.",
+          "USDS adds optional institution-friendly features (e.g. freeze functionality) that DAI lacks — a deliberate trade-off vs. DAI's purer neutrality.",
+        ],
+      },
+      {
+        heading: "Sky Savings Rate — mechanics & funding",
+        body:
+          "The SSR is an on-chain interest rate paid to sUSDS holders, set by SKY governance. sUSDS is ERC-4626: yield compounds into the share/USDS exchange rate (value-accruing), so balances don't rebase. It is funded from protocol revenue, not new issuance.",
+        bullets: [
+          "Three revenue streams fund it: (1) stability fees on collateralized USDS vaults; (2) T-bill yield on USDC/PSM reserves via the Sky Allocator; (3) curated tokenized-RWA strategies.",
+          "Rate tracks Fed-funds-driven reserve yield plus a thin protocol margin — cut from 6.5% to 4.5% in March 2026, ~4.75% through 2026.",
+          "sUSDS accrued ~1.094 USDS each by April 2026; redeemable anytime, no minimum, no fee.",
+          "Sky Token Rewards (STR) is a separate, stackable stream: ~600M SKY/yr to USDS suppliers, paid in SKY or partner tokens.",
+        ],
+      },
+      {
+        heading: "Stars / SubDAOs & the Spark architecture",
+        body:
+          "The Endgame plan decomposes the monolith into semi-autonomous 'Stars' (SubDAOs), each with its own token, product focus, and treasury, tethered to core Sky via shared reserves, USDS integration, and rewards. Spark is the first and dominant Star.",
+        bullets: [
+          "Spark modules: SparkLend (Aave-V3 fork money market), Savings (spUSDS / sUSDS), and the Spark Liquidity Layer (SLL).",
+          "SLL mints/bridges/deploys USDS + sUSDS from Sky's $7B+ reserves across Ethereum, Base, Arbitrum One, OP Mainnet, and Unichain — the multichain distribution engine for USDS.",
+          "SparkLend issues spUSDS (~$405M USDS deposited [verify]); yield paid as additional spUSDS.",
+          "SPK token (10B max): 65% farming (10y), 23% ecosystem/airdrops, 12% team; 2026 roadmap targets a 'Spark Federation' veSPK governance model.",
+        ],
+      },
+      {
+        heading: "Governance, RWA collateral & risk",
+        body:
+          "SKY is the sole governance token (MKR upgraded at 24,000:1; MKR↔SKY conversion subject to a Delayed Upgrade Penalty escalating 1%/quarter from Sept 2025). Governance controls collateral types, the savings rate, and reserve allocations — including the RWA and USDC exposure that now dominates revenue.",
+        bullets: [
+          "RWA holdings crossed ~$1.5B in early 2026 (tokenized US Treasuries via Monetalis, BlockTower, etc.) — the single largest revenue source.",
+          "Centralization tension: a 'decentralized' dollar increasingly backed by USDC + off-chain Treasuries reintroduces custodial/counterparty and regulatory risk.",
+          "SKY Staking Engine: stake SKY to borrow USDS, delegate voting power, and earn rewards.",
+          "Surplus: ~$123.8M gross revenue / ~$46M protocol surplus in Q1 2026 accrues to the treasury and backstops the system.",
+        ],
+      },
+    ],
+    contracts: [
+      { label: "USDS (ERC-20)", value: "0xdC035D45d973E3EC169d2276DDab16f1e407384F" },
+      { label: "sUSDS (ERC-4626 vault)", value: "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD" },
+      { label: "SKY (governance)", value: "0x56072C95FAA701256059aa122697B133aDEd9279" },
+      { label: "SkyMoneyConverter (DAI↔USDS)", value: "[verify]" },
+    ],
+    builder: {
+      architecture:
+        "Sky exposes two clean primitives. USDS is a standard ERC-20 dollar; sUSDS is an ERC-4626 savings vault where the share→asset exchange rate rises at the Sky Savings Rate. Integrating savings is just an ERC-4626 deposit/redeem against the sUSDS contract — no custom rebasing logic, no claim step (yield is in the exchange rate). To source USDS, integrators either upgrade DAI 1:1 via the SkyMoneyConverter, mint from USDC 1:1 via the PSM, or buy on-market. Spark's Liquidity Layer extends USDS/sUSDS to Base, Arbitrum, OP, and Unichain for multichain integrations.",
+      integration:
+        "Treat sUSDS like any ERC-4626 vault: read previewDeposit/previewRedeem and convertToAssets to quote yield, call deposit/mint to enter and redeem/withdraw to exit. Use the USDS ERC-20 for balances/transfers/approvals. For DAI-based apps, route through the converter to standardize on USDS. Verify all addresses against developers.sky.money before mainnet use.",
+      apiSurface: [
+        { name: "USDS.transfer / approve / balanceOf", desc: "Standard ERC-20 dollar operations." },
+        { name: "sUSDS.deposit(assets, receiver)", desc: "Deposit USDS, mint sUSDS shares (ERC-4626)." },
+        { name: "sUSDS.redeem(shares, receiver, owner)", desc: "Burn sUSDS, withdraw accrued USDS." },
+        { name: "sUSDS.convertToAssets(shares)", desc: "Read current USDS value of sUSDS — exposes the accrued SSR." },
+        { name: "SkyMoneyConverter.daiToUsds / usdsToDai", desc: "Upgrade/downgrade DAI↔USDS 1:1, no fee. [verify method names]" },
+        { name: "PSM (USDC↔USDS)", desc: "Mint/redeem USDS against USDC 1:1 within a governance fee window. [verify]" },
+      ],
+      snippet: {
+        lang: "ts",
+        caption: "Deposit USDS into the sUSDS savings vault (ERC-4626) and read accrued value.",
+        code: `import { ethers } from 'ethers';
+
+const USDS  = '0xdC035D45d973E3EC169d2276DDab16f1e407384F';
+const SUSDS = '0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD'; // ERC-4626
+
+const erc20 = new ethers.Contract(USDS, [
+  'function approve(address,uint256) returns (bool)',
+], signer);
+
+const vault = new ethers.Contract(SUSDS, [
+  'function deposit(uint256 assets,address receiver) returns (uint256)',
+  'function convertToAssets(uint256 shares) view returns (uint256)',
+  'function balanceOf(address) view returns (uint256)',
+], signer);
+
+const amount = ethers.parseUnits('1000', 18);   // 1,000 USDS
+await (await erc20.approve(SUSDS, amount)).wait();
+await (await vault.deposit(amount, await signer.getAddress())).wait();
+
+// Yield accrues in the exchange rate — no claim needed:
+const shares = await vault.balanceOf(await signer.getAddress());
+const usdsValue = await vault.convertToAssets(shares); // > deposited over time`,
+      },
+      buildNotes: [
+        "sUSDS is value-accruing, not rebasing — never assume balanceOf grows; quote yield via convertToAssets/previewRedeem.",
+        "The Sky Savings Rate is set by SKY governance and changes (6.5%→4.5% in March 2026) — don't hardcode an APY.",
+        "Sky Token Rewards (STR) are a separate USDS-deposit program from sUSDS; integrate them independently if needed.",
+        "[verify all addresses, the SkyMoneyConverter/PSM method signatures, and current sUSDS deployment scope against developers.sky.money — sUSDS was Ethereum-only as of April 2026, with Spark SLL handling L2 distribution]",
+      ],
+    },
   },
 
   // ----------------------------- L5 -----------------------------
